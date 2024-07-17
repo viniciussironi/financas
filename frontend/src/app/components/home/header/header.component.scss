@@ -1,0 +1,18 @@
+@use '../../../../variables';
+
+
+.header__container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}

@@ -1,0 +1,36 @@
+@use '../../../../variables';
+
+form {
+    width: 900px;
+    padding: 8px 25px;
+    border-radius: 15px;
+    background-color: variables.$gray_color;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+select {
+    width: 30%;
+    font-size: 16px;
+    background-color: variables.$gray_color;
+    border: none;
+    border-bottom: 1px solid #000;
+}
+
+input {
+    background-color: variables.$orange_color;
+    border: 1px solid variables.$orange_color;
+    color: variables.$white_color;
+    padding: 5px 14px;
+    border-radius: 9px;
+    cursor: pointer;
+}
+
+input:hover {
+    background-color: variables.$white_color;
+    border: 1px solid variables.$orange_color;
+    color: variables.$orange_color;
+}

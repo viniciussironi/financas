@@ -1,0 +1,31 @@
+@use '../../../../../variables';
+
+.menu__container {
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+button {
+    width: 90%;
+    font-weight: 400;
+    font-size: 18px;
+    color: variables.$black_color;
+    background-color: variables.$gray_color;
+    border: none;
+    border-radius: 10px;
+    padding: 13px 20px;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+button:hover {
+    color: variables.$white_color;
+    background-color: variables.$orange_color;
+}

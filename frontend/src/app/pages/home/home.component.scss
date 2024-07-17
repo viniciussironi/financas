@@ -1,0 +1,44 @@
+@use '../../../variables';
+
+main {
+    background-color: #D4EDF4;
+    height: 100vh;
+}
+
+.home__content {
+    max-width: 1150px;
+    margin: 0 auto;
+    margin-top: 15vh;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.content__left {
+    display: flex;
+    align-items: center;
+}
+
+.left__intern {
+    height: 400px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.left__intern div {
+    height: 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 70px;
+}
+
+p {
+    font-size: 25px;
+    width: 400px;
+}

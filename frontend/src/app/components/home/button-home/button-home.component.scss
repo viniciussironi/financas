@@ -1,0 +1,22 @@
+@use '../../../../variables';
+
+
+button {
+    width: 400px;
+    height: 50px;
+    font-size: 25px;
+    font-weight: 600;
+    border: 2px solid variables.$orange_color;
+    border-radius: 9px;
+    
+    cursor: pointer;
+
+    background-color: variables.$orange_color;
+    color: variables.$black_color;
+}
+
+button:hover {
+    border: 2px solid variables.$black_color;
+    background-color: variables.$background_color;
+    color: variables.$black_color;
+}

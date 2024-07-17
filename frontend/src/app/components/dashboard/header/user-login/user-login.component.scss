@@ -1,0 +1,36 @@
+p, h6 {
+    color: black;
+    text-align: end;
+}
+
+p {
+    font-size: 14px;
+}
+
+h6 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+img {
+    border-radius: 50%;
+}
+
+.user-login__component {
+    cursor: pointer;
+    width: 150px;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.user-login__component:hover img {
+    box-shadow: 0px -0px 10px 4px rgba(0,0,0,0.52);
+}
+
+.user-login__component:hover {
+    text-shadow: 0px 0px 15px rgba(0,0,0,0.75);
+}

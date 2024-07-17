@@ -1,0 +1,35 @@
+@use '../../../../../variables';
+
+.rodape__container {
+    height: 20vh;
+    border-top: 1px solid variables.$gray_color;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+button {
+    width: 90%;
+    font-weight: 400;
+    font-size: 18px;
+    color: variables.$black_color;
+    background-color: variables.$white_color;
+    border: 1px solid variables.$black_color;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+button:hover {
+    border: 1px solid variables.$orange_color;
+    color: variables.$white_color;
+    background-color: variables.$orange_color;
+}

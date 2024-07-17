@@ -1,0 +1,28 @@
+@use '../../../variables';
+
+.resumo__container {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: variables.$white_color;
+}
+
+app-header {
+    width: 95%;
+}
+
+.resumo__conteudo {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.resumo__saldos {
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+}

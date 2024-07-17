@@ -1,0 +1,43 @@
+@use '../../../variables';
+
+.despesas__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: variables.$white_color;
+}
+
+app-header {
+    width: 95%;
+}
+
+.despesas__conteudo {
+    width: 900px;
+
+    margin-top: 40px;
+    gap: 40px;
+    display: flex;
+    flex-direction: row;
+}
+
+h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.ultimas-despesas {
+    height: 100%;
+    padding: 20px 25px;
+    border-radius: 15px;
+    background-color: variables.$gray_color;
+}
+
+.despesa {
+    margin-bottom: 10px;
+}
+
+.ultimas-despesas, .direita {
+    position: relative;
+    width: 100%;
+}

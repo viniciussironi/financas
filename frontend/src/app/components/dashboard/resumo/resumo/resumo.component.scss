@@ -1,0 +1,31 @@
+.resumo__container {
+    cursor: pointer;
+    width: 280px;
+    height: 150px;
+    padding: 8px;
+    border-radius: 15px;
+    color: #fff;
+    background-color: red;
+    box-shadow: 1px 1px 10px 1px rgba(135, 135, 135, 0.75);
+}
+
+.resumo__title {
+    font-size: 14px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+p {
+    font-size: 30px;
+    height: 105px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.resumo__container:hover {
+    opacity: 0.8;
+}

@@ -1,0 +1,20 @@
+<div class="receitas__container">
+    <app-header text="Receitas"></app-header>
+    <app-buscar></app-buscar>
+    <div class="receitas__conteudo">
+        <div class="ultimas-receitas">
+            <h1>Últimas receitas</h1>
+            <div class="receita" *ngFor="let receita of receitas">
+                <app-ultimas-mov 
+                [data]="receita.data" 
+                [categoria]="receita.categoriaReceita.nome" 
+                [valor]="receita.valor"
+                cor="#06894A"
+                ></app-ultimas-mov>
+            </div>
+        </div>
+        <div class="direita">
+            <app-por-categoria></app-por-categoria>
+        </div>
+    </div>
+</div>

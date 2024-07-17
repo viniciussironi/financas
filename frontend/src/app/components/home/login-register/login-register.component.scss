@@ -1,0 +1,34 @@
+@use '../../../../variables';
+
+.login-register__container {
+    display: flex;
+    gap: 25px;
+}
+
+button {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#login {
+    border: none;
+    background-color: variables.$background_color;
+}
+
+#criar-conta {
+    color: variables.$white_color;
+    background-color: variables.$graphite_color;
+    border: 1px solid variables.$graphite_color;
+    padding: 5px 12px;
+    border-radius: 9px;
+}
+
+#login:hover {
+    text-decoration: underline;
+}
+
+#criar-conta:hover {
+    color: variables.$graphite_color;
+    background-color: variables.$background_color;
+    border: 1px solid variables.$graphite_color;
+}

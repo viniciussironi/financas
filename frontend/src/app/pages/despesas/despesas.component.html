@@ -1,0 +1,20 @@
+<div class="despesas__container">
+    <app-header text="Despesas"></app-header>
+    <app-buscar></app-buscar>
+    <div class="despesas__conteudo">
+        <div class="ultimas-despesas">
+            <h1>Últimas depesas</h1>
+            <div class="despesa" *ngFor="let despesa of despesas">
+                <app-ultimas-mov 
+                [data]="despesa.data" 
+                [categoria]="despesa.categoriaDespesa.nome" 
+                [valor]="despesa.valor"
+                cor="#CB1414"
+                ></app-ultimas-mov>
+            </div>
+        </div>
+        <div class="direita">
+            <app-por-categoria></app-por-categoria>
+        </div>
+    </div>
+</div>
