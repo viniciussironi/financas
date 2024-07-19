@@ -14,7 +14,16 @@
             </div>
         </div>
         <div class="direita">
-            <app-por-categoria></app-por-categoria>
+            <div class="total-por-categoria">
+                <h1>Total por categoria</h1>
+                <div class="categoria" *ngFor="let categoria of totalPorCategoriaDespesa">
+                    <app-por-categoria 
+                    [nome]="categoria.nome"
+                    [total]="categoria.total"
+                    cor="#CB1414"
+                    ></app-por-categoria>
+                </div>
+            </div>
         </div>
     </div>
 </div>

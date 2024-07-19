@@ -1,6 +1,7 @@
 package com.vinicius.finances.controllers;
 
 import com.vinicius.finances.DTOs.CategoriaDTO;
+import com.vinicius.finances.DTOs.TotalPorCategoriaDTO;
 import com.vinicius.finances.services.CategoriaReceitaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class CategoriaReceitaController {
         return ResponseEntity.ok(service.findAll());
     }
 
+    @GetMapping(value = "total/{id}")
+    public ResponseEntity<List<TotalPorCategoriaDTO>> buscarValorTotalPorCategoria(@PathVariable Long id) {
+        return ResponseEntity.ok(service.buscarValorTotalPorCategoria(id));
+    }
+    
     @PostMapping
     public ResponseEntity<CategoriaDTO> insert(@RequestBody @Valid CategoriaDTO dto) {
         CategoriaDTO newDto = service.insert(dto);

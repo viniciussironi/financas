@@ -1,0 +1,17 @@
+@use '../../../../variables';
+
+.ultimas-mov__container {
+    border-bottom: 1px solid #000;
+    
+    display: flex;
+    justify-content: space-between;
+}
+
+p, span {
+    font-size: 18px;
+    margin: 5px 0px;
+}
+
+span {
+    font-weight: bold;
+}

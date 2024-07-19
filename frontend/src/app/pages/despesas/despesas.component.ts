@@ -6,6 +6,8 @@ import { HeaderDashbordComponent } from '../../components/dashboard/header/heade
 import { CommonModule } from '@angular/common';
 import { DespesasService } from '../../services/despesas.service';
 import { DespesaInterface } from '../../interface/despesas-interface';
+import { CategoriaDespesaService } from '../../services/categoria-despesa.service';
+import { TotalPorCategoriaInterface } from '../../interface/total_por_categoria-interface';
 
 @Component({
   selector: 'app-despesas',
@@ -16,19 +18,27 @@ import { DespesaInterface } from '../../interface/despesas-interface';
 })
 export class DespesasComponent implements OnInit {
   
-  constructor(private despesaService: DespesasService) {}
+  constructor(private despesaService: DespesasService, private categoriaDespesaService: CategoriaDespesaService) {}
   
   despesas: DespesaInterface[] = [];
-  
+  totalPorCategoriaDespesa: TotalPorCategoriaInterface[] = [];
 
   ngOnInit(): void {
     this.getDespesas(1);
+    this.getTotalCategoriaDespesas(1);
   }
   
   getDespesas(userId: number) {
     this.despesaService.getDespesas(userId).subscribe(
     (despesas: DespesaInterface[]) => {
     this.despesas = despesas;
+    });
+  }
+
+  getTotalCategoriaDespesas(userId: number) {
+    this.categoriaDespesaService.getTotalPorCategoriaDespesa(userId).subscribe(
+    (totalPorCategoriaDespesa: TotalPorCategoriaInterface[]) => {
+    this.totalPorCategoriaDespesa = totalPorCategoriaDespesa;
     });
   }
 }

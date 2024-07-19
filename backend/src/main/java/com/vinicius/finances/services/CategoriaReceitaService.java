@@ -1,6 +1,7 @@
 package com.vinicius.finances.services;
 
 import com.vinicius.finances.DTOs.CategoriaDTO;
+import com.vinicius.finances.DTOs.TotalPorCategoriaDTO;
 import com.vinicius.finances.entities.receita.CategoriaReceita;
 import com.vinicius.finances.repositories.CategoriaReceitaRepository;
 import com.vinicius.finances.services.exceptions.DatabaseException;
@@ -22,6 +23,11 @@ public class CategoriaReceitaService {
     @Transactional(readOnly = true)
     public List<CategoriaDTO> findAll() {
         return categoriaReceitaRepository.findAll().stream().map(x -> new CategoriaDTO(x)).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<TotalPorCategoriaDTO> buscarValorTotalPorCategoria(Long id) {
+        return categoriaReceitaRepository.buscarValorTotalPorCategoria(id).stream().map(x -> new TotalPorCategoriaDTO(x.getId(), x.getNome(), x.getTotal())).toList();
     }
 
     @Transactional
