@@ -28,7 +28,7 @@ public class CategoriaReceitaController {
     public ResponseEntity<List<TotalPorCategoriaDTO>> buscarValorTotalPorCategoria(@PathVariable Long id) {
         return ResponseEntity.ok(service.buscarValorTotalPorCategoria(id));
     }
-    
+
     @PostMapping
     public ResponseEntity<CategoriaDTO> insert(@RequestBody @Valid CategoriaDTO dto) {
         CategoriaDTO newDto = service.insert(dto);

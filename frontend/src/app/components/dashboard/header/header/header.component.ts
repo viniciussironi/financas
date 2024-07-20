@@ -12,5 +12,5 @@ import { UserLoginComponent } from '../user-login/user-login.component';
 export class HeaderDashbordComponent {
 
   @Input()
-  text:string = '';
+  titulo:string = '';
 }

@@ -1,27 +1,17 @@
 <div class="receitas__container">
-    <app-header text="Receitas"></app-header>
-    <app-buscar></app-buscar>
+    <app-nav-lateral></app-nav-lateral>
     <div class="receitas__conteudo">
-        <div class="ultimas-receitas">
-            <h1>Últimas receitas</h1>
-            <div class="receita" *ngFor="let receita of receitas">
-                <app-ultimas-mov 
-                [data]="receita.data" 
-                [categoria]="receita.categoriaReceita.nome" 
-                [valor]="receita.valor"
-                cor="#06894A"
-                ></app-ultimas-mov>
+        <app-header titulo="Receitas"></app-header>
+        <div class="conteudo__interno">
+            <div class="interno__esquerda">
+                <app-total-receita-despesa [total]="0" [cor]="cor"></app-total-receita-despesa>
+                <app-ultimas-mov [listaMovimentacao]="receitas" [cor]="cor" titulo="Últimas receitas"></app-ultimas-mov>
             </div>
-        </div>
-        <div class="direita">
-            <div class="total-por-categoria">
-                <h1>Total por categoria</h1>
-                <div class="categoria" *ngFor="let categoria of totalPorCategoriaReceita">
-                    <app-por-categoria 
-                    [nome]="categoria.nome"
-                    [total]="categoria.total"
-                    cor="#06894A"
-                    ></app-por-categoria>
+            <div class="interno__direita">
+                <app-btn-add-movimentacao nomeBtn="Receita"></app-btn-add-movimentacao>
+                <div class="direita__interno">
+                    <app-total-por-categoria titulo="Por categoria" [listaCategoria]="totalPorCategoriaReceita" [cor]="cor"></app-total-por-categoria>
+                    <app-total-ultimos-meses titulo="Últimos meses" [cor]="cor"></app-total-ultimos-meses>
                 </div>
             </div>
         </div>

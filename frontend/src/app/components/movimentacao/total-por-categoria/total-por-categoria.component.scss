@@ -5,9 +5,10 @@
     padding: 15px;
     border-radius: 12px;
     background-color: variables.$gray_color;
-
+    
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .lista {
@@ -18,15 +19,17 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
 }
 
-h1 {
-    margin-bottom: 10px;
-    font-size: 24px;
+p, span {
+    font-size: 18px;
+    margin: 5px 0px;
 }
 
 span {
-    font-size: 20px;
     font-weight: bold;
+}
+
+h1 {
+    font-size: 24px;
 }

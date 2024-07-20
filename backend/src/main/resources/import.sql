@@ -23,3 +23,5 @@ INSERT INTO Receitas (valor, data, categoria_receita_id, usuario_id) VALUES (50.
 INSERT INTO Receitas (valor, data, categoria_receita_id, usuario_id) VALUES (2000.00, '2024-07-04', 1, 1);
 INSERT INTO Receitas (valor, data, categoria_receita_id, usuario_id) VALUES (500.00, '2024-07-04', 2, 1);
 INSERT INTO Receitas (valor, data, categoria_receita_id, usuario_id) VALUES (50.00, '2024-07-04', 3, 1);
+INSERT INTO Receitas (valor, data, categoria_receita_id, usuario_id) VALUES (50.00, '2024-07-04', 3, 1);
+INSERT INTO Receitas (valor, data, categoria_receita_id, usuario_id) VALUES (50.00, '2024-07-04', 3, 1);

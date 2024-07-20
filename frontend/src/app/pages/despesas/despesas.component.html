@@ -1,27 +1,17 @@
 <div class="despesas__container">
-    <app-header text="Despesas"></app-header>
-    <app-buscar></app-buscar>
+    <app-nav-lateral></app-nav-lateral>
     <div class="despesas__conteudo">
-        <div class="ultimas-despesas">
-            <h1>Últimas depesas</h1>
-            <div class="despesa" *ngFor="let despesa of despesas">
-                <app-ultimas-mov 
-                [data]="despesa.data" 
-                [categoria]="despesa.categoriaDespesa.nome" 
-                [valor]="despesa.valor"
-                cor="#CB1414"
-                ></app-ultimas-mov>
+        <app-header titulo="Receitas"></app-header>
+        <div class="conteudo__interno">
+            <div class="interno__esquerda">
+                <app-total-receita-despesa [total]="0" [cor]="cor"></app-total-receita-despesa>
+                <app-ultimas-mov [listaMovimentacao]="despesas" [cor]="cor" titulo="Últimas receitas"></app-ultimas-mov>
             </div>
-        </div>
-        <div class="direita">
-            <div class="total-por-categoria">
-                <h1>Total por categoria</h1>
-                <div class="categoria" *ngFor="let categoria of totalPorCategoriaDespesa">
-                    <app-por-categoria 
-                    [nome]="categoria.nome"
-                    [total]="categoria.total"
-                    cor="#CB1414"
-                    ></app-por-categoria>
+            <div class="interno__direita">
+                <app-btn-add-movimentacao nomeBtn="Receita"></app-btn-add-movimentacao>
+                <div class="direita__interno">
+                    <app-total-por-categoria titulo="Por categoria" [listaCategoria]="totalPorCategoriaDespesa" [cor]="cor"></app-total-por-categoria>
+                    <app-total-ultimos-meses titulo="Últimos meses" [cor]="cor"></app-total-ultimos-meses>
                 </div>
             </div>
         </div>

@@ -8,12 +8,9 @@ import { FinancesComponent } from './pages/finances/finances.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
-    {path: 'finances', component: FinancesComponent, children: 
-        [
-            {path: 'resumo', component: ResumoComponent},
-            {path: 'receitas', component: ReceitasComponent},
-            {path: 'despesas', component: DespesasComponent},
-        ]
-    },
+    {path: 'resumo', component: ResumoComponent},
+    {path: 'receitas', component: ReceitasComponent},
+    {path: 'despesas', component: DespesasComponent},
+        
     
 ];

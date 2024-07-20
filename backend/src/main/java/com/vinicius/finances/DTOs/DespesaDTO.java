@@ -14,7 +14,7 @@ public class DespesaDTO extends MovimentacaoGenericoDTO {
 
 
     private List<ParcelaDTO> parcelas = new ArrayList<>();
-    private CategoriaDTO categoriaDespesa;
+    private CategoriaDTO categoria;
 
     public DespesaDTO() {
     }
@@ -22,6 +22,6 @@ public class DespesaDTO extends MovimentacaoGenericoDTO {
     public DespesaDTO(Despesa entidade) {
         super(entidade);
         entidade.getParcelas().forEach(x -> parcelas.add(new ParcelaDTO(x)));
-        categoriaDespesa = new CategoriaDTO(entidade.getCategoriaDespesa());
+        categoria = new CategoriaDTO(entidade.getCategoriaDespesa());
     }
 }

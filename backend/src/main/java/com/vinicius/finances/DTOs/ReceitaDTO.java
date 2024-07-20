@@ -6,13 +6,13 @@ import lombok.Getter;
 @Getter
 public class ReceitaDTO extends MovimentacaoGenericoDTO {
 
-    private CategoriaDTO categoriaReceita;
+    private CategoriaDTO categoria;
 
     public ReceitaDTO() {
     }
 
     public ReceitaDTO(Receita entidade) {
         super(entidade);
-      categoriaReceita = new CategoriaDTO(entidade.getCategoriaReceita());
+      categoria = new CategoriaDTO(entidade.getCategoriaReceita());
     }
 }

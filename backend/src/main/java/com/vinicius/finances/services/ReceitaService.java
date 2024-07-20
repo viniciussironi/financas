@@ -67,6 +67,6 @@ public class ReceitaService {
     public void dtoToEntity(ReceitaDTO dto, Receita entidade) {
         entidade.setData(dto.getData());
         entidade.setValor(dto.getValor());
-        entidade.setCategoriaReceita(categoriaReceitaRepository.findById(dto.getCategoriaReceita().getId()).orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada")));
+        entidade.setCategoriaReceita(categoriaReceitaRepository.findById(dto.getCategoria().getId()).orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada")));
     }
 }
