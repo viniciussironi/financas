@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ReceitaInterface } from '../../../interface/receitas-interface';
-import { DespesaInterface } from '../../../interface/despesas-interface';
 import { CommonModule } from '@angular/common';
+
 import { MovimentacaoInterface } from '../../../interface/movimentacao-interface';
 
 @Component({

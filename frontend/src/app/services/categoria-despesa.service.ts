@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class CategoriaDespesaService {
   
-  private url = `${Constants.urlBackEnd}categoriaReceita`;
+  private url = `${Constants.urlBackEnd}categoriaDespesa`;
 
   constructor(private http: HttpClient) { }
 

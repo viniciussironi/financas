@@ -1,0 +1,71 @@
+@use '../../../../variables';
+
+.form-conta__container {
+    padding: 15px;
+    border-radius: 12px;
+    background-color: variables.$gray_color;
+
+    
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.conteudo__form-conta {
+    gap: 40px;
+    display: flex;
+    flex-direction: row;
+}
+
+.input {
+    margin: 13px;
+}
+
+p {
+    margin-bottom: 5px;
+}
+
+input {
+    border: 1px solid variables.$black_color;
+    background-color: variables.$gray_color;
+    border-radius: 10px;
+    padding: 8px 15px;
+    width: 250px;
+}
+
+input:focus {
+    border: 1px solid variables.$black_color;
+    background-color: variables.$orange_color;
+    outline: 0;
+}
+
+.foto-perfil {
+    padding: 0;
+    border-radius: 0;
+    border: none;
+}
+
+button {
+    border: 2px solid variables.$orange_color;
+    border-radius: 12px;
+    background-color: variables.$orange_color;
+    color: variables.$black_color;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 6px 24px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+button:hover {
+    border: 2px solid variables.$black_color;
+    background-color: variables.$gray_color;
+}
+
+.enviar {
+    margin-top: 15px;
+
+    display:flex;
+    align-items: center;
+}

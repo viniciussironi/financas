@@ -1,17 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { NavLateralComponent } from '../../components/dashboard/nav/nav-lateral/nav-lateral.component';
-import { HeaderDashbordComponent } from '../../components/dashboard/header/header/header.component';
-import { ResumoDashboardComponent } from '../../components/dashboard/resumo/resumo/resumo.component';
+
 import { ReceitasService } from '../../services/receitas.service';
 import { DespesasService } from '../../services/despesas.service';
+
 import { ReceitaInterface } from '../../interface/receitas-interface';
 import { DespesaInterface } from '../../interface/despesas-interface';
+
+import { ResumoDashboardComponent } from '../../components/pagina-resumo/resumo/resumo.component';
+import { NavLateralComponent } from '../../components/comp-gerais/nav-bar-lateral-dashboard/nav-lateral-app/nav-lateral.component';
+import { HeaderDashbordComponent } from '../../components/comp-gerais/header-dashboard/header-app/header.component';
+import { GraficoUltimosMesesComponent } from "../../components/pagina-resumo/grafico-ultimos-meses/grafico-ultimos-meses.component";
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-resumo',
   standalone: true,
-  imports: [NavLateralComponent, HeaderDashbordComponent, ResumoDashboardComponent],
+  imports: [
+    CommonModule, 
+    NavLateralComponent,
+    HeaderDashbordComponent,
+    ResumoDashboardComponent,
+    GraficoUltimosMesesComponent
+],
   templateUrl: './resumo.component.html',
   styleUrl: './resumo.component.scss'
 })

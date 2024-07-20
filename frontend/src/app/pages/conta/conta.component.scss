@@ -1,7 +1,6 @@
 @use '../../../variables';
 
-.resumo__container {
-
+.conta__container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -9,7 +8,7 @@
     background-color: variables.$white_color;
 }
 
-.resumo__conteudo {
+.conta__conteudo {
     width: 100%;
     height: 100vh;
 
@@ -25,11 +24,3 @@
     gap: 30px;
 }
 
-.resumo__saldos {
-    width: 100%;
-    max-width: 1000px;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}

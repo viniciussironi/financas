@@ -1,27 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { UltimasMovComponent } from '../../components/movimentacao/ultimas-mov/ultimas-mov.component';
-import { HeaderDashbordComponent } from '../../components/dashboard/header/header/header.component';
 import { CommonModule } from '@angular/common';
+
 import { DespesasService } from '../../services/despesas.service';
-import { DespesaInterface } from '../../interface/despesas-interface';
 import { CategoriaDespesaService } from '../../services/categoria-despesa.service';
+
+import { DespesaInterface } from '../../interface/despesas-interface';
 import { TotalPorCategoriaInterface } from '../../interface/total_por_categoria-interface';
+
+import { UltimasMovComponent } from '../../components/movimentacao/ultimas-mov/ultimas-mov.component';
 import { TotalReceitaDespesaComponent } from "../../components/movimentacao/total-receita-despesa/total-receita-despesa.component";
-import { NavLateralComponent } from "../../components/dashboard/nav/nav-lateral/nav-lateral.component";
-import { BtnAddMovimentacaoComponent } from "../../components/movimentacao/btn-add-movimentacao/btn-add-movimentacao.component";
-import { TotalPorCategoriaComponent } from "../../components/movimentacao/total-por-categoria/total-por-categoria.component";
-import { TotalUltimosMesesComponent } from "../../components/movimentacao/total-ultimos-meses/total-ultimos-meses.component";
+import { HeaderDashbordComponent } from '../../components/comp-gerais/header-dashboard/header-app/header.component';
+import { NavLateralComponent } from '../../components/comp-gerais/nav-bar-lateral-dashboard/nav-lateral-app/nav-lateral.component';
+import { BtnAddMovimentacaoComponent } from '../../components/movimentacao/btn-add-movimentacao/btn-add-movimentacao.component';
+import { TotalPorCategoriaComponent } from '../../components/movimentacao/por-categoria/total-por-categoria.component';
+import { TotalUltimosMesesComponent } from '../../components/movimentacao/ultimos-meses/total-ultimos-meses.component';
+
 
 @Component({
   selector: 'app-despesas',
   standalone: true,
-  imports: [UltimasMovComponent, HeaderDashbordComponent, CommonModule, TotalReceitaDespesaComponent, NavLateralComponent, BtnAddMovimentacaoComponent, TotalPorCategoriaComponent, TotalUltimosMesesComponent],
+  imports: [
+    CommonModule, 
+    UltimasMovComponent, 
+    HeaderDashbordComponent, 
+    TotalReceitaDespesaComponent, 
+    NavLateralComponent, 
+    BtnAddMovimentacaoComponent, 
+    TotalPorCategoriaComponent, 
+    TotalUltimosMesesComponent
+  ],
   templateUrl: './despesas.component.html',
   styleUrl: './despesas.component.scss'
 })
 export class DespesasComponent implements OnInit {
   
-  constructor(private despesaService: DespesasService, private categoriaDespesaService: CategoriaDespesaService) {}
+  constructor(private despesaService: DespesasService , private categoriaDespesaService: CategoriaDespesaService) {}
   
   cor: string = "#F40808";
   despesas: DespesaInterface[] = [];

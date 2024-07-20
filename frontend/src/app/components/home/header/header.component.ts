@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+
 import { NavBarHomeComponent } from '../nav-bar-home/nav-bar-home.component';
 import { LoginRegisterComponent } from '../login-register/login-register.component';
-import { ButtonHomeComponent } from '../button-home/button-home.component';
 
 @Component({
   selector: 'app-header',

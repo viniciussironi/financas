@@ -1,28 +1,32 @@
 <div class="resumo__container">
-    <app-header text="Visão Geral"></app-header>
+    <app-nav-lateral></app-nav-lateral>
     <div class="resumo__conteudo">
-        <div class="resumo__saldos">
-            <app-resumo-dashboard 
-                class="receitas" 
-                title="Receitas" 
-                icon="arrow_forward_ios" 
-                cor="#06894A" 
-                [amount]="totalReceitas">
-            </app-resumo-dashboard>
-            <app-resumo-dashboard 
-                class="saldo" 
-                title="Saldo"  
-                cor="#E45723" 
-                espacamento="center"
-                [amount]="totalReceitas - totalDespesas">
-            </app-resumo-dashboard>
-            <app-resumo-dashboard 
-                class="despesas"
-                title="Despesas" 
-                icon="arrow_forward_ios" 
-                cor="#CB1414" 
-                [amount]="totalDespesas">
-            </app-resumo-dashboard>
+        <app-header titulo="Visão Geral"></app-header>
+        <div class="conteudo__interno">
+            <div class="resumo__saldos">
+                <app-resumo-dashboard 
+                    class="receitas" 
+                    title="Receitas" 
+                    icon="arrow_forward_ios" 
+                    cor="#06894A" 
+                    [amount]="totalReceitas">
+                </app-resumo-dashboard>
+                <app-resumo-dashboard 
+                    class="saldo" 
+                    title="Saldo"  
+                    cor="#E45723" 
+                    espacamento="center"
+                    [amount]="totalReceitas - totalDespesas">
+                </app-resumo-dashboard>
+                <app-resumo-dashboard 
+                    class="despesas"
+                    title="Despesas" 
+                    icon="arrow_forward_ios" 
+                    cor="#CB1414" 
+                    [amount]="totalDespesas">
+                </app-resumo-dashboard>
+            </div>
         </div>
     </div>
 </div>
+
