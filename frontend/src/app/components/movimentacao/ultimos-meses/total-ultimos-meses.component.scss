@@ -2,13 +2,13 @@
 
 .ultimas-mov__container {
     width: 100%;
+    height: 235px;
     padding: 15px;
     border-radius: 12px;
     background-color: variables.$gray_color;
     
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 .lista {

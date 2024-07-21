@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TotalPorCategoriaInterface } from '../../../interface/total_por_categoria-interface';
+import { TotalPorMesInterface } from '../../../interface/total_por_mes-interface';
 
 @Component({
   selector: 'app-total-ultimos-meses',
@@ -15,7 +16,7 @@ export class TotalUltimosMesesComponent {
   @Input()
   titulo:string = "";
   @Input()
-  listaCategoria: TotalPorCategoriaInterface[] = [];
+  listaMeses: TotalPorMesInterface[] = [];
   @Input()
   cor: string = "";
 }

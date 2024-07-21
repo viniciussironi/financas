@@ -6,6 +6,7 @@ import { CategoriaReceitaService } from '../../services/categoria-receita.servic
 
 import { ReceitaInterface } from '../../interface/receitas-interface';
 import { TotalPorCategoriaInterface } from '../../interface/total_por_categoria-interface';
+import { TotalPorMesInterface } from '../../interface/total_por_mes-interface';
 
 import { UltimasMovComponent } from '../../components/movimentacao/ultimas-mov/ultimas-mov.component';
 import { TotalReceitaDespesaComponent } from '../../components/movimentacao/total-receita-despesa/total-receita-despesa.component';
@@ -37,12 +38,16 @@ export class ReceitasComponent implements OnInit {
   constructor(private receitaService: ReceitasService, private categoriaReceitaService: CategoriaReceitaService) {}
   
   cor: string = "#06894A";
+  totalReceitas: number = 0;
   receitas: ReceitaInterface[] = [];
+  totalPorMes: TotalPorMesInterface[] = [];
   totalPorCategoriaReceita: TotalPorCategoriaInterface[] = [];
   
   ngOnInit(): void {
     this.getReceitas(1);
     this.getTotalCategoriaReceitas(1);
+    this.getTotalReceitas();
+    this.getTotalPorMes(1);
   }
   
   getReceitas(userId: number) {
@@ -59,4 +64,16 @@ export class ReceitasComponent implements OnInit {
     });
   }
 
+  getTotalPorMes(userId: number) {
+    this.receitaService.getTotalPorMes(userId).subscribe(
+    (totalPorMes: TotalPorMesInterface[]) => {
+    this.totalPorMes = totalPorMes;
+    });
+  }
+
+  getTotalReceitas() {
+    this.receitas.forEach(x => {
+      this.totalReceitas += x.valor
+    });
+  }
 }

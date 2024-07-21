@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ReceitaInterface } from '../interface/receitas-interface';
 import { Observable } from 'rxjs';
 import { Constants } from '../constants';
+import { TotalPorMesInterface } from '../interface/total_por_mes-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,10 @@ export class ReceitasService {
 
   getReceitas(userId: number): Observable<ReceitaInterface[]> {
     return this.http.get<ReceitaInterface[]>(`${this.url}/${userId}`);
+  }
+
+  getTotalPorMes(userId: number): Observable<TotalPorMesInterface[]> {
+    return this.http.get<TotalPorMesInterface[]>(`${this.url}/totalPorMes/${userId}`);
   }
 
   insertReceita(receita: ReceitaInterface) {

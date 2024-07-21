@@ -2,9 +2,10 @@ package com.vinicius.finances.services;
 
 import com.vinicius.finances.DTOs.DespesaDTO;
 import com.vinicius.finances.DTOs.DespesaInsertDTO;
-import com.vinicius.finances.entities.despesa.CategoriaDespesa;
+import com.vinicius.finances.DTOs.TotalPorMesDTO;
 import com.vinicius.finances.entities.despesa.Despesa;
 import com.vinicius.finances.entities.despesa.Parcela;
+import com.vinicius.finances.projections.TotalMesProjection;
 import com.vinicius.finances.repositories.CategoriaDespesaRepository;
 import com.vinicius.finances.repositories.DespesaRepository;
 import com.vinicius.finances.repositories.ParcelaRepository;
@@ -13,7 +14,6 @@ import com.vinicius.finances.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.repository.cdi.Eager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +33,22 @@ public class DespesaService {
 
     @Transactional(readOnly = true)
     public List<DespesaDTO> findAll(Long id) {
-        return despesaRepository.buscarDespesasPorMes(id).stream().map(x -> new DespesaDTO(x)).toList();
+        return despesaRepository.buscarDespesas(id).stream().map(x -> new DespesaDTO(x)).limit(8).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<TotalPorMesDTO> buscarTotalPorMes(Long id) {
+        String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+
+        List<TotalMesProjection> busca = despesaRepository.buscarTotalPorMes(id);
+        List<TotalPorMesDTO> result = new ArrayList<>();
+        busca.forEach(x -> {
+            TotalPorMesDTO dto = new TotalPorMesDTO();
+            dto.setMes(meses[x.getMes() - 1]);
+            dto.setTotal(x.getTotal());
+            result.add(dto);
+        });
+        return result;
     }
 
     @Transactional

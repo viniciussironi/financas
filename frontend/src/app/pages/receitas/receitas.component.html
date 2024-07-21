@@ -4,14 +4,14 @@
         <app-header titulo="Receitas"></app-header>
         <div class="conteudo__interno">
             <div class="interno__esquerda">
-                <app-total-receita-despesa [total]="0" [cor]="cor"></app-total-receita-despesa>
+                <app-total-receita-despesa [total]="totalReceitas" [cor]="cor"></app-total-receita-despesa>
                 <app-ultimas-mov [listaMovimentacao]="receitas" [cor]="cor" titulo="Últimas receitas"></app-ultimas-mov>
             </div>
             <div class="interno__direita">
                 <app-btn-add-movimentacao nomeBtn="Receita"></app-btn-add-movimentacao>
                 <div class="direita__interno">
                     <app-total-por-categoria titulo="Por categoria" [listaCategoria]="totalPorCategoriaReceita" [cor]="cor"></app-total-por-categoria>
-                    <app-total-ultimos-meses titulo="Últimos meses" [cor]="cor"></app-total-ultimos-meses>
+                    <app-total-ultimos-meses titulo="Últimos meses" [listaMeses]="totalPorMes"  [cor]="cor"></app-total-ultimos-meses>
                 </div>
             </div>
         </div>

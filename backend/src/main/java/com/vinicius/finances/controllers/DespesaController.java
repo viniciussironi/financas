@@ -2,6 +2,7 @@ package com.vinicius.finances.controllers;
 
 import com.vinicius.finances.DTOs.DespesaDTO;
 import com.vinicius.finances.DTOs.DespesaInsertDTO;
+import com.vinicius.finances.DTOs.TotalPorMesDTO;
 import com.vinicius.finances.services.DespesaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,11 @@ public class DespesaController {
     @GetMapping(value = "/{id}")
     public  ResponseEntity<List<DespesaDTO>> findAll(@PathVariable Long id) {
        return ResponseEntity.ok(service.findAll(id));
+    }
+
+    @GetMapping(value = "/totalPorMes/{id}")
+    public  ResponseEntity<List<TotalPorMesDTO>> buscarTotalPorMes(@PathVariable Long id) {
+        return ResponseEntity.ok(service.buscarTotalPorMes(id));
     }
 
     @PostMapping

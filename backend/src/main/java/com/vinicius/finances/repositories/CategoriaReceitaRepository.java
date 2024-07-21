@@ -25,6 +25,7 @@ public interface CategoriaReceitaRepository extends JpaRepository<CategoriaRecei
                            r.USUARIO_ID = :id
                         GROUP BY
                             cr.ID, cr.Nome
+                        LIMIT  4
                     """
     )
     List<TotalCategoriaProjection> buscarValorTotalPorCategoria(Long id);

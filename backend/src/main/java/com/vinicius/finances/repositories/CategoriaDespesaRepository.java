@@ -24,7 +24,8 @@ public interface CategoriaDespesaRepository extends JpaRepository<CategoriaDespe
                         WHERE
                            d.USUARIO_ID = :id
                         GROUP BY
-                            cd.ID, cd.Nome;
+                            cd.ID, cd.Nome
+                        LIMIT  4    
                     """
     )
     List<TotalCategoriaProjection> buscarValorTotalPorCategoria(Long id);

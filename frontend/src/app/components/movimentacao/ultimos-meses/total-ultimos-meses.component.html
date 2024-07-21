@@ -1,7 +1,7 @@
 <div class="ultimas-mov__container">
     <h1>{{ titulo }}</h1>
-    <div class="lista" *ngFor="let x of listaCategoria">
-        <p>{{ x.nome }}</p>
+    <div class="lista" *ngFor="let x of listaMeses">
+        <p>{{ x.mes }}</p>
         <span [style.color]="cor">R$ {{ x.total }}</span>
     </div>
 </div>

@@ -1,7 +1,9 @@
 package com.vinicius.finances.services;
 
 import com.vinicius.finances.DTOs.ReceitaDTO;
+import com.vinicius.finances.DTOs.TotalPorMesDTO;
 import com.vinicius.finances.entities.receita.Receita;
+import com.vinicius.finances.projections.TotalMesProjection;
 import com.vinicius.finances.repositories.CategoriaReceitaRepository;
 import com.vinicius.finances.repositories.ReceitaRepository;
 import com.vinicius.finances.services.exceptions.DatabaseException;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,7 +28,22 @@ public class ReceitaService {
 
     @Transactional(readOnly = true)
     public List<ReceitaDTO> findAll(Long id) {
-        return receitaRepository.buscarReceitasPorMes(id).stream().map(x -> new ReceitaDTO(x)).toList();
+        return receitaRepository.buscarReceitas(id).stream().map(x -> new ReceitaDTO(x)).limit(8).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<TotalPorMesDTO> buscarTotalPorMes(Long id) {
+        String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+
+        List<TotalMesProjection> busca = receitaRepository.buscarTotalPorMes(id);
+        List<TotalPorMesDTO> result = new ArrayList<>();
+        busca.forEach(x -> {
+            TotalPorMesDTO dto = new TotalPorMesDTO();
+            dto.setMes(meses[x.getMes() - 1]);
+            dto.setTotal(x.getTotal());
+            result.add(dto);
+        });
+        return result;
     }
 
     @Transactional

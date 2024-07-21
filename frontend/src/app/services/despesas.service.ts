@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ReceitaInterface } from '../interface/receitas-interface';
 import { DespesaInterface } from '../interface/despesas-interface';
+import { TotalPorMesInterface } from '../interface/total_por_mes-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,11 @@ export class DespesasService {
   getDespesas(userId: number): Observable<DespesaInterface[]> {
     return this.http.get<DespesaInterface[]>(`${this.url}/${userId}`);
   }
+
+  getTotalPorMes(userId: number): Observable<TotalPorMesInterface[]> {
+    return this.http.get<TotalPorMesInterface[]>(`${this.url}/totalPorMes/${userId}`);
+  }
+
 
   insertDespesa(despesa: any) {
     return this.http.post(this.url, despesa)

@@ -6,6 +6,7 @@ import { CategoriaDespesaService } from '../../services/categoria-despesa.servic
 
 import { DespesaInterface } from '../../interface/despesas-interface';
 import { TotalPorCategoriaInterface } from '../../interface/total_por_categoria-interface';
+import { TotalPorMesInterface } from '../../interface/total_por_mes-interface';
 
 import { UltimasMovComponent } from '../../components/movimentacao/ultimas-mov/ultimas-mov.component';
 import { TotalReceitaDespesaComponent } from "../../components/movimentacao/total-receita-despesa/total-receita-despesa.component";
@@ -37,12 +38,16 @@ export class DespesasComponent implements OnInit {
   constructor(private despesaService: DespesasService , private categoriaDespesaService: CategoriaDespesaService) {}
   
   cor: string = "#F40808";
+  totalDespesas: number = 0;
+  totalPorMes: TotalPorMesInterface[] = [];
   despesas: DespesaInterface[] = [];
   totalPorCategoriaDespesa: TotalPorCategoriaInterface[] = [];
 
   ngOnInit(): void {
     this.getDespesas(1);
     this.getTotalCategoriaDespesas(1);
+    this.getTotalDespesas();
+    this.getTotalPorMes(1)
   }
   
   getDespesas(userId: number) {
@@ -56,6 +61,19 @@ export class DespesasComponent implements OnInit {
     this.categoriaDespesaService.getTotalPorCategoriaDespesa(userId).subscribe(
     (totalPorCategoriaDespesa: TotalPorCategoriaInterface[]) => {
     this.totalPorCategoriaDespesa = totalPorCategoriaDespesa;
+    });
+  }
+
+  getTotalPorMes(userId: number) {
+    this.despesaService.getTotalPorMes(userId).subscribe(
+    (totalPorMes: TotalPorMesInterface[]) => {
+    this.totalPorMes = totalPorMes;
+    });
+  }
+
+  getTotalDespesas() {
+    this.despesas.forEach(x => {
+      this.totalDespesas += x.valor
     });
   }
 }
