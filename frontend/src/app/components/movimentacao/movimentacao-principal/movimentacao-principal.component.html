@@ -1,0 +1,13 @@
+<div class="movimentacao__container">
+    <div class="interno__esquerda">
+        <app-total-receita-despesa [total]="totalDespesas" [cor]="cor"></app-total-receita-despesa>
+        <app-ultimas-mov [listaMovimentacao]="despesas" [cor]="cor" titulo="Últimas despesas"></app-ultimas-mov>
+    </div>
+    <div class="interno__direita">
+        <app-btn-add-movimentacao [routerLink]="link"  nomeBtn="Despesa"></app-btn-add-movimentacao>
+        <div class="direita__interno">
+            <app-total-por-categoria titulo="Por categoria" [listaCategoria]="totalPorCategoriaDespesa" [cor]="cor"></app-total-por-categoria>
+            <app-total-ultimos-meses titulo="Últimos meses" [listaMeses]="totalPorMes" [cor]="cor"></app-total-ultimos-meses>
+        </div>
+    </div>
+</div>

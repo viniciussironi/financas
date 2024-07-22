@@ -1,0 +1,26 @@
+@use '../../../../../variables';
+
+.btn-add-movimentacao__container {
+    border: 2px solid variables.$orange_color;
+    background-color: variables.$orange_color;
+    color: variables.$white_color;
+    padding: 10px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+span, p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.btn-add-movimentacao__container:hover {
+    border: 2px solid variables.$orange_color;
+    background-color: variables.$white_color;
+    color: variables.$orange_color;
+}
