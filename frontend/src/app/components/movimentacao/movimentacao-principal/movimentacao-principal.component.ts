@@ -9,18 +9,21 @@ import { UltimasMovComponent } from "../gerais/ultimas-mov/ultimas-mov.component
 import { BtnAddMovimentacaoComponent } from "../gerais/btn-add-movimentacao/btn-add-movimentacao.component";
 import { TotalPorCategoriaComponent } from "../gerais/por-categoria/total-por-categoria.component";
 import { TotalUltimosMesesComponent } from "../gerais/ultimos-meses/total-ultimos-meses.component";
+import { BuscarComponent } from "../gerais/buscar/buscar.component";
+import { CategoriaInterface } from '../../../interface/categoria-interface';
 
 @Component({
   selector: 'app-movimentacao-principal',
   standalone: true,
   imports: [
     RouterModule,
-    TotalReceitaDespesaComponent, 
-    UltimasMovComponent, 
-    BtnAddMovimentacaoComponent, 
-    TotalPorCategoriaComponent, 
-    TotalUltimosMesesComponent
-  ],
+    TotalReceitaDespesaComponent,
+    UltimasMovComponent,
+    BtnAddMovimentacaoComponent,
+    TotalPorCategoriaComponent,
+    TotalUltimosMesesComponent,
+    BuscarComponent
+],
   templateUrl: './movimentacao-principal.component.html',
   styleUrl: './movimentacao-principal.component.scss'
 })
@@ -38,4 +41,7 @@ export class MovimentacaoPrincipalComponent {
   despesas: MovimentacaoInterface[] = [];
   @Input()
   totalPorCategoriaDespesa: TotalPorCategoriaInterface[] = [];
+  @Input()
+  listaCategorias: CategoriaInterface[] = [];
+
 } 

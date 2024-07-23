@@ -14,7 +14,7 @@ export class CategoriaDespesaService {
 
   constructor(private http: HttpClient) { }
 
-  getCategorias(): Observable<CategoriaInterface[]> {
+  getCategoriasDespesas(): Observable<CategoriaInterface[]> {
     return this.http.get<CategoriaInterface[]>(this.url);
   }
 

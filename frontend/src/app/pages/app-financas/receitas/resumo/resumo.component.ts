@@ -8,6 +8,7 @@ import { ReceitasService } from '../../../../services/receitas.service';
 import { CategoriaReceitaService } from '../../../../services/categoria-receita.service';
 
 import { MovimentacaoPrincipalComponent } from "../../../../components/movimentacao/movimentacao-principal/movimentacao-principal.component";
+import { CategoriaInterface } from '../../../../interface/categoria-interface';
 
 @Component({
   selector: 'app-resumo',
@@ -23,11 +24,13 @@ export class ResumoReceitasComponent implements OnInit {
   cor: string = "#06894A";
   totalReceitas: number = 0;
   receitas: ReceitaInterface[] = [];
+  categorias: CategoriaInterface[] = [];
   totalPorMes: TotalPorMesInterface[] = [];
   totalPorCategoriaReceita: TotalPorCategoriaInterface[] = [];
   
   ngOnInit(): void {
     this.getReceitas(1);
+    this.getCategorias(); 
     this.getTotalCategoriaReceitas(1);
     this.getTotalReceitas();
     this.getTotalPorMes(1);
@@ -37,6 +40,13 @@ export class ResumoReceitasComponent implements OnInit {
     this.receitaService.getReceitas(userId).subscribe(
     (receitas: ReceitaInterface[]) => {
       this.receitas = receitas;
+    })
+  }
+
+  getCategorias() {
+    this.categoriaReceitaService.getCategoriasReceitas().subscribe(
+    (categorias: CategoriaInterface[]) => {
+      this.categorias = categorias;
     })
   }
 

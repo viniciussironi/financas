@@ -11,8 +11,7 @@ import { AppFinancasComponent } from './pages/app-financas/app-financas.componen
 import { VisaoGeralComponent } from './pages/app-financas/visao-geral/visao-geral.component';
 import { ResumoReceitasComponent } from './pages/app-financas/receitas/resumo/resumo.component';
 import { ResumoDespesasComponent } from './pages/app-financas/despesas/resumo/resumo.component';
-import { CompletaDespesasComponent } from './pages/app-financas/despesas/completa/completa.component';
-import { CompletaReceitasComponent } from './pages/app-financas/receitas/completa/completa.component';
+
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -21,12 +20,10 @@ export const routes: Routes = [
         {path: 'receitas', component: ReceitasComponent, children: [
             {path: 'resumo', component: ResumoReceitasComponent},
             {path: 'add-receita', component: AddReceitaComponent},
-            {path: 'completa', component: CompletaReceitasComponent},
         ]},
         {path: 'despesas', component: DespesasComponent, children: [
             {path: 'resumo', component: ResumoDespesasComponent},
-            {path: 'add-despesa', component: AddDespesaComponent},
-            {path: 'completa', component: CompletaDespesasComponent},
+            {path: 'add-despesa', component: AddDespesaComponent}, 
         ]},
         {path: 'conta', component: ContaComponent},
         {path: 'configuracoes', component: ConfiguracoesComponent},

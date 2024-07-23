@@ -9,5 +9,7 @@ import { HeaderDashbordComponent } from '../../../components/comp-gerais/header-
   templateUrl: './despesas.component.html',
   styleUrl: './despesas.component.scss'
 })
-export class DespesasComponent {}
+export class DespesasComponent {
+  
+}
 

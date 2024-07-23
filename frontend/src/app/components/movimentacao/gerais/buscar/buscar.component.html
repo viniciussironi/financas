@@ -1,22 +1,21 @@
 <div class="buscar__container">
+    <h2>Filtrar:</h2>
     <form action="">
         <select name="categoria" id="categoria">
             <option value="">Categoria</option>
+            <option 
+                *ngFor="let categoria of listaCategorias" 
+                [value]="categoria.id"
+            >{{ categoria.nome }}</option>
         </select>
-        <select name="categoria" id="categoria">
-            <option value="1">Janeiro</option>
-            <option value="2">Fevereiro</option>
-            <option value="3">Março</option>
-            <option value="4">Abril</option>
-            <option value="5">Maio</option>
-            <option value="6">Junho</option>
-            <option value="7">Julho</option>
-            <option value="8">Agosto</option>
-            <option value="9">Setembro</option>
-            <option value="10">Outubro</option>
-            <option value="11">Novembro</option>
-            <option value="12">Dezembro</option>
-        </select>
+        <div class="input">
+            <p>De:</p>
+            <input type="date">
+        </div>
+        <div class="input">
+            <p>Até:</p>
+            <input type="date">
+        </div>
         <input type="reset" id="resetar" value="LIMPAR">
     </form>
 </div>

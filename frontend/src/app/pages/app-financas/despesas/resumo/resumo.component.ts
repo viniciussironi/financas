@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { MovimentacaoPrincipalComponent } from "../../../../components/movimentacao/movimentacao-principal/movimentacao-principal.component";
+
 import { DespesasService } from '../../../../services/despesas.service';
 import { CategoriaDespesaService } from '../../../../services/categoria-despesa.service';
+
 import { DespesaInterface } from '../../../../interface/despesas-interface';
 import { TotalPorMesInterface } from '../../../../interface/total_por_mes-interface';
 import { TotalPorCategoriaInterface } from '../../../../interface/total_por_categoria-interface';
 
+import { BuscarComponent } from "../../../../components/movimentacao/gerais/buscar/buscar.component";
+import { MovimentacaoPrincipalComponent } from "../../../../components/movimentacao/movimentacao-principal/movimentacao-principal.component";
+import { CategoriaInterface } from '../../../../interface/categoria-interface';
+
 @Component({
   selector: 'app-resumo',
   standalone: true,
-  imports: [MovimentacaoPrincipalComponent],
+  imports: [MovimentacaoPrincipalComponent, BuscarComponent],
   templateUrl: './resumo.component.html',
   styleUrl: './resumo.component.scss'
 })
@@ -20,11 +25,13 @@ export class ResumoDespesasComponent implements OnInit {
   cor: string = "#F40808";
   totalDespesas: number = 0;
   despesas: DespesaInterface[] = [];
+  categorias: CategoriaInterface[] = [];
   totalPorMes: TotalPorMesInterface[] = [];
   totalPorCategoriaDespesa: TotalPorCategoriaInterface[] = [];
   
   ngOnInit(): void {
     this.getDespesas(1);
+    this.getCategorias();
     this.getTotalCategoriaDespesas(1);
     this.getTotalDespesas();
     this.getTotalPorMes(1);
@@ -34,6 +41,13 @@ export class ResumoDespesasComponent implements OnInit {
     this.despesaService.getDespesas(userId).subscribe(
     (despesas: DespesaInterface[]) => {
       this.despesas = despesas;
+    })
+  }
+
+  getCategorias() {
+    this.categoriadespesaService.getCategoriasDespesas().subscribe(
+    (categorias: CategoriaInterface[]) => {
+      this.categorias = categorias;
     })
   }
 
