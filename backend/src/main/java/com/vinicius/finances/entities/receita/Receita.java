@@ -20,5 +20,9 @@ public class Receita extends MovimentacaoGenerico {
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+    public void setCategoriaReceita(CategoriaReceita categoriaReceita) {
+        this.categoriaReceita = categoriaReceita;
+    }
 }
 

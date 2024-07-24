@@ -2,19 +2,27 @@ package com.vinicius.finances.services;
 
 import com.vinicius.finances.DTOs.ReceitaDTO;
 import com.vinicius.finances.DTOs.TotalPorMesDTO;
+import com.vinicius.finances.entities.receita.CategoriaReceita;
 import com.vinicius.finances.entities.receita.Receita;
+import com.vinicius.finances.projections.ReceitaInterface;
 import com.vinicius.finances.projections.TotalMesProjection;
 import com.vinicius.finances.repositories.CategoriaReceitaRepository;
 import com.vinicius.finances.repositories.ReceitaRepository;
 import com.vinicius.finances.services.exceptions.DatabaseException;
 import com.vinicius.finances.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +35,24 @@ public class ReceitaService {
     private CategoriaReceitaRepository categoriaReceitaRepository;
 
     @Transactional(readOnly = true)
-    public List<ReceitaDTO> findAll(Long id) {
-        return receitaRepository.buscarReceitas(id).stream().map(x -> new ReceitaDTO(x)).limit(8).toList();
+    public Page<ReceitaDTO> buscarReceitas(Long idUsuario, Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable) {
+        Page<ReceitaInterface> listaBusca = receitaRepository.buscarReceitas(idUsuario, idCategoria, inicio, fim, pageable);
+        List<ReceitaDTO> lista = new ArrayList<>();
+
+        listaBusca.forEach(x -> {
+            Receita receita = new Receita();
+            CategoriaReceita categoriaReceita = new CategoriaReceita();
+            receita.setId(x.getId());
+            receita.setData(x.getData());
+            receita.setValor(x.getValor());
+            categoriaReceita.setId(x.getCategoriaReceitaId());
+            categoriaReceita.setNome(x.getNome());
+            receita.setCategoriaReceita(categoriaReceita);
+            ReceitaDTO receitaDTO = new ReceitaDTO(receita);
+            lista.add(receitaDTO);
+        });
+
+        return new PageImpl<>(lista, listaBusca.getPageable(), listaBusca.getTotalElements());
     }
 
     @Transactional(readOnly = true)

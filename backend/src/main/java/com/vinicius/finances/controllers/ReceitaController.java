@@ -5,11 +5,15 @@ import com.vinicius.finances.DTOs.TotalPorMesDTO;
 import com.vinicius.finances.services.ReceitaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -20,8 +24,14 @@ public class ReceitaController {
     private ReceitaService service;
 
     @GetMapping(value = "/{id}")
-    public  ResponseEntity<List<ReceitaDTO>> findAll(@PathVariable Long id) {
-        return ResponseEntity.ok(service.findAll(id));
+    public  ResponseEntity<Page<ReceitaDTO>> findAll(
+            @PathVariable Long id,
+            @RequestParam (name = "idCategoria", defaultValue = "") Long idCategoria,
+            @RequestParam (name = "inicio", defaultValue = "") LocalDate inicio,
+            @RequestParam (name = "fim", defaultValue = "") LocalDate fim,
+            Pageable pageable) {
+
+        return ResponseEntity.ok(service.buscarReceitas(id, idCategoria, inicio, fim, pageable));
     }
 
     @GetMapping(value = "/totalPorMes/{id}")
