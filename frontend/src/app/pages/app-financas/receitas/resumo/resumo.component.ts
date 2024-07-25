@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TotalPorCategoriaInterface } from '../../../../interface/total_por_categoria-interface';
+import { Page } from '../../../../interface/page-interface';
 import { ReceitaInterface } from '../../../../interface/receitas-interface';
 import { TotalPorMesInterface } from '../../../../interface/total_por_mes-interface';
 
@@ -23,7 +24,7 @@ export class ResumoReceitasComponent implements OnInit {
   
   cor: string = "#06894A";
   totalReceitas: number = 0;
-  receitas: ReceitaInterface[] = [];
+  receitas: Page<ReceitaInterface> = { content: [], totalPages: 0, number: 0 };
   categorias: CategoriaInterface[] = [];
   totalPorMes: TotalPorMesInterface[] = [];
   totalPorCategoriaReceita: TotalPorCategoriaInterface[] = [];
@@ -38,7 +39,7 @@ export class ResumoReceitasComponent implements OnInit {
   
   getReceitas(userId: number) {
     this.receitaService.getReceitas(userId).subscribe(
-    (receitas: ReceitaInterface[]) => {
+    (receitas: Page<ReceitaInterface>) => {
       this.receitas = receitas;
     })
   }
@@ -65,7 +66,7 @@ export class ResumoReceitasComponent implements OnInit {
   }
 
   getTotalReceitas() {
-    this.receitas.forEach(x => {
+    this.receitas.content.forEach(x => {
       this.totalReceitas += x.valor
     });
   }

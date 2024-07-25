@@ -33,7 +33,7 @@ public interface DespesaRepository extends JpaRepository<Despesa, Long> {
                    parcelas ON despesas.id = parcelas.despesa_id
                WHERE
                    despesas.usuario_id = :idUsuario
-                   AND (despesas.categoria_despesa_id IS NULL OR despesas.categoria_despesa_id = :idCategoria)
+                   AND (:idCategoria IS NULL OR despesas.categoria_despesa_id = :idCategoria)
                    AND (:inicio IS NULL OR despesas.data >= :inicio)
                    AND (:fim IS NULL OR despesas.data <= :fim)
                ORDER BY
@@ -60,7 +60,7 @@ public interface DespesaRepository extends JpaRepository<Despesa, Long> {
                        parcelas ON despesas.id = parcelas.despesa_id
                    WHERE
                        despesas.usuario_id = :idUsuario
-                       AND (despesas.categoria_despesa_id IS NULL OR despesas.categoria_despesa_id = :idCategoria)
+                       AND (:idCategoria IS NULL OR despesas.categoria_despesa_id = :idCategoria)
                        AND (:inicio IS NULL OR despesas.data >= :inicio)
                        AND (:fim IS NULL OR despesas.data <= :fim)
                    ORDER BY

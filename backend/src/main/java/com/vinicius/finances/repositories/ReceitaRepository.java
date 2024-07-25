@@ -29,7 +29,7 @@ public interface ReceitaRepository extends JpaRepository<Receita, Long> {
                     categorias_receitas ON categorias_receitas.id = receitas.categoria_receita_id
                 WHERE 
                     usuario_id = :idUsuario
-                    AND (categoria_receita_id IS NULL OR categoria_receita_id = :idCategoria)
+                    AND (:idCategoria IS NULL OR categoria_receita_id = :idCategoria)
                     AND (:inicio IS NULL OR data >= :inicio)
                     AND (:fim IS NULL OR data <= :fim)
                 ORDER BY 
@@ -50,7 +50,7 @@ public interface ReceitaRepository extends JpaRepository<Receita, Long> {
                         categorias_receitas ON categorias_receitas.id = receitas.categoria_receita_id
                     WHERE 
                         usuario_id = :idUsuario
-                        AND (categoria_receita_id IS NULL OR categoria_receita_id = :idCategoria)
+                        AND (:idCategoria IS NULL OR categoria_receita_id = :idCategoria)
                         AND (:inicio IS NULL OR data >= :inicio)
                         AND (:fim IS NULL OR data <= :fim)
                     ORDER BY 

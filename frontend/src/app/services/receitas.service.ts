@@ -4,6 +4,7 @@ import { ReceitaInterface } from '../interface/receitas-interface';
 import { Observable } from 'rxjs';
 import { Constants } from '../constants';
 import { TotalPorMesInterface } from '../interface/total_por_mes-interface';
+import { Page } from '../interface/page-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class ReceitasService {
 
   constructor(private http: HttpClient) { }
 
-  getReceitas(userId: number): Observable<ReceitaInterface[]> {
-    return this.http.get<ReceitaInterface[]>(`${this.url}/${userId}`);
+  getReceitas(userId: number): Observable<Page<ReceitaInterface>> {
+    return this.http.get<Page<ReceitaInterface>>(`${this.url}/${userId}`);
   }
 
   getTotalPorMes(userId: number): Observable<TotalPorMesInterface[]> {

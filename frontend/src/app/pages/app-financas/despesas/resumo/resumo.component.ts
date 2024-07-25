@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DespesasService } from '../../../../services/despesas.service';
 import { CategoriaDespesaService } from '../../../../services/categoria-despesa.service';
 
+import { Page } from '../../../../interface/page-interface';
 import { DespesaInterface } from '../../../../interface/despesas-interface';
 import { TotalPorMesInterface } from '../../../../interface/total_por_mes-interface';
 import { TotalPorCategoriaInterface } from '../../../../interface/total_por_categoria-interface';
@@ -24,7 +25,7 @@ export class ResumoDespesasComponent implements OnInit {
   
   cor: string = "#F40808";
   totalDespesas: number = 0;
-  despesas: DespesaInterface[] = [];
+  despesas: Page<DespesaInterface> = { content: [], totalPages: 0, number: 0 };
   categorias: CategoriaInterface[] = [];
   totalPorMes: TotalPorMesInterface[] = [];
   totalPorCategoriaDespesa: TotalPorCategoriaInterface[] = [];
@@ -39,7 +40,7 @@ export class ResumoDespesasComponent implements OnInit {
   
   getDespesas(userId: number) {
     this.despesaService.getDespesas(userId).subscribe(
-    (despesas: DespesaInterface[]) => {
+    (despesas: Page<DespesaInterface>) => {
       this.despesas = despesas;
     })
   }
@@ -66,7 +67,7 @@ export class ResumoDespesasComponent implements OnInit {
   }
 
   getTotalDespesas() {
-    this.despesas.forEach(x => {
+    this.despesas.content.forEach(x => {
       this.totalDespesas += x.valor
     });
   }

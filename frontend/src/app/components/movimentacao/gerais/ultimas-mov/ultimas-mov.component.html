@@ -1,6 +1,6 @@
 <div class="ultimas-mov__container">
     <h1>{{ titulo }}</h1>
-    <div class="lista" *ngFor="let x of listaMovimentacao">
+    <div class="lista" *ngFor="let x of listaMovimentacao.content">
         <div class="esquerda">
             <span>{{ x.categoria.nome }}</span>
             <p>{{ x.data }}</p>

@@ -3,7 +3,7 @@
     <div class="interno">
         <div class="interno__esquerda">
             <app-total-receita-despesa [total]="totalDespesas" [cor]="cor"></app-total-receita-despesa>
-            <app-ultimas-mov [listaMovimentacao]="despesas" [cor]="cor" titulo="Últimas despesas"></app-ultimas-mov>
+            <app-ultimas-mov [listaMovimentacao]="movimentacao" [cor]="cor" titulo="Últimas despesas"></app-ultimas-mov>
         </div>
         <div class="interno__direita">
             <app-btn-add-movimentacao [routerLink]="link"  nomeBtn="Despesa"></app-btn-add-movimentacao>

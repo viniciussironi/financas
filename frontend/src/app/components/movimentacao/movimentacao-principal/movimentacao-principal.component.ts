@@ -11,6 +11,7 @@ import { TotalPorCategoriaComponent } from "../gerais/por-categoria/total-por-ca
 import { TotalUltimosMesesComponent } from "../gerais/ultimos-meses/total-ultimos-meses.component";
 import { BuscarComponent } from "../gerais/buscar/buscar.component";
 import { CategoriaInterface } from '../../../interface/categoria-interface';
+import { Page } from '../../../interface/page-interface';
 
 @Component({
   selector: 'app-movimentacao-principal',
@@ -38,7 +39,7 @@ export class MovimentacaoPrincipalComponent {
   @Input()
   totalPorMes: TotalPorMesInterface[] = [];
   @Input()
-  despesas: MovimentacaoInterface[] = [];
+  movimentacao: Page<MovimentacaoInterface> = { content: [], totalPages: 0, number: 0 };
   @Input()
   totalPorCategoriaDespesa: TotalPorCategoriaInterface[] = [];
   @Input()

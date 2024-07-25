@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Constants } from '../constants';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ReceitaInterface } from '../interface/receitas-interface';
 import { DespesaInterface } from '../interface/despesas-interface';
 import { TotalPorMesInterface } from '../interface/total_por_mes-interface';
+import { Page } from '../interface/page-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,8 @@ export class DespesasService {
 
   constructor(private http: HttpClient) { }
 
-  getDespesas(userId: number): Observable<DespesaInterface[]> {
-    return this.http.get<DespesaInterface[]>(`${this.url}/${userId}`);
+  getDespesas(userId: number): Observable<Page<DespesaInterface>> {
+    return this.http.get<Page<DespesaInterface>>(`${this.url}/${userId}`);
   }
 
   getTotalPorMes(userId: number): Observable<TotalPorMesInterface[]> {
