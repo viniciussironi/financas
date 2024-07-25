@@ -24,7 +24,7 @@ public class ReceitaController {
     private ReceitaService service;
 
     @GetMapping(value = "/{id}")
-    public  ResponseEntity<Page<ReceitaDTO>> findAll(
+    public  ResponseEntity<Page<ReceitaDTO>> buscarTodas(
             @PathVariable Long id,
             @RequestParam (name = "idCategoria", defaultValue = "") Long idCategoria,
             @RequestParam (name = "inicio", defaultValue = "") LocalDate inicio,

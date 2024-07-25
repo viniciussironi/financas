@@ -1,8 +1,6 @@
 package com.vinicius.finances.projections;
 
-import java.time.LocalDate;
-
-public interface ReceitaInterface extends MovimentacaoInterface {
+public interface ReceitaProjection extends MovimentacaoProjection {
 
 
     Long getCategoriaReceitaId();

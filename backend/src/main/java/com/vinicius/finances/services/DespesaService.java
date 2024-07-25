@@ -1,10 +1,11 @@
 package com.vinicius.finances.services;
 
-import com.vinicius.finances.DTOs.DespesaDTO;
-import com.vinicius.finances.DTOs.DespesaInsertDTO;
-import com.vinicius.finances.DTOs.TotalPorMesDTO;
+import com.vinicius.finances.DTOs.*;
+import com.vinicius.finances.entities.despesa.CategoriaDespesa;
 import com.vinicius.finances.entities.despesa.Despesa;
 import com.vinicius.finances.entities.despesa.Parcela;
+
+import com.vinicius.finances.projections.DespesaProjection;
 import com.vinicius.finances.projections.TotalMesProjection;
 import com.vinicius.finances.repositories.CategoriaDespesaRepository;
 import com.vinicius.finances.repositories.DespesaRepository;
@@ -14,12 +15,18 @@ import com.vinicius.finances.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DespesaService {
@@ -32,8 +39,33 @@ public class DespesaService {
     private CategoriaDespesaRepository categoriaDespesaRepository;
 
     @Transactional(readOnly = true)
-    public List<DespesaDTO> findAll(Long id) {
-        return despesaRepository.buscarDespesas(id).stream().map(x -> new DespesaDTO(x)).limit(8).toList();
+    public Page<DespesaDTO> buscarDespesas(Long idUsuario, Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable) {
+        Page<DespesaProjection> listaBusca = despesaRepository.buscarDespesas(idUsuario, idCategoria, inicio, fim, pageable);
+        Map<Long, Despesa> despesasMap = new HashMap<>();
+
+        listaBusca.forEach(x -> {
+            Despesa despesa = despesasMap.get(x.getId());
+            if (despesa == null) {
+                despesa = new Despesa();
+                despesa.setId(x.getId());
+                despesa.setData(x.getData());
+                despesa.setValor(x.getValor());
+                CategoriaDespesa categoriaDespesa = new CategoriaDespesa();
+                categoriaDespesa.setId(x.getCategoriaDespesaId());
+                categoriaDespesa.setNome(x.getNome());
+                despesa.setCategoriaDespesa(categoriaDespesa);
+                despesasMap.put(x.getId(), despesa);
+            }
+            if (x.getIdParcela() != null) {
+                Parcela parcela = new Parcela();
+                parcela.setId(x.getIdParcela());
+                parcela.setDataDeVencimento(x.getDataDeVencimento());
+                parcela.setValorParcela(x.getValorParcela());
+                despesa.getParcelas().add(parcela);
+            }
+        });
+        List<DespesaDTO> lista = despesasMap.values().stream().map(x -> new DespesaDTO(x)).toList();
+        return new PageImpl<>(lista, listaBusca.getPageable(), listaBusca.getTotalElements());
     }
 
     @Transactional(readOnly = true)

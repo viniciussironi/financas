@@ -2,15 +2,19 @@ package com.vinicius.finances.controllers;
 
 import com.vinicius.finances.DTOs.DespesaDTO;
 import com.vinicius.finances.DTOs.DespesaInsertDTO;
+import com.vinicius.finances.DTOs.ReceitaDTO;
 import com.vinicius.finances.DTOs.TotalPorMesDTO;
 import com.vinicius.finances.services.DespesaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -21,8 +25,14 @@ public class DespesaController {
     private DespesaService service;
 
     @GetMapping(value = "/{id}")
-    public  ResponseEntity<List<DespesaDTO>> findAll(@PathVariable Long id) {
-       return ResponseEntity.ok(service.findAll(id));
+    public  ResponseEntity<Page<DespesaDTO>> buscarTotdas(
+            @PathVariable Long id,
+            @RequestParam (name = "idCategoria", defaultValue = "") Long idCategoria,
+            @RequestParam (name = "inicio", defaultValue = "") LocalDate inicio,
+            @RequestParam (name = "fim", defaultValue = "") LocalDate fim,
+            Pageable pageable) {
+
+        return ResponseEntity.ok(service.buscarDespesas(id, idCategoria, inicio, fim, pageable));
     }
 
     @GetMapping(value = "/totalPorMes/{id}")

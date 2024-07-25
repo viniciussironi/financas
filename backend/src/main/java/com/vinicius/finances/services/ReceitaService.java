@@ -4,7 +4,7 @@ import com.vinicius.finances.DTOs.ReceitaDTO;
 import com.vinicius.finances.DTOs.TotalPorMesDTO;
 import com.vinicius.finances.entities.receita.CategoriaReceita;
 import com.vinicius.finances.entities.receita.Receita;
-import com.vinicius.finances.projections.ReceitaInterface;
+import com.vinicius.finances.projections.ReceitaProjection;
 import com.vinicius.finances.projections.TotalMesProjection;
 import com.vinicius.finances.repositories.CategoriaReceitaRepository;
 import com.vinicius.finances.repositories.ReceitaRepository;
@@ -36,7 +36,7 @@ public class ReceitaService {
 
     @Transactional(readOnly = true)
     public Page<ReceitaDTO> buscarReceitas(Long idUsuario, Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable) {
-        Page<ReceitaInterface> listaBusca = receitaRepository.buscarReceitas(idUsuario, idCategoria, inicio, fim, pageable);
+        Page<ReceitaProjection> listaBusca = receitaRepository.buscarReceitas(idUsuario, idCategoria, inicio, fim, pageable);
         List<ReceitaDTO> lista = new ArrayList<>();
 
         listaBusca.forEach(x -> {

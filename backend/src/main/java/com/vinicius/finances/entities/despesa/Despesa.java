@@ -2,6 +2,7 @@ package com.vinicius.finances.entities.despesa;
 
 import com.vinicius.finances.entities.MovimentacaoGenerico;
 import com.vinicius.finances.entities.Usuario;
+import com.vinicius.finances.entities.receita.CategoriaReceita;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -28,4 +29,12 @@ public class Despesa extends MovimentacaoGenerico {
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+    public void setCategoriaDespesa(CategoriaDespesa categoriaDespesa) {
+        this.categoriaDespesa = categoriaDespesa;
+    }
+
+    public void setParcelas(Parcela parcela) {
+        parcelas.add(parcela);
+    }
 }
