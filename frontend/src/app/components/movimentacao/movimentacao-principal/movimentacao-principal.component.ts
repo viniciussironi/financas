@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { TotalPorMesInterface } from '../../../interface/total_por_mes-interface';
 import { MovimentacaoInterface } from '../../../interface/movimentacao-interface';
@@ -9,7 +10,6 @@ import { UltimasMovComponent } from "../gerais/ultimas-mov/ultimas-mov.component
 import { BtnAddMovimentacaoComponent } from "../gerais/btn-add-movimentacao/btn-add-movimentacao.component";
 import { TotalPorCategoriaComponent } from "../gerais/por-categoria/total-por-categoria.component";
 import { TotalUltimosMesesComponent } from "../gerais/ultimos-meses/total-ultimos-meses.component";
-import { BuscarComponent } from "../gerais/buscar/buscar.component";
 import { CategoriaInterface } from '../../../interface/categoria-interface';
 import { Page } from '../../../interface/page-interface';
 
@@ -18,12 +18,12 @@ import { Page } from '../../../interface/page-interface';
   standalone: true,
   imports: [
     RouterModule,
+    ReactiveFormsModule,
     TotalReceitaDespesaComponent,
     UltimasMovComponent,
     BtnAddMovimentacaoComponent,
     TotalPorCategoriaComponent,
     TotalUltimosMesesComponent,
-    BuscarComponent
 ],
   templateUrl: './movimentacao-principal.component.html',
   styleUrl: './movimentacao-principal.component.scss'
@@ -42,7 +42,4 @@ export class MovimentacaoPrincipalComponent {
   movimentacao: Page<MovimentacaoInterface> = { content: [], totalPages: 0, number: 0 };
   @Input()
   totalPorCategoriaDespesa: TotalPorCategoriaInterface[] = [];
-  @Input()
-  listaCategorias: CategoriaInterface[] = [];
-
 } 

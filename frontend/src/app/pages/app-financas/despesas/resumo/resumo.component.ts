@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { DespesasService } from '../../../../services/despesas.service';
 import { CategoriaDespesaService } from '../../../../services/categoria-despesa.service';
@@ -7,15 +9,14 @@ import { Page } from '../../../../interface/page-interface';
 import { DespesaInterface } from '../../../../interface/despesas-interface';
 import { TotalPorMesInterface } from '../../../../interface/total_por_mes-interface';
 import { TotalPorCategoriaInterface } from '../../../../interface/total_por_categoria-interface';
-
-import { BuscarComponent } from "../../../../components/movimentacao/gerais/buscar/buscar.component";
-import { MovimentacaoPrincipalComponent } from "../../../../components/movimentacao/movimentacao-principal/movimentacao-principal.component";
 import { CategoriaInterface } from '../../../../interface/categoria-interface';
+
+import { MovimentacaoPrincipalComponent } from "../../../../components/movimentacao/movimentacao-principal/movimentacao-principal.component";
 
 @Component({
   selector: 'app-resumo',
   standalone: true,
-  imports: [MovimentacaoPrincipalComponent, BuscarComponent],
+  imports: [MovimentacaoPrincipalComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './resumo.component.html',
   styleUrl: './resumo.component.scss'
 })
@@ -29,17 +30,21 @@ export class ResumoDespesasComponent implements OnInit {
   categorias: CategoriaInterface[] = [];
   totalPorMes: TotalPorMesInterface[] = [];
   totalPorCategoriaDespesa: TotalPorCategoriaInterface[] = [];
+
+  formCategoryId = new FormControl('');
+  formInicio = new FormControl('');
+  formFim = new FormControl('');
   
   ngOnInit(): void {
-    this.getDespesas(1);
+    this.getDespesas(1, '', '', '');
     this.getCategorias();
     this.getTotalCategoriaDespesas(1);
     this.getTotalDespesas();
     this.getTotalPorMes(1);
   }
   
-  getDespesas(userId: number) {
-    this.despesaService.getDespesas(userId).subscribe(
+  getDespesas(userId: number, categoriaId: string, inicio: string, fim: string) {
+    this.despesaService.getDespesas(userId, categoriaId, inicio, fim).subscribe(
     (despesas: Page<DespesaInterface>) => {
       this.despesas = despesas;
     })
@@ -70,6 +75,19 @@ export class ResumoDespesasComponent implements OnInit {
     this.despesas.content.forEach(x => {
       this.totalDespesas += x.valor
     });
+  }
+
+  onSubmit(event: Event) {
+    event.preventDefault();
+    console.log(this.formCategoryId)
+    this.getDespesas(1, String(this.formCategoryId.value), String(this.formInicio.value), String(this.formFim.value));
+  }
+
+  resetFilters() {
+    this.formCategoryId.setValue('');
+    this.formInicio.setValue('');
+    this.formFim.setValue('');
+    this.getDespesas(1, '', '', '');
   }
 }
 

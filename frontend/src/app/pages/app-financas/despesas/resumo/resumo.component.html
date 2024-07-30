@@ -1,9 +1,33 @@
 <div class="resumo-despesas__container">
+    <div class="buscar__container">
+        <h2>Filtrar:</h2>
+        <form (submit)="onSubmit($event)">
+            <select 
+                name="categoria" 
+                id="categoria" 
+                [formControl]="formCategoryId" 
+                (change)="onSubmit($event)">
+                <option value="">Categoria</option>
+                <option 
+                    *ngFor="let categoria of categorias" 
+                    [value]="categoria.id"
+                >{{ categoria.nome }}</option>
+            </select>
+            <div class="input">
+                <p>De:</p>
+                <input type="date" [formControl]="formInicio" (change)="onSubmit($event)">
+            </div>
+            <div class="input">
+                <p>Até:</p>
+                <input type="date" [formControl]="formFim" (change)="onSubmit($event)">
+            </div>
+            <input type="reset" id="resetar" value="LIMPAR" (click)="resetFilters()">
+        </form>
+    </div>
     <app-movimentacao-principal
         link="/app-finances/despesas/add-despesa"
         [cor]="cor"
         [movimentacao]="despesas"
-        [listaCategorias]="categorias"
         [totalPorCategoriaDespesa]="totalPorCategoriaDespesa"
         [totalDespesas]="totalDespesas"
         [totalPorMes]="totalPorMes"

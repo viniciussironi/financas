@@ -15,8 +15,8 @@ export class ReceitasService {
 
   constructor(private http: HttpClient) { }
 
-  getReceitas(userId: number): Observable<Page<ReceitaInterface>> {
-    return this.http.get<Page<ReceitaInterface>>(`${this.url}/${userId}`);
+  getReceitas(userId: number, categoriaId: string, inicio: string, fim: string): Observable<Page<ReceitaInterface>> {
+    return this.http.get<Page<ReceitaInterface>>(`${this.url}/${userId}?idCategoria=${categoriaId}&inicio=${inicio}&fim=${fim}`);
   }
 
   getTotalPorMes(userId: number): Observable<TotalPorMesInterface[]> {

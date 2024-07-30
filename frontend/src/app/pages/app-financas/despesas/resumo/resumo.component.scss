@@ -1,0 +1,79 @@
+@use '../../../../../variables';
+
+
+.resumo-despesas__container {
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+
+.buscar__container {
+    margin-bottom: 15px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+form {
+    width: 100%;
+    padding: 8px 25px;
+    border-radius: 15px;
+    background-color: variables.$gray_color;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+select {
+    width: 30%;
+    font-size: 16px;
+    background-color: variables.$gray_color;
+    border: none;
+    border-bottom: 1px solid #000;
+}
+
+select:focus {
+    border-bottom: 1px solid variables.$orange_color;
+}
+
+.input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+input { 
+    padding: 5px 14px;
+    border-radius: 9px;
+    font-weight: 500;
+    outline: 0;
+    cursor: pointer;
+}
+
+input[type="date"] {
+    background-color: variables.$gray_color;
+    border: 1px solid variables.$black_color;
+    color: variables.$black_color;
+}
+
+input[type="reset"] {
+    background-color: variables.$orange_color;
+    border: 2px solid variables.$orange_color;
+    color: variables.$white_color;
+}
+
+input:hover {
+    background-color: variables.$gray_color;
+    border: 1px solid variables.$orange_color;
+    color: variables.$orange_color;
+}

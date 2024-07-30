@@ -5,5 +5,5 @@ export interface MovimentacaoInterface {
     categoria: {
       id: number,
       nome: string
-  },
-  }
+    },
+}

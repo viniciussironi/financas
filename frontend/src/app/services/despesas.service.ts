@@ -15,8 +15,8 @@ export class DespesasService {
 
   constructor(private http: HttpClient) { }
 
-  getDespesas(userId: number): Observable<Page<DespesaInterface>> {
-    return this.http.get<Page<DespesaInterface>>(`${this.url}/${userId}`);
+  getDespesas(userId: number, categoriaId: string, inicio: string, fim: string): Observable<Page<DespesaInterface>> {
+    return this.http.get<Page<DespesaInterface>>(`${this.url}/${userId}?idCategoria=${categoriaId}&inicio=${inicio}&fim=${fim}`);
   }
 
   getTotalPorMes(userId: number): Observable<TotalPorMesInterface[]> {

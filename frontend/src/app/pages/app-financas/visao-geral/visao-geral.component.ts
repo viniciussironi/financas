@@ -37,14 +37,14 @@ export class VisaoGeralComponent implements OnInit {
   }
   
   getReceitas(userId: number) {
-    this.receitaService.getReceitas(userId).subscribe(
+    this.receitaService.getReceitas(userId, '', '', '').subscribe(
     (receitas: Page<ReceitaInterface>) => {
     this.receitas = receitas;
     });
   }
 
   getDespesas(userId: number) {
-    this.despesaService.getDespesas(userId).subscribe(
+    this.despesaService.getDespesas(userId, '', '', '').subscribe(
     (despesas: Page<DespesaInterface>) => {
     this.despesas = despesas;
     });
