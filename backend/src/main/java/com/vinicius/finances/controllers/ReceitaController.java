@@ -6,6 +6,8 @@ import com.vinicius.finances.services.ReceitaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,15 +25,13 @@ public class ReceitaController {
     @Autowired
     private ReceitaService service;
 
-    @GetMapping(value = "/{id}")
+    @GetMapping
     public  ResponseEntity<Page<ReceitaDTO>> buscarTodas(
-            @PathVariable Long id,
             @RequestParam (name = "idCategoria", defaultValue = "") Long idCategoria,
             @RequestParam (name = "inicio", defaultValue = "") LocalDate inicio,
             @RequestParam (name = "fim", defaultValue = "") LocalDate fim,
             Pageable pageable) {
-
-        return ResponseEntity.ok(service.buscarReceitas(id, idCategoria, inicio, fim, pageable));
+        return ResponseEntity.ok(service.buscarReceitas(idCategoria, inicio, fim, pageable));
     }
 
     @GetMapping(value = "/totalPorMes/{id}")

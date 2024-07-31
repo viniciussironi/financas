@@ -9,6 +9,10 @@
             <h2 [style.color]="cor">R$ {{ x.valor }}</h2>
         </div>
     </div>
+    <div class="pages">
+        <span (click)="backPage()" class="material-symbols-outlined" [ngClass]="{'active': listaMovimentacao.number > 0}">arrow_back_ios</span>
+        <span (click)="nextPage()" class="material-symbols-outlined" [ngClass]="{'active': listaMovimentacao.number < listaMovimentacao.totalPages - 1}">arrow_forward_ios</span>
+    </div>
 </div>
 
 

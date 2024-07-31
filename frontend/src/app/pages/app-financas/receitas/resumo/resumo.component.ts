@@ -44,8 +44,8 @@ export class ResumoReceitasComponent implements OnInit {
     this.getTotalPorMes(1);
   }
   
-  getReceitas(userId: number, categoriaId: string, inicio: string, fim: string) {
-    this.receitaService.getReceitas(userId, categoriaId, inicio, fim).subscribe(
+  getReceitas(pageNumber:number, categoriaId: string, inicio: string, fim: string) {
+    this.receitaService.getReceitas(pageNumber, categoriaId, inicio, fim).subscribe(
     (receitas: Page<ReceitaInterface>) => {
       this.receitas = receitas;
     })

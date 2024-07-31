@@ -11,7 +11,7 @@ import java.util.*;
 
 @Data
 @Entity
-@Table(name = "Usuarios")
+@Table(name = "usuarios")
 public class Usuario implements UserDetails {
 
     @Id
@@ -30,14 +30,14 @@ public class Usuario implements UserDetails {
 
     @ManyToMany(fetch = FetchType.EAGER) // Toda vez que buscar um usuário, já vai vir os Roles
     @JoinTable(
-            name = "Usuario_Acesso",
+            name = "usuario_acesso",
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "acesso_id"))
     private Set<Acesso> acessos = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return acessos;
+        return List.of();
     }
 
     @Override

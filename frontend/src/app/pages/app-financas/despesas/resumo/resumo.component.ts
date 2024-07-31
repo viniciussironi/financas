@@ -31,6 +31,8 @@ export class ResumoDespesasComponent implements OnInit {
   totalPorMes: TotalPorMesInterface[] = [];
   totalPorCategoriaDespesa: TotalPorCategoriaInterface[] = [];
 
+  selectedPage: number = 0;
+
   formCategoryId = new FormControl('');
   formInicio = new FormControl('');
   formFim = new FormControl('');
@@ -43,8 +45,8 @@ export class ResumoDespesasComponent implements OnInit {
     this.getTotalPorMes(1);
   }
   
-  getDespesas(userId: number, categoriaId: string, inicio: string, fim: string) {
-    this.despesaService.getDespesas(userId, categoriaId, inicio, fim).subscribe(
+  getDespesas(pageNumber:number, categoriaId: string, inicio: string, fim: string) {
+    this.despesaService.getDespesas(pageNumber, categoriaId, inicio, fim).subscribe(
     (despesas: Page<DespesaInterface>) => {
       this.despesas = despesas;
     })

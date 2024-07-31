@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReceitaInterface } from '../interface/receitas-interface';
 import { Observable } from 'rxjs';
@@ -15,8 +15,15 @@ export class ReceitasService {
 
   constructor(private http: HttpClient) { }
 
-  getReceitas(userId: number, categoriaId: string, inicio: string, fim: string): Observable<Page<ReceitaInterface>> {
-    return this.http.get<Page<ReceitaInterface>>(`${this.url}/${userId}?idCategoria=${categoriaId}&inicio=${inicio}&fim=${fim}`);
+  getReceitas(pageNumber:number, categoriaId: string, inicio: string, fim: string): Observable<Page<ReceitaInterface>> {
+    let params = new HttpParams()
+    .set('page', pageNumber)
+    .set('size', 7)
+    .set('categoriaId', categoriaId)
+    .set('inicio', inicio)
+    .set('fim', fim);
+
+    return this.http.get<Page<ReceitaInterface>>(this.url, {params});
   }
 
   getTotalPorMes(userId: number): Observable<TotalPorMesInterface[]> {

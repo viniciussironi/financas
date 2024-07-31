@@ -1,4 +1,4 @@
-INSERT INTO Usuarios (nome, sobrenome, email, senha) VALUES ('Vinicius', 'Sironi', 'viniciussironi@gmail.com', '1234567');
+INSERT INTO Usuarios (nome, sobrenome, email, senha) VALUES ('Vinicius', 'Sironi', 'viniciussironi@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG');
 
 INSERT INTO Categorias_Despesas (nome) VALUES ('Empréstimo');
 INSERT INTO Categorias_Despesas (nome) VALUES ('Alimentação');

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Constants } from '../constants';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DespesaInterface } from '../interface/despesas-interface';
 import { TotalPorMesInterface } from '../interface/total_por_mes-interface';
@@ -15,8 +15,15 @@ export class DespesasService {
 
   constructor(private http: HttpClient) { }
 
-  getDespesas(userId: number, categoriaId: string, inicio: string, fim: string): Observable<Page<DespesaInterface>> {
-    return this.http.get<Page<DespesaInterface>>(`${this.url}/${userId}?idCategoria=${categoriaId}&inicio=${inicio}&fim=${fim}`);
+  getDespesas(pageNumber: number, categoriaId: string, inicio: string, fim: string): Observable<Page<DespesaInterface>> {
+    let params = new HttpParams()
+    .set('page', pageNumber)
+    .set('size', 7)
+    .set('categoriaId', categoriaId)
+    .set('inicio', inicio)
+    .set('fim', fim);
+
+    return this.http.get<Page<DespesaInterface>>(this.url, {params});
   }
 
   getTotalPorMes(userId: number): Observable<TotalPorMesInterface[]> {

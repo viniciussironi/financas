@@ -2,6 +2,7 @@ package com.vinicius.finances.services;
 
 import com.vinicius.finances.DTOs.ReceitaDTO;
 import com.vinicius.finances.DTOs.TotalPorMesDTO;
+import com.vinicius.finances.entities.Usuario;
 import com.vinicius.finances.entities.receita.CategoriaReceita;
 import com.vinicius.finances.entities.receita.Receita;
 import com.vinicius.finances.projections.ReceitaProjection;
@@ -33,10 +34,15 @@ public class ReceitaService {
     private ReceitaRepository receitaRepository;
     @Autowired
     private CategoriaReceitaRepository categoriaReceitaRepository;
+    @Autowired
+    private AuthService authService;
 
     @Transactional(readOnly = true)
-    public Page<ReceitaDTO> buscarReceitas(Long idUsuario, Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable) {
-        Page<ReceitaProjection> listaBusca = receitaRepository.buscarReceitas(idUsuario, idCategoria, inicio, fim, pageable);
+    public Page<ReceitaDTO> buscarReceitas(Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable) {
+        Usuario usuarioLogado = authService.authenticated();
+
+
+        Page<ReceitaProjection> listaBusca = receitaRepository.buscarReceitas(usuarioLogado.getId(), idCategoria, inicio, fim, pageable);
         List<ReceitaDTO> lista = new ArrayList<>();
 
         listaBusca.forEach(x -> {
@@ -51,7 +57,6 @@ public class ReceitaService {
             ReceitaDTO receitaDTO = new ReceitaDTO(receita);
             lista.add(receitaDTO);
         });
-
         return new PageImpl<>(lista, listaBusca.getPageable(), listaBusca.getTotalElements());
     }
 

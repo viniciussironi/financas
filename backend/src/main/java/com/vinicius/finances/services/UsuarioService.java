@@ -103,8 +103,7 @@ public class UsuarioService implements UserDetailsService {
 
         Usuario usuario = new Usuario();
         usuario.setEmail(result.get(0).getUsername());
-        usuario.setSenha(result.get(0).getSenha());
-        result.forEach(x -> usuario.addAcesso(new Acesso(x.getRoleId(), x.getAuthority())));
+        usuario.setSenha(result.get(0).getPassword());
         return usuario;
     }
 

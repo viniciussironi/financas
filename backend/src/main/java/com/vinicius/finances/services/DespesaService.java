@@ -1,6 +1,7 @@
 package com.vinicius.finances.services;
 
 import com.vinicius.finances.DTOs.*;
+import com.vinicius.finances.entities.Usuario;
 import com.vinicius.finances.entities.despesa.CategoriaDespesa;
 import com.vinicius.finances.entities.despesa.Despesa;
 import com.vinicius.finances.entities.despesa.Parcela;
@@ -37,10 +38,14 @@ public class DespesaService {
     private ParcelaRepository parcelaRepository;
     @Autowired
     private CategoriaDespesaRepository categoriaDespesaRepository;
+    @Autowired
+    private AuthService authService;
 
     @Transactional(readOnly = true)
-    public Page<DespesaDTO> buscarDespesas(Long idUsuario, Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable) {
-        Page<DespesaProjection> listaBusca = despesaRepository.buscarDespesas(idUsuario, idCategoria, inicio, fim, pageable);
+    public Page<DespesaDTO> buscarDespesas(Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable) {
+        Usuario usuarioLogado = authService.authenticated();
+
+        Page<DespesaProjection> listaBusca = despesaRepository.buscarDespesas(usuarioLogado.getId(), idCategoria, inicio, fim, pageable);
         Map<Long, Despesa> despesasMap = new HashMap<>();
 
         listaBusca.forEach(x -> {

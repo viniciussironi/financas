@@ -6,7 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 @Data
 @Entity
-@Table(name = "Acessos")
+@Table(name = "acessos")
 public class Acesso implements GrantedAuthority {
 
     @Id
@@ -17,6 +17,9 @@ public class Acesso implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return authority;
+    }
+
+    public Acesso() {
     }
 
     public Acesso(Long id, String authority) {
