@@ -8,6 +8,7 @@ import com.vinicius.finances.entities.despesa.Parcela;
 
 import com.vinicius.finances.projections.DespesaProjection;
 import com.vinicius.finances.projections.TotalMesProjection;
+import com.vinicius.finances.projections.ValorTotalMovimentacao;
 import com.vinicius.finances.repositories.CategoriaDespesaRepository;
 import com.vinicius.finances.repositories.DespesaRepository;
 import com.vinicius.finances.repositories.ParcelaRepository;
@@ -74,10 +75,12 @@ public class DespesaService {
     }
 
     @Transactional(readOnly = true)
-    public List<TotalPorMesDTO> buscarTotalPorMes(Long id) {
+    public List<TotalPorMesDTO> buscarTotalPorMes() {
+        Usuario usuarioLogado = authService.authenticated();
+
         String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 
-        List<TotalMesProjection> busca = despesaRepository.buscarTotalPorMes(id);
+        List<TotalMesProjection> busca = despesaRepository.buscarTotalPorMes(usuarioLogado.getId());
         List<TotalPorMesDTO> result = new ArrayList<>();
         busca.forEach(x -> {
             TotalPorMesDTO dto = new TotalPorMesDTO();
@@ -88,8 +91,21 @@ public class DespesaService {
         return result;
     }
 
+    @Transactional(readOnly = true)
+    public Double valorTotalDespesa() {
+        Usuario usuarioLogado = authService.authenticated();
+        ValorTotalMovimentacao busca = despesaRepository.valorTotalDespesas(usuarioLogado.getId());
+        return busca.getTotal();
+    }
+
+    @Transactional(readOnly = true)
+    public DespesaDTO findById(Long id) {
+        return new DespesaDTO(despesaRepository.findById(id).get());
+    }
+
     @Transactional
     public DespesaDTO insert(DespesaInsertDTO dto) {
+        Usuario usuarioLogado = authService.authenticated();
         Despesa despesa = new Despesa();
         if (dto.getE_parcelado()) {
             double valorParcela = dto.getValor() / dto.getQtdParcelas();
@@ -103,6 +119,7 @@ public class DespesaService {
             }
         }
         dtoToEntity(dto, despesa);
+        despesa.setUsuario(usuarioLogado);
         despesa = despesaRepository.save(despesa);
         return new DespesaDTO(despesa);
     }

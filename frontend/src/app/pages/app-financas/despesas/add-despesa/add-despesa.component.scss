@@ -1,0 +1,110 @@
+@use '../../../../../variables';
+
+.add__despesa {
+    height: 80%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-movimentacao__container {
+    width: 580px;
+    padding: 15px;
+    border-radius: 12px;
+    background-color: variables.$gray_color;
+}
+
+.form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.esquerda {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input {
+    margin: 10px 0;
+}
+
+p {
+    margin-bottom: 5px;
+}
+
+input, select {
+    border: 1px solid variables.$black_color;
+    background-color: variables.$gray_color;
+    border-radius: 10px;
+    padding: 8px 15px;
+    width: 250px;
+}
+
+input:focus, select:focus {
+    border: 1px solid variables.$orange_color;
+    outline: 0;
+}
+
+img {
+    width: 250px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.adicionar {
+    border: 2px solid variables.$orange_color;
+    border-radius: 12px;
+    background-color: variables.$orange_color;
+    color: variables.$black_color;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 6px 24px;
+    margin-top: 20px;
+    
+}
+
+.adicionar:hover {
+    border: 2px solid variables.$black_color;
+    background-color: variables.$gray_color;
+}
+
+
+.btn-sim, .btn-nao {
+    border: 1px solid variables.$black_color;
+    border-radius: 6px;
+    background-color: variables.$gray_color;
+    color: variables.$black_color;
+    font-weight: 400;
+    font-size: 13px;
+    padding: 3px 9px;
+    margin: 0 5px;
+}
+
+.btn-sim:hover, .btn-nao:hover {
+    border: 1px solid variables.$orange_color;
+    color: variables.$orange_color;
+}
+
+.btn-selected {
+    border: 1px solid variables.$orange_color;
+    color: variables.$orange_color;
+}
+
+.e-parcelada {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nao-mostrar {
+    display: none;
+}

@@ -1,0 +1,18 @@
+<div class="ultimas-mov__container">
+    <h1>Últimas despesas</h1>
+    <div class="lista" *ngFor="let x of lista.content">
+        <div class="esquerda">
+            <span>{{ x.categoria.nome }}</span>
+            <p>{{ x.data }}</p>
+        </div>
+        <div class="direita">
+            <h2>R$ {{ x.valor }}</h2>
+        </div>
+    </div>
+    <div class="pages">
+        <div>
+            <span (click)="nextPageImp()" class="material-symbols-outlined" [ngClass]="{'active': lista.number > 0}">arrow_back_ios</span>
+            <span (click)="backPageImp()" class="material-symbols-outlined" [ngClass]="{'active': lista.number < lista.totalPages - 1}">arrow_forward_ios</span>
+        </div>
+    </div>
+</div>

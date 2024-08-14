@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { TotalPorCategoriaInterface } from '../../../../interface/total_por_categoria-interface';
 import { Page } from '../../../../interface/page-interface';
@@ -11,12 +12,27 @@ import { CategoriaInterface } from '../../../../interface/categoria-interface';
 import { ReceitasService } from '../../../../services/receitas.service';
 import { CategoriaReceitaService } from '../../../../services/categoria-receita.service';
 
-import { MovimentacaoPrincipalComponent } from "../../../../components/movimentacao/movimentacao-principal/movimentacao-principal.component";
+import { TotalReceitaDespesaComponent } from "../../../../components/movimentacao/total-receita-despesa/total-receita-despesa.component";
+import { BtnAddMovimentacaoComponent } from "../../../../components/movimentacao/btn-add-movimentacao/btn-add-movimentacao.component";
+import { TotalPorCategoriaComponent } from "../../../../components/movimentacao/por-categoria/total-por-categoria.component";
+import { TotalUltimosMesesComponent } from "../../../../components/movimentacao/ultimos-meses/total-ultimos-meses.component";
+import { UltimasMovimentacoesComponent } from "../../../../components/movimentacao/ultimas-movimentacoes/ultimas-movimentacoes.component";
+import { BuscarComponent } from "../../../../components/movimentacao/buscar/buscar.component";
 
 @Component({
   selector: 'app-resumo',
   standalone: true,
-  imports: [MovimentacaoPrincipalComponent, ReactiveFormsModule, CommonModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    RouterModule,
+    TotalReceitaDespesaComponent,
+    BtnAddMovimentacaoComponent,
+    TotalPorCategoriaComponent,
+    TotalUltimosMesesComponent,
+    UltimasMovimentacoesComponent,
+    BuscarComponent
+],
   templateUrl: './resumo.component.html',
   styleUrl: './resumo.component.scss'
 })
@@ -26,6 +42,8 @@ export class ResumoReceitasComponent implements OnInit {
   
   cor: string = "#06894A";
   totalReceitas: number = 0;
+  selectedPage: number = 0;
+
   receitas: Page<ReceitaInterface> = { content: [], totalPages: 0, number: 0 };
   categorias: CategoriaInterface[] = [];
   totalPorMes: TotalPorMesInterface[] = [];
@@ -37,11 +55,11 @@ export class ResumoReceitasComponent implements OnInit {
   formFim = new FormControl('');
   
   ngOnInit(): void {
-    this.getReceitas(1, '', '', '');
+    this.getReceitas(0, '', '', '');
     this.getCategorias(); 
-    this.getTotalCategoriaReceitas(1);
+    this.getTotalCategoriaReceitas();
     this.getTotalReceitas();
-    this.getTotalPorMes(1);
+    this.getTotalPorMes();
   }
   
   getReceitas(pageNumber:number, categoriaId: string, inicio: string, fim: string) {
@@ -58,36 +76,51 @@ export class ResumoReceitasComponent implements OnInit {
     })
   }
 
-  getTotalCategoriaReceitas(userId: number) {
-    this.categoriaReceitaService.getTotalPorCategoriaReceita(userId).subscribe(
+  getTotalCategoriaReceitas() {
+    this.categoriaReceitaService.getTotalPorCategoriaReceita().subscribe(
     (totalPorCategoriaReceita: TotalPorCategoriaInterface[]) => {
     this.totalPorCategoriaReceita = totalPorCategoriaReceita;
     });
   }
 
-  getTotalPorMes(userId: number) {
-    this.receitaService.getTotalPorMes(userId).subscribe(
+  getTotalPorMes() {
+    this.receitaService.getTotalPorMes().subscribe(
     (totalPorMes: TotalPorMesInterface[]) => {
     this.totalPorMes = totalPorMes;
     });
   }
 
   getTotalReceitas() {
-    this.receitas.content.forEach(x => {
-      this.totalReceitas += x.valor
-    });
+    this.receitaService.getTotalReceitas().subscribe(
+      (total: number) => {
+        this.totalReceitas = total;
+      })
   }
 
-  onSubmit(event: Event) {
-    event.preventDefault();
-    console.log(this.formCategoryId)
-    this.getReceitas(1, String(this.formCategoryId.value), String(this.formInicio.value), String(this.formFim.value));
+  onSubmit() {
+    this.getReceitas(0, String(this.formCategoryId.value), String(this.formInicio.value), String(this.formFim.value));
   }
 
   resetFilters() {
     this.formCategoryId.setValue('');
     this.formInicio.setValue('');
     this.formFim.setValue('');
-    this.getReceitas(1, '', '', '');
+    this.getReceitas(0, '', '', '');
+  }
+
+  nextPage():void {
+    if (this.receitas.number < this.receitas.totalPages - 1) {
+      this.receitas.number++;
+      this.selectedPage = this.receitas.number;
+      this.getReceitas(this.receitas.number, String(this.formCategoryId.value), String(this.formInicio.value), String(this.formFim.value));
+    }
+  }
+
+  backPage():void {
+    if (this.receitas.number > 0) {
+      this.receitas.number --;
+      this.selectedPage = this.receitas.number;
+      this.getReceitas(this.receitas.number, String(this.formCategoryId.value), String(this.formInicio.value), String(this.formFim.value));
+    }
   }
 }

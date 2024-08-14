@@ -1,0 +1,24 @@
+<div class="login-page__component">
+    <div class="login">
+        <div class="titulo">
+            <img src="assets/logo-login.png" alt="">
+            <h1>Finanças</h1>
+        </div>
+        <div class="erro">
+            <span>{{ errorMessage }}</span>
+        </div>
+        <div class="inputs">
+            <div class="input">
+                <label>E-mail</label>
+                <input type="email" placeholder="Digite seu e-mail" [formControl]="username" required>
+            </div>
+            <div class="input">
+                <label>Senha</label>
+                <input type="password" placeholder="Digite sua senha" [formControl]="password" required>
+            </div>
+            <a href="">Esqueceu sua senha?</a>
+        </div>
+        <button (click)="getLogin()" >Entrar</button>
+        <p>Não tem conta? <a href="">Criar agora</a></p>
+    </div>
+</div>

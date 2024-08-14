@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Constants } from '../constants';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Constants } from '../constant/constants';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DespesaInterface } from '../interface/despesas-interface';
 import { TotalPorMesInterface } from '../interface/total_por_mes-interface';
@@ -19,17 +19,40 @@ export class DespesasService {
     let params = new HttpParams()
     .set('page', pageNumber)
     .set('size', 7)
-    .set('categoriaId', categoriaId)
+    .set('idCategoria', categoriaId)
     .set('inicio', inicio)
     .set('fim', fim);
 
-    return this.http.get<Page<DespesaInterface>>(this.url, {params});
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+
+    return this.http.get<Page<DespesaInterface>>(this.url, {params, headers});
   }
 
-  getTotalPorMes(userId: number): Observable<TotalPorMesInterface[]> {
-    return this.http.get<TotalPorMesInterface[]>(`${this.url}/totalPorMes/${userId}`);
+  getTotalPorMes(): Observable<TotalPorMesInterface[]> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+
+    return this.http.get<TotalPorMesInterface[]>(`${this.url}/totalPorMes`, {headers});
   }
 
+  getTotalDespesas(): Observable<number> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+
+    return this.http.get<number>(`${this.url}/totalDespesas`, {headers});
+  }
+
+  getDespesaById(id: number): Observable<DespesaInterface> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+    
+    return this.http.get<DespesaInterface>(this.url + '/' + id, {headers});
+  } 
 
   insertDespesa(despesa: any) {
     return this.http.post(this.url, despesa)

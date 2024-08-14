@@ -1,5 +1,6 @@
 package com.vinicius.finances.controllers;
 
+import com.vinicius.finances.DTOs.DespesaDTO;
 import com.vinicius.finances.DTOs.ReceitaDTO;
 import com.vinicius.finances.DTOs.TotalPorMesDTO;
 import com.vinicius.finances.services.ReceitaService;
@@ -34,9 +35,19 @@ public class ReceitaController {
         return ResponseEntity.ok(service.buscarReceitas(idCategoria, inicio, fim, pageable));
     }
 
-    @GetMapping(value = "/totalPorMes/{id}")
-    public  ResponseEntity<List<TotalPorMesDTO>> buscarTotalPorMes(@PathVariable Long id) {
-        return ResponseEntity.ok(service.buscarTotalPorMes(id));
+    @GetMapping(value = "/totalPorMes")
+    public  ResponseEntity<List<TotalPorMesDTO>> buscarTotalPorMes() {
+        return ResponseEntity.ok(service.buscarTotalPorMes());
+    }
+
+    @GetMapping(value = "/totalReceitas")
+    public  ResponseEntity<Double> valorTotalDespesa() {
+        return ResponseEntity.ok(service.valorTotalDespesa());
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ReceitaDTO> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @PostMapping

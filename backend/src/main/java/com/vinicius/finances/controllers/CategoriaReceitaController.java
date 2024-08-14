@@ -24,9 +24,9 @@ public class CategoriaReceitaController {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping(value = "total/{id}")
-    public ResponseEntity<List<TotalPorCategoriaDTO>> buscarValorTotalPorCategoria(@PathVariable Long id) {
-        return ResponseEntity.ok(service.buscarValorTotalPorCategoria(id));
+    @GetMapping(value = "total")
+    public ResponseEntity<List<TotalPorCategoriaDTO>> buscarValorTotalPorCategoria() {
+        return ResponseEntity.ok(service.buscarValorTotalPorCategoria());
     }
 
     @PostMapping

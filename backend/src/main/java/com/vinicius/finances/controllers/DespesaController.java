@@ -2,13 +2,11 @@ package com.vinicius.finances.controllers;
 
 import com.vinicius.finances.DTOs.DespesaDTO;
 import com.vinicius.finances.DTOs.DespesaInsertDTO;
-import com.vinicius.finances.DTOs.ReceitaDTO;
 import com.vinicius.finances.DTOs.TotalPorMesDTO;
 import com.vinicius.finances.services.DespesaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +24,7 @@ public class DespesaController {
     private DespesaService service;
 
     @GetMapping
-    public  ResponseEntity<Page<DespesaDTO>> buscarTotdas(
+    public  ResponseEntity<Page<DespesaDTO>> buscarTodas(
             @RequestParam (name = "idCategoria", defaultValue = "") Long idCategoria,
             @RequestParam (name = "inicio", defaultValue = "") LocalDate inicio,
             @RequestParam (name = "fim", defaultValue = "") LocalDate fim,
@@ -34,9 +32,19 @@ public class DespesaController {
         return ResponseEntity.ok(service.buscarDespesas(idCategoria, inicio, fim, pageable));
     }
 
-    @GetMapping(value = "/totalPorMes/{id}")
-    public  ResponseEntity<List<TotalPorMesDTO>> buscarTotalPorMes(@PathVariable Long id) {
-        return ResponseEntity.ok(service.buscarTotalPorMes(id));
+    @GetMapping(value = "/totalPorMes")
+    public  ResponseEntity<List<TotalPorMesDTO>> buscarTotalPorMes() {
+        return ResponseEntity.ok(service.buscarTotalPorMes());
+    }
+
+    @GetMapping(value = "/totalDespesas")
+    public  ResponseEntity<Double> valorTotalDespesa() {
+        return ResponseEntity.ok(service.valorTotalDespesa());
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<DespesaDTO> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @PostMapping

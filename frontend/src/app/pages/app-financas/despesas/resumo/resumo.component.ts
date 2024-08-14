@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { DespesasService } from '../../../../services/despesas.service';
 import { CategoriaDespesaService } from '../../../../services/categoria-despesa.service';
@@ -11,12 +12,23 @@ import { TotalPorMesInterface } from '../../../../interface/total_por_mes-interf
 import { TotalPorCategoriaInterface } from '../../../../interface/total_por_categoria-interface';
 import { CategoriaInterface } from '../../../../interface/categoria-interface';
 
-import { MovimentacaoPrincipalComponent } from "../../../../components/movimentacao/movimentacao-principal/movimentacao-principal.component";
+import { TotalReceitaDespesaComponent } from "../../../../components/movimentacao/total-receita-despesa/total-receita-despesa.component";
+import { BtnAddMovimentacaoComponent } from "../../../../components/movimentacao/btn-add-movimentacao/btn-add-movimentacao.component";
+import { TotalPorCategoriaComponent } from "../../../../components/movimentacao/por-categoria/total-por-categoria.component";
+import { TotalUltimosMesesComponent } from "../../../../components/movimentacao/ultimos-meses/total-ultimos-meses.component";
 
 @Component({
   selector: 'app-resumo',
   standalone: true,
-  imports: [MovimentacaoPrincipalComponent, ReactiveFormsModule, CommonModule],
+  imports: [
+    ReactiveFormsModule, 
+    CommonModule, 
+    RouterModule, 
+    TotalReceitaDespesaComponent, 
+    BtnAddMovimentacaoComponent, 
+    TotalPorCategoriaComponent, 
+    TotalUltimosMesesComponent
+  ],
   templateUrl: './resumo.component.html',
   styleUrl: './resumo.component.scss'
 })
@@ -26,23 +38,24 @@ export class ResumoDespesasComponent implements OnInit {
   
   cor: string = "#F40808";
   totalDespesas: number = 0;
+  selectedPage: number = 0;
+  
   despesas: Page<DespesaInterface> = { content: [], totalPages: 0, number: 0 };
   categorias: CategoriaInterface[] = [];
   totalPorMes: TotalPorMesInterface[] = [];
   totalPorCategoriaDespesa: TotalPorCategoriaInterface[] = [];
 
-  selectedPage: number = 0;
 
   formCategoryId = new FormControl('');
   formInicio = new FormControl('');
   formFim = new FormControl('');
   
   ngOnInit(): void {
-    this.getDespesas(1, '', '', '');
+    this.getDespesas(0, '', '', '');
     this.getCategorias();
-    this.getTotalCategoriaDespesas(1);
+    this.getTotalCategoriaDespesas();
     this.getTotalDespesas();
-    this.getTotalPorMes(1);
+    this.getTotalPorMes();
   }
   
   getDespesas(pageNumber:number, categoriaId: string, inicio: string, fim: string) {
@@ -59,37 +72,54 @@ export class ResumoDespesasComponent implements OnInit {
     })
   }
 
-  getTotalCategoriaDespesas(userId: number) {
-    this.categoriadespesaService.getTotalPorCategoriaDespesa(userId).subscribe(
+  getTotalCategoriaDespesas() {
+    this.categoriadespesaService.getTotalPorCategoriaDespesa().subscribe(
     (totalPorCategoriaDespesa: TotalPorCategoriaInterface[]) => {
     this.totalPorCategoriaDespesa = totalPorCategoriaDespesa;
     });
   }
 
-  getTotalPorMes(userId: number) {
-    this.despesaService.getTotalPorMes(userId).subscribe(
+  getTotalPorMes() {
+    this.despesaService.getTotalPorMes().subscribe(
     (totalPorMes: TotalPorMesInterface[]) => {
     this.totalPorMes = totalPorMes;
     });
   }
 
   getTotalDespesas() {
-    this.despesas.content.forEach(x => {
-      this.totalDespesas += x.valor
+    this.despesaService.getTotalDespesas().subscribe(
+    (total: number) => {
+    this.totalDespesas = total;
     });
   }
 
   onSubmit(event: Event) {
     event.preventDefault();
-    console.log(this.formCategoryId)
-    this.getDespesas(1, String(this.formCategoryId.value), String(this.formInicio.value), String(this.formFim.value));
+    this.getDespesas(0, String(this.formCategoryId.value), String(this.formInicio.value), String(this.formFim.value));
   }
 
   resetFilters() {
     this.formCategoryId.setValue('');
     this.formInicio.setValue('');
     this.formFim.setValue('');
-    this.getDespesas(1, '', '', '');
+    this.getDespesas(0, '', '', '');
+  }
+
+  nextPage() {
+    if (this.despesas.number < this.despesas.totalPages - 1) {
+      this.despesas.number++;
+      this.selectedPage = this.despesas.number;
+      this.getDespesas(this.despesas.number, String(this.formCategoryId.value), String(this.formInicio.value), String(this.formFim.value));
+    }
+  }
+
+  backPage() {
+    if (this.despesas.number > 0) {
+      this.despesas.number --;
+      this.selectedPage = this.despesas.number;
+      this.getDespesas(this.despesas.number, String(this.formCategoryId.value), String(this.formInicio.value), String(this.formFim.value));
+    }
   }
 }
+
 

@@ -38,22 +38,10 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private AuthService authService;
 
-    @Transactional(readOnly = true)
-    public Page<UsuarioDTO> findAll(Pageable pageable) {
-        Page<Usuario> page = usuarioRepository.findAll(pageable);
-        return page.map(x -> new UsuarioDTO(x));
-    }
-
+    
     @Transactional(readOnly = true)
     public UsuarioDTO getMe() {
-        Usuario entidade = authService.authenticated();
-        return new UsuarioDTO(entidade);
-    }
-
-    @Transactional(readOnly = true)
-    public UsuarioDTO findById(Long id) {
-        Usuario entidade = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encotrado"));
-        return new UsuarioDTO(entidade);
+        return new UsuarioDTO(authService.authenticated());
     }
 
     @Transactional
@@ -68,9 +56,9 @@ public class UsuarioService implements UserDetailsService {
     }
 
     @Transactional
-    public UsuarioDTO update(Long id, UsuarioInserirDTO dto) {
+    public UsuarioDTO update(UsuarioInserirDTO dto) {
         try {
-            Usuario entity = usuarioRepository.getReferenceById(id); // Evita duas idas no banco
+            Usuario entity = authService.authenticated();
             dtoToEntity(dto, entity);
             entity = usuarioRepository.save(entity);
             return new UsuarioDTO(entity);

@@ -2,6 +2,7 @@ package com.vinicius.finances.services;
 
 import com.vinicius.finances.DTOs.CategoriaDTO;
 import com.vinicius.finances.DTOs.TotalPorCategoriaDTO;
+import com.vinicius.finances.entities.Usuario;
 import com.vinicius.finances.entities.receita.CategoriaReceita;
 import com.vinicius.finances.repositories.CategoriaReceitaRepository;
 import com.vinicius.finances.services.exceptions.DatabaseException;
@@ -19,6 +20,8 @@ public class CategoriaReceitaService {
 
     @Autowired
     private CategoriaReceitaRepository categoriaReceitaRepository;
+    @Autowired
+    private AuthService authService;
 
     @Transactional(readOnly = true)
     public List<CategoriaDTO> findAll() {
@@ -26,8 +29,10 @@ public class CategoriaReceitaService {
     }
 
     @Transactional(readOnly = true)
-    public List<TotalPorCategoriaDTO> buscarValorTotalPorCategoria(Long id) {
-        return categoriaReceitaRepository.buscarValorTotalPorCategoria(id).stream().map(x -> new TotalPorCategoriaDTO(x.getId(), x.getNome(), x.getTotal())).toList();
+    public List<TotalPorCategoriaDTO> buscarValorTotalPorCategoria() {
+        Usuario usuarioLogado = authService.authenticated();
+
+        return categoriaReceitaRepository.buscarValorTotalPorCategoria(usuarioLogado.getId()).stream().map(x -> new TotalPorCategoriaDTO(x.getId(), x.getNome(), x.getTotal())).toList();
     }
 
     @Transactional

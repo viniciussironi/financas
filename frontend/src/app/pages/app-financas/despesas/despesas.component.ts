@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderDashbordComponent } from '../../../components/comp-gerais/header-dashboard/header-app/header.component';
+import { HeaderDashbordComponent } from '../../../components/comp-gerais/header-app/header.component';
 
 @Component({
   selector: 'app-despesas',

@@ -13,6 +13,6 @@ public class ReceitaDTO extends MovimentacaoGenericoDTO {
 
     public ReceitaDTO(Receita entidade) {
         super(entidade);
-      categoria = new CategoriaDTO(entidade.getCategoriaReceita());
+        categoria = new CategoriaDTO(entidade.getCategoriaReceita());
     }
 }

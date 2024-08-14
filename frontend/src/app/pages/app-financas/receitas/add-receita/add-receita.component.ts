@@ -1,26 +1,53 @@
 import { Component, OnInit } from '@angular/core';
-
-import { AddMovimentacaoComponent } from "../../../../components/formularios/add-movimentacao/add-movimentacao.component";
+import { CommonModule } from '@angular/common';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, tap } from 'rxjs';
 
 import { CategoriaReceitaService } from '../../../../services/categoria-receita.service';
+import { ReceitasService } from '../../../../services/receitas.service';
 
 import { CategoriaInterface } from '../../../../interface/categoria-interface';
+import { ReceitaInterface } from '../../../../interface/receitas-interface';
 
 @Component({
   selector: 'app-add-receita',
   standalone: true,
-  imports: [AddMovimentacaoComponent],
+  imports: [
+    CommonModule, 
+    ReactiveFormsModule,
+  ],
   templateUrl: './add-receita.component.html',
   styleUrl: './add-receita.component.scss'
 })
 export class AddReceitaComponent implements OnInit {
 
   listaCategoria: CategoriaInterface[] = [];
+  receita!: ReceitaInterface;
+  id: string = '';
 
-  constructor(private categoriaReceitaService: CategoriaReceitaService) {}
+  formData = new FormControl();
+  formValor = new FormControl();
+  formCategoryId = new FormControl();
   
-  ngOnInit(): void {
+  constructor(
+    private categoriaReceitaService: CategoriaReceitaService, 
+    private receitaService: ReceitasService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id') || '';
     this.getCategorias();
+    
+    this.getReceitaById().subscribe(() => {
+      if (this.receita) {
+        this.formData.setValue(this.receita.data);
+        this.formValor.setValue(String(this.receita.valor));
+        this.formCategoryId.setValue(this.receita.categoria.id);
+      }
+    });
+
   }
 
   getCategorias() {
@@ -30,6 +57,21 @@ export class AddReceitaComponent implements OnInit {
     });
   }
 
+  getReceitaById(): Observable<ReceitaInterface> {
+    return this.receitaService.getReceitaById(Number(this.id)).pipe(
+      tap((receita: ReceitaInterface) => {
+        this.receita = receita;
+      })
+    );
+  }
 
+  insertReceita() {
+    const receita = {
+      data: this.formData.value,
+      valor: this.formValor.value,
+      categoria: { id: this.formCategoryId.value }
+    };
 
+    this.receitaService.insertReceita(receita).subscribe();
+  }
 }

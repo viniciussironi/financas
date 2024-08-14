@@ -1,0 +1,103 @@
+@use '../../../variables';
+
+.login-page__component {
+    width: 100vw;
+    height: 100vh;
+    background-color: variables.$background_color;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login {
+    width: 25rem;
+    height: 30rem;
+    padding: 2rem 3rem;
+    margin-bottom: 10rem;
+    border-radius: 2rem;
+    background-color: variables.$gray_color;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.titulo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+img {
+    width: 6rem;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+.erro {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+span {
+    position: fixed;
+    text-align: center;
+    font-weight: 400;
+    color: rgb(249, 20, 20);
+}
+
+.input {
+    margin: 0.4rem 0;
+    display: flex;
+    flex-direction: column;
+} 
+
+input {
+    width: 100%;
+    padding: 0.4rem;
+    border-radius: 0.6rem;
+    outline: 0;
+    border: 1px solid variables.$black_color;
+    background-color: variables.$gray_color;
+}
+
+input::placeholder {
+    color: variables.$black_color;
+}
+
+input:focus {
+    border: 1px solid variables.$orange_color;
+}
+
+a {
+    color: variables.$orange_color;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+p {
+    font-weight: 500;
+    text-align: center;
+}
+
+button {
+    cursor: pointer;
+    background-color: variables.$orange_color;
+    border: 2px solid variables.$orange_color;
+    padding: 0.6rem;
+    border-radius: 0.7rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+button:hover {
+    background-color: variables.$gray_color;
+    border: 2px solid variables.$orange_color;
+    color: variables.$orange_color;
+}

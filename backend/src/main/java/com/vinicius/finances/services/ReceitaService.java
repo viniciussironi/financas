@@ -1,5 +1,6 @@
 package com.vinicius.finances.services;
 
+import com.vinicius.finances.DTOs.DespesaDTO;
 import com.vinicius.finances.DTOs.ReceitaDTO;
 import com.vinicius.finances.DTOs.TotalPorMesDTO;
 import com.vinicius.finances.entities.Usuario;
@@ -7,6 +8,7 @@ import com.vinicius.finances.entities.receita.CategoriaReceita;
 import com.vinicius.finances.entities.receita.Receita;
 import com.vinicius.finances.projections.ReceitaProjection;
 import com.vinicius.finances.projections.TotalMesProjection;
+import com.vinicius.finances.projections.ValorTotalMovimentacao;
 import com.vinicius.finances.repositories.CategoriaReceitaRepository;
 import com.vinicius.finances.repositories.ReceitaRepository;
 import com.vinicius.finances.services.exceptions.DatabaseException;
@@ -41,7 +43,6 @@ public class ReceitaService {
     public Page<ReceitaDTO> buscarReceitas(Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable) {
         Usuario usuarioLogado = authService.authenticated();
 
-
         Page<ReceitaProjection> listaBusca = receitaRepository.buscarReceitas(usuarioLogado.getId(), idCategoria, inicio, fim, pageable);
         List<ReceitaDTO> lista = new ArrayList<>();
 
@@ -61,10 +62,12 @@ public class ReceitaService {
     }
 
     @Transactional(readOnly = true)
-    public List<TotalPorMesDTO> buscarTotalPorMes(Long id) {
+    public List<TotalPorMesDTO> buscarTotalPorMes() {
+        Usuario usuarioLogado = authService.authenticated();
+
         String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 
-        List<TotalMesProjection> busca = receitaRepository.buscarTotalPorMes(id);
+        List<TotalMesProjection> busca = receitaRepository.buscarTotalPorMes(usuarioLogado.getId());
         List<TotalPorMesDTO> result = new ArrayList<>();
         busca.forEach(x -> {
             TotalPorMesDTO dto = new TotalPorMesDTO();
@@ -75,12 +78,26 @@ public class ReceitaService {
         return result;
     }
 
+    @Transactional(readOnly = true)
+    public Double valorTotalDespesa() {
+        Usuario usuarioLogado = authService.authenticated();
+        ValorTotalMovimentacao busca = receitaRepository.valorTotalReceitas(usuarioLogado.getId());
+        return busca.getTotal();
+    }
+
     @Transactional
     public ReceitaDTO insert(ReceitaDTO dto) {
-        Receita entidade = new Receita();
-        dtoToEntity(dto, entidade);
-        entidade = receitaRepository.save(entidade);
-        return new ReceitaDTO(entidade);
+        Usuario usuarioLogado = authService.authenticated();
+        Receita receita = new Receita();
+        dtoToEntity(dto, receita);
+        receita.setUsuario(usuarioLogado);
+        receita = receitaRepository.save(receita);
+        return new ReceitaDTO(receita);
+    }
+
+    @Transactional(readOnly = true)
+    public ReceitaDTO findById(Long id) {
+        return new ReceitaDTO(receitaRepository.findById(id).get());
     }
 
     @Transactional
@@ -114,6 +131,6 @@ public class ReceitaService {
     public void dtoToEntity(ReceitaDTO dto, Receita entidade) {
         entidade.setData(dto.getData());
         entidade.setValor(dto.getValor());
-        entidade.setCategoriaReceita(categoriaReceitaRepository.findById(dto.getCategoria().getId()).orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada")));
+        entidade.setCategoriaReceita(categoriaReceitaRepository.getReferenceById(dto.getCategoria().getId()));
     }
 }

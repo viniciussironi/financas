@@ -1,8 +1,8 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReceitaInterface } from '../interface/receitas-interface';
 import { Observable } from 'rxjs';
-import { Constants } from '../constants';
+import { Constants } from '../constant/constants';
 import { TotalPorMesInterface } from '../interface/total_por_mes-interface';
 import { Page } from '../interface/page-interface';
 
@@ -19,22 +19,50 @@ export class ReceitasService {
     let params = new HttpParams()
     .set('page', pageNumber)
     .set('size', 7)
-    .set('categoriaId', categoriaId)
+    .set('idCategoria', categoriaId)
     .set('inicio', inicio)
     .set('fim', fim);
 
-    return this.http.get<Page<ReceitaInterface>>(this.url, {params});
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+
+    return this.http.get<Page<ReceitaInterface>>(this.url, {params, headers});
   }
 
-  getTotalPorMes(userId: number): Observable<TotalPorMesInterface[]> {
-    return this.http.get<TotalPorMesInterface[]>(`${this.url}/totalPorMes/${userId}`);
+  getTotalPorMes(): Observable<TotalPorMesInterface[]> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+
+    return this.http.get<TotalPorMesInterface[]>(`${this.url}/totalPorMes`, {headers});
   }
 
-  insertReceita(receita: ReceitaInterface) {
-    return this.http.post(this.url, receita);
+  getTotalReceitas(): Observable<number> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+
+    return this.http.get<number>(`${this.url}/totalReceitas`, {headers});
+  }
+  
+  getReceitaById(id: number): Observable<ReceitaInterface> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+    
+    return this.http.get<ReceitaInterface>(this.url + '/' + id, {headers});
+  } 
+
+  insertReceita(receita: any) {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+
+    return this.http.post(this.url, receita, {headers});
   }
 
-  updateReceita(receita: ReceitaInterface, id: number) {
+  updateReceita(receita: any, id: number) {
     return this.http.put(`${this.url}/${id}`, receita);
   }
 
