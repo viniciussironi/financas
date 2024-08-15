@@ -54,7 +54,7 @@ export class ResumoReceitasComponent implements OnInit {
   formInicio = new FormControl('');
   formFim = new FormControl('');
   
-  ngOnInit(): void {
+  ngOnInit() {
     this.getReceitas(0, '', '', '');
     this.getCategorias(); 
     this.getTotalCategoriaReceitas();
@@ -97,6 +97,18 @@ export class ResumoReceitasComponent implements OnInit {
       })
   }
 
+  delete(id: number) {
+    this.receitaService.deleteReceita(id).subscribe(
+      () => {
+        this.getReceitas(this.receitas.number, '', '', '');
+        this.getCategorias(); 
+        this.getTotalCategoriaReceitas();
+        this.getTotalReceitas();
+        this.getTotalPorMes();
+      }
+    );
+  }
+
   onSubmit() {
     this.getReceitas(0, String(this.formCategoryId.value), String(this.formInicio.value), String(this.formFim.value));
   }
@@ -108,7 +120,7 @@ export class ResumoReceitasComponent implements OnInit {
     this.getReceitas(0, '', '', '');
   }
 
-  nextPage():void {
+  nextPage() {
     if (this.receitas.number < this.receitas.totalPages - 1) {
       this.receitas.number++;
       this.selectedPage = this.receitas.number;
@@ -116,7 +128,7 @@ export class ResumoReceitasComponent implements OnInit {
     }
   }
 
-  backPage():void {
+  backPage() {
     if (this.receitas.number > 0) {
       this.receitas.number --;
       this.selectedPage = this.receitas.number;

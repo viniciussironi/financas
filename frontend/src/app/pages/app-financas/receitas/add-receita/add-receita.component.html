@@ -1,30 +1,12 @@
 <div class="add__receita">
-    <div class="add-movimentacao__container">
-        <h1>Adicionar receita</h1>
-        <div class="form">
-            <div class="esquerda">
-                <div class="input">
-                    <p>Data</p>
-                    <input type="date" name="data" [formControl]="formData">
-                </div>
-                <div class="input">
-                    <p>Valor</p>
-                    <input type="text" name="valor" placeholder="Digite o valor" [formControl]="formValor">
-                </div>
-                <div class="input">
-                    <p>Categoria</p>
-                    <select name="categoria" [formControl]="formCategoryId">
-                        <option 
-                        *ngFor="let categoria of listaCategoria" 
-                        [value]="categoria.id"
-                        >{{ categoria.nome }}</option>
-                    </select>
-                </div>
-                <button (click)="insertReceita()" >Adicionar</button>
-            </div>
-            <div class="direita">
-                <img src="assets/pig-green.png" alt="">
-            </div>
-        </div>
-    </div>
+    <app-add-movimentacao
+        [titulo]="tituloPagina"
+        [textButton]="textButton"
+        localizacaoImagem="assets/pig-green.png"
+        [listaCategorias]="listaCategoria"
+        [formCategoryId]="formCategoryId"
+        [formData]="formData"
+        [formValor]="formValor"
+        (inserirOutput)="insertReceita()"
+    ></app-add-movimentacao>
 </div>

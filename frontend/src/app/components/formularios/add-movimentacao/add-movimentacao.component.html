@@ -1,28 +1,28 @@
 <div class="add-movimentacao__container">
-    <h1>Adicionar {{ titulo }}</h1>
+    <h1>{{ titulo }}</h1>
     <div class="form">
         <div class="esquerda">
             <div class="input">
                 <p>Data</p>
-                <input type="date" name="data" required>
+                <input type="date" name="data" required [formControl]="formData">
             </div>
             <div class="input">
                 <p>Valor</p>
-                <input type="text" name="valor" placeholder="Digite o valor" required>
+                <input type="text" name="valor" placeholder="Digite o valor" required [formControl]="formValor">
             </div>
             <div class="input">
                 <p>Categoria</p>
-                <select name="categoria">
+                <select name="categoria" [formControl]="formCategoryId">
                     <option 
-                    *ngFor="let categoria of listaCategorias" 
-                    [value]="categoria.id"
+                        *ngFor="let categoria of listaCategorias" 
+                        [value]="categoria.id"
                     >{{ categoria.nome }}</option>
                 </select>
             </div>
-            <button>Adicionar</button>
+            <button (click)="inserirImp()">{{ textButton }}</button>
         </div>
         <div class="direita">
-            <img src="assets/pig-green.png" alt="">
+            <img [src]="localizacaoImagem">
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Observable, tap } from 'rxjs';
@@ -9,6 +9,7 @@ import { DespesaInterface } from '../../../../interface/despesas-interface';
 
 import { CategoriaDespesaService } from '../../../../services/categoria-despesa.service';
 import { DespesasService } from '../../../../services/despesas.service';
+import { DespesaAtualizarInterface } from '../../../../interface/despesa_atualizar-interface';
 
 @Component({
   selector: 'app-add-despesa',
@@ -23,26 +24,39 @@ import { DespesasService } from '../../../../services/despesas.service';
 export class AddDespesaComponent implements OnInit {
 
   listaCategoria: CategoriaInterface[] = [];
-  despesa!: DespesaInterface;
+  despesa!: DespesaAtualizarInterface;
   id: string = '';
+  status: boolean = false
+  tituloPagina = 'Adicionar despesa';
+  textButton = 'Adicionar'
 
   formData = new FormControl();
   formValor = new FormControl();
   formCategoryId = new FormControl();
-  
+  formQtnParcelas = new FormControl();
+  formPrimeiraParcela = new FormControl();
+
   constructor(
     private categoriaDespesaService: CategoriaDespesaService, 
     private despesaService: DespesasService,
     private route: ActivatedRoute,
-    private renderer: Renderer2,
-    private elementRef: ElementRef,
   ) {}
   
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') || '';
     this.getCategorias();
-    
-
+    this.getDespesaById().subscribe(() => {
+      if (this.despesa) {
+        this.tituloPagina = 'Editar despesa';
+        this.textButton = 'Editar';
+        this.formData.setValue(this.despesa.data);
+        this.formValor.setValue(String(this.despesa.valor));
+        this.formCategoryId.setValue(this.despesa.categoria.id);
+        this.status = this.despesa.e_parcelado;
+        this.formQtnParcelas.setValue(this.despesa.qtdParcelas);
+        this.formPrimeiraParcela.setValue(this.despesa.primeiraParcela);
+      }
+    });
   }
 
   getCategorias() {
@@ -52,9 +66,9 @@ export class AddDespesaComponent implements OnInit {
     });
   }
 
-  getDespesaById(): Observable<DespesaInterface> {
+  getDespesaById(): Observable<DespesaAtualizarInterface> {
     return this.despesaService.getDespesaById(Number(this.id)).pipe(
-      tap((despesa: DespesaInterface) => {
+      tap((despesa: DespesaAtualizarInterface) => {
         this.despesa = despesa;
       })
     );
@@ -68,5 +82,13 @@ export class AddDespesaComponent implements OnInit {
     };
 
     this.despesaService.insertDespesa(despesa).subscribe();
+  }
+
+  mostrar() {
+    this.status = true;
+  }
+
+  naoMostrar() {
+    this.status = false;
   }
 }

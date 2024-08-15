@@ -11,9 +11,18 @@
     flex-direction: column;
 }
 
-.lista {
+.movimentacao {
     padding: 5px 0;
     border-bottom: 1px solid #000;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.principal {
     width: 100%;
 
     display: flex;
@@ -58,4 +67,34 @@ span {
 
 .pages span:hover {
     opacity: 0.6;
+}
+
+.edit-delete {
+    display: none;
+}
+
+.movimentacao:hover .edit-delete {
+    gap: 10px;
+    margin: 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.edit-delete span {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.edit-delete span {
+    opacity: 0.8;
+}
+
+#edit:hover {
+    color: rgb(0, 106, 255);
+}
+
+#delete:hover {
+    color: rgb(205, 1, 1);
 }

@@ -63,10 +63,18 @@ export class ReceitasService {
   }
 
   updateReceita(receita: any, id: number) {
-    return this.http.put(`${this.url}/${id}`, receita);
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+
+    return this.http.put(`${this.url}/${id}`, receita, {headers});
   }
 
   deleteReceita(id: number) {
-    return this.http.delete(`${this.url}/${id}`);
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+    
+    return this.http.delete(`${this.url}/${id}`, {headers});
   }
 }

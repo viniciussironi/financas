@@ -1,6 +1,5 @@
 <div class="resumo-receitas__container">
     <div class="flex">
-
        <app-buscar 
             [listaCategorias]="categorias" 
             [formCategoryId]="formCategoryId" 
@@ -8,20 +7,32 @@
             [formDataAte]="formFim"
             (onSubmitOutput)="onSubmit()"
             (resetFiltersOutput)="resetFilters()"
-       ></app-buscar>
+        ></app-buscar>
         <div class="movim__container">
             <div class="movim__esquerda">
                 <app-total-receita-despesa [total]="totalReceitas" [cor]="cor"></app-total-receita-despesa>
-                <app-ultimas-movimentacoes [lista]="receitas" (backPage)="backPage()" (nextPage)="nextPage()"></app-ultimas-movimentacoes>
+                <app-ultimas-movimentacoes 
+                    linkEdit="/app-finances/receitas/edit-receita"
+                    [lista]="receitas" 
+                    [cor]="cor"
+                    (backPageOutput)="backPage()"
+                    (nextPageOutput)="nextPage()"
+                    (deleteEvent)="delete($event)"
+                ></app-ultimas-movimentacoes>
             </div>
             <div class="movim__direita">
                 <app-btn-add-movimentacao routerLink="/app-finances/receitas/add-receita"  nomeBtn="Receita"></app-btn-add-movimentacao>
                 <div class="direita__interno">
-                    <app-total-por-categoria titulo="Por categoria" [listaCategoria]="totalPorCategoriaReceita" [cor]="cor"></app-total-por-categoria>
-                    <app-total-ultimos-meses titulo="Últimos meses" [listaMeses]="totalPorMes" [cor]="cor"></app-total-ultimos-meses>
+                    <app-total-por-categoria titulo="Por categoria" 
+                        [listaCategoria]="totalPorCategoriaReceita" 
+                        [cor]="cor"
+                    ></app-total-por-categoria>
+                    <app-total-ultimos-meses titulo="Últimos meses" 
+                        [listaMeses]="totalPorMes" 
+                        [cor]="cor"
+                    ></app-total-ultimos-meses>
                 </div>
             </div>
         </div>   
-
     </div>
 </div>

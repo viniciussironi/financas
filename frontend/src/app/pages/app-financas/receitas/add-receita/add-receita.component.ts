@@ -9,14 +9,16 @@ import { ReceitasService } from '../../../../services/receitas.service';
 
 import { CategoriaInterface } from '../../../../interface/categoria-interface';
 import { ReceitaInterface } from '../../../../interface/receitas-interface';
+import { AddMovimentacaoComponent } from "../../../../components/formularios/add-movimentacao/add-movimentacao.component";
 
 @Component({
   selector: 'app-add-receita',
   standalone: true,
   imports: [
-    CommonModule, 
+    CommonModule,
     ReactiveFormsModule,
-  ],
+    AddMovimentacaoComponent
+],
   templateUrl: './add-receita.component.html',
   styleUrl: './add-receita.component.scss'
 })
@@ -25,6 +27,8 @@ export class AddReceitaComponent implements OnInit {
   listaCategoria: CategoriaInterface[] = [];
   receita!: ReceitaInterface;
   id: string = '';
+  tituloPagina = 'Adicionar receita';
+  textButton = 'Adicionar'
 
   formData = new FormControl();
   formValor = new FormControl();
@@ -42,6 +46,8 @@ export class AddReceitaComponent implements OnInit {
     
     this.getReceitaById().subscribe(() => {
       if (this.receita) {
+        this.tituloPagina = 'Editar receita';
+        this.textButton = 'Editar';
         this.formData.setValue(this.receita.data);
         this.formValor.setValue(String(this.receita.valor));
         this.formCategoryId.setValue(this.receita.categoria.id);

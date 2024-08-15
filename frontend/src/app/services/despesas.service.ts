@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { DespesaInterface } from '../interface/despesas-interface';
 import { TotalPorMesInterface } from '../interface/total_por_mes-interface';
 import { Page } from '../interface/page-interface';
+import { DespesaAtualizarInterface } from '../interface/despesa_atualizar-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -46,23 +47,35 @@ export class DespesasService {
     return this.http.get<number>(`${this.url}/totalDespesas`, {headers});
   }
 
-  getDespesaById(id: number): Observable<DespesaInterface> {
+  getDespesaById(id: number): Observable<DespesaAtualizarInterface> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + localStorage.getItem('access_token')
     });
     
-    return this.http.get<DespesaInterface>(this.url + '/' + id, {headers});
+    return this.http.get<DespesaAtualizarInterface>(this.url + '/' + id, {headers});
   } 
 
   insertDespesa(despesa: any) {
-    return this.http.post(this.url, despesa)
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+
+    return this.http.post(this.url, despesa, {headers})
   }
 
   updateDespesa(despesa: any, id: number) {
-      return this.http.put(`${this.url}/${id}`, despesa);
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+
+    return this.http.put(`${this.url}/${id}`, despesa, {headers});
   }
 
   deleteDespesa(id: number) {
-        return this.http.delete(`${this.url}/${id}`)
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+    
+    return this.http.delete(`${this.url}/${id}`, {headers});
   }
 }

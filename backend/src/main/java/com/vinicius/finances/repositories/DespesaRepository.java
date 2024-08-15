@@ -78,7 +78,7 @@ public interface DespesaRepository extends JpaRepository<Despesa, Long> {
                 WHERE USUARIO_ID = (:id)
                   AND DATA >= DATEADD(MONTH, -4, CURRENT_DATE)
                 GROUP BY MONTH(DATA)
-                ORDER BY mes
+                ORDER BY mes DESC
                 LIMIT  4
             """)
     List<TotalMesProjection> buscarTotalPorMes(Long id);

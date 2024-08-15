@@ -1,5 +1,6 @@
 package com.vinicius.finances.controllers;
 
+import com.vinicius.finances.DTOs.DespesaAtualizarDTO;
 import com.vinicius.finances.DTOs.DespesaDTO;
 import com.vinicius.finances.DTOs.DespesaInsertDTO;
 import com.vinicius.finances.DTOs.TotalPorMesDTO;
@@ -43,7 +44,7 @@ public class DespesaController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<DespesaDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<DespesaAtualizarDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 

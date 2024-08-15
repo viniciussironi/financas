@@ -99,8 +99,8 @@ public class DespesaService {
     }
 
     @Transactional(readOnly = true)
-    public DespesaDTO findById(Long id) {
-        return new DespesaDTO(despesaRepository.findById(id).get());
+    public DespesaAtualizarDTO findById(Long id) {
+        return new DespesaAtualizarDTO(despesaRepository.findById(id).get());
     }
 
     @Transactional

@@ -1,62 +1,39 @@
 <div class="resumo-despesas__container">
     <div class="flex">
-
-        <div class="buscar__container">
-            <h2>Filtrar:</h2>
-            <form (submit)="onSubmit($event)">
-                <select 
-                    name="categoria" 
-                    id="categoria" 
-                    [formControl]="formCategoryId" 
-                    (change)="onSubmit($event)">
-                    <option value="">Categoria</option>
-                    <option 
-                        *ngFor="let categoria of categorias" 
-                        [value]="categoria.id"
-                    >{{ categoria.nome }}</option>
-                </select>
-                <div class="input">
-                    <p>De:</p>
-                    <input type="date" [formControl]="formInicio" (change)="onSubmit($event)">
-                </div>
-                <div class="input">
-                    <p>Até:</p>
-                    <input type="date" [formControl]="formFim" (change)="onSubmit($event)">
-                </div>
-                <input type="reset" id="resetar" value="LIMPAR" (click)="resetFilters()">
-            </form>
-        </div>
-
+       <app-buscar
+            [listaCategorias]="categorias" 
+            [formCategoryId]="formCategoryId" 
+            [formDataDe]="formInicio" 
+            [formDataAte]="formFim"
+            (onSubmitOutput)="onSubmit()"
+            (resetFiltersOutput)="resetFilters()"
+        >
+        </app-buscar>
         <div class="movim__container">
             <div class="movim__esquerda">
                 <app-total-receita-despesa [total]="totalDespesas" [cor]="cor"></app-total-receita-despesa>
-                <div class="ultimas-mov__container">
-                    <h1>Últimas despesas</h1>
-                    <div class="lista" *ngFor="let x of despesas.content">
-                        <div class="esquerda">
-                            <span>{{ x.categoria.nome }}</span>
-                            <p>{{ x.data }}</p>
-                        </div>
-                        <div class="direita">
-                            <h2>R$ {{ x.valor }}</h2>
-                        </div>
-                    </div>
-                    <div class="pages">
-                        <div>
-                            <span (click)="backPage()" class="material-symbols-outlined" [ngClass]="{'active': despesas.number > 0}">arrow_back_ios</span>
-                            <span (click)="nextPage()" class="material-symbols-outlined" [ngClass]="{'active': despesas.number < despesas.totalPages - 1}">arrow_forward_ios</span>
-                        </div>
-                    </div>
-                </div>
+                <app-ultimas-movimentacoes
+                    linkEdit="/app-finances/despesas/edit-despesa"
+                    [lista]="despesas" 
+                    [cor]="cor"
+                    (backPageOutput)="backPage()"
+                    (nextPageOutput)="nextPage()"
+                    (deleteEvent)="delete($event)"
+                ></app-ultimas-movimentacoes>
             </div>
             <div class="movim__direita">
                 <app-btn-add-movimentacao routerLink="/app-finances/despesas/add-despesa"  nomeBtn="Despesa"></app-btn-add-movimentacao>
                 <div class="direita__interno">
-                    <app-total-por-categoria titulo="Por categoria" [listaCategoria]="totalPorCategoriaDespesa" [cor]="cor"></app-total-por-categoria>
-                    <app-total-ultimos-meses titulo="Últimos meses" [listaMeses]="totalPorMes" [cor]="cor"></app-total-ultimos-meses>
+                    <app-total-por-categoria titulo="Por categoria" 
+                        [listaCategoria]="totalPorCategoriaDespesa" 
+                        [cor]="cor"
+                    ></app-total-por-categoria>
+                    <app-total-ultimos-meses titulo="Últimos meses" 
+                        [listaMeses]="totalPorMes" 
+                        [cor]="cor"
+                    ></app-total-ultimos-meses>
                 </div>
             </div>
         </div>   
-
     </div>
 </div>

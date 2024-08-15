@@ -6,4 +6,4 @@ export interface DespesaInterface extends MovimentacaoInterface {
         dataDeVencimento: Date,
         valorParcela: number
     }
-  }
+}
