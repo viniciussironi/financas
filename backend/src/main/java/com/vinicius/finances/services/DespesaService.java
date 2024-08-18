@@ -2,7 +2,6 @@ package com.vinicius.finances.services;
 
 import com.vinicius.finances.DTOs.*;
 import com.vinicius.finances.entities.Usuario;
-import com.vinicius.finances.entities.despesa.CategoriaDespesa;
 import com.vinicius.finances.entities.despesa.Despesa;
 import com.vinicius.finances.entities.despesa.Parcela;
 
@@ -26,9 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @Service
 public class DespesaService {
@@ -43,35 +41,31 @@ public class DespesaService {
     private AuthService authService;
 
     @Transactional(readOnly = true)
-    public Page<DespesaDTO> buscarDespesas(Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable) {
+    public Page<DespesaResumidoDTO> buscarDespesas(Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable) {
         Usuario usuarioLogado = authService.authenticated();
 
         Page<DespesaProjection> listaBusca = despesaRepository.buscarDespesas(usuarioLogado.getId(), idCategoria, inicio, fim, pageable);
-        Map<Long, Despesa> despesasMap = new HashMap<>();
+        List<DespesaResumidoDTO> listaResumida = new ArrayList<>();
 
         listaBusca.forEach(x -> {
-            Despesa despesa = despesasMap.get(x.getId());
-            if (despesa == null) {
-                despesa = new Despesa();
-                despesa.setId(x.getId());
-                despesa.setData(x.getData());
-                despesa.setValor(x.getValor());
-                CategoriaDespesa categoriaDespesa = new CategoriaDespesa();
-                categoriaDespesa.setId(x.getCategoriaDespesaId());
-                categoriaDespesa.setNome(x.getNome());
-                despesa.setCategoriaDespesa(categoriaDespesa);
-                despesasMap.put(x.getId(), despesa);
-            }
-            if (x.getIdParcela() != null) {
-                Parcela parcela = new Parcela();
-                parcela.setId(x.getIdParcela());
-                parcela.setDataDeVencimento(x.getDataDeVencimento());
-                parcela.setValorParcela(x.getValorParcela());
-                despesa.getParcelas().add(parcela);
+            DespesaResumidoDTO dto = new DespesaResumidoDTO();
+            dto.setId(x.getId());
+            dto.setCategoria(x.getNome());
+            if (x.getEParcelado()) {
+                dto.setValor(x.getValorParcela());
+                dto.setParcelaNome(x.getParcelaNome());
+                dto.setData(x.getDataDeVencimento());
+                listaResumida.add(dto);
+
+            } else {
+                dto.setValor(x.getValor());
+                dto.setParcelaNome("");
+                dto.setData(x.getData());
+                listaResumida.add(dto);
             }
         });
-        List<DespesaDTO> lista = despesasMap.values().stream().map(x -> new DespesaDTO(x)).toList();
-        return new PageImpl<>(lista, listaBusca.getPageable(), listaBusca.getTotalElements());
+
+        return new PageImpl<>(listaResumida, listaBusca.getPageable(), listaBusca.getTotalElements());
     }
 
     @Transactional(readOnly = true)
@@ -112,6 +106,7 @@ public class DespesaService {
             for (int i = 0; i < dto.getQtdParcelas(); i++) {
                 Parcela parcela = new Parcela();
                 parcela.setValorParcela(valorParcela);
+                parcela.setNome("Parcela " + (i + 1));
                 parcela.setDataDeVencimento(dto.getPrimeiraParcela().plusMonths(Long.parseLong("" + i)));
                 parcela.setDespesa(despesa);
                 parcela = parcelaRepository.save(parcela);
@@ -134,6 +129,7 @@ public class DespesaService {
                 for (int i = 0; i < dto.getQtdParcelas(); i++) {
                     Parcela parcela = new Parcela();
                     parcela.setValorParcela(valorParcela);
+                    parcela.setNome("Parcela " + (i + 1));
                     parcela.setDataDeVencimento(dto.getPrimeiraParcela().plusMonths(Long.parseLong("" + i)));
                     parcela.setDespesa(despesa);
                     parcela = parcelaRepository.save(parcela);
@@ -171,6 +167,6 @@ public class DespesaService {
         entidade.setEParcelado(dto.getE_parcelado());
         entidade.setQtdParcelas(dto.getQtdParcelas());
         entidade.setPrimeiraParcela(dto.getPrimeiraParcela());
-        entidade.setCategoriaDespesa(categoriaDespesaRepository.findById(dto.getCategoriaDespesa().getId()).orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada")));
+        entidade.setCategoriaDespesa(categoriaDespesaRepository.findById(dto.getCategoria().getId()).orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada")));
     }
 }

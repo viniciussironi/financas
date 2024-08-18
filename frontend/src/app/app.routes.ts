@@ -11,6 +11,8 @@ import { ResumoReceitasComponent } from './pages/app-financas/receitas/resumo/re
 import { ResumoDespesasComponent } from './pages/app-financas/despesas/resumo/resumo.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { canActivateAdmin } from './constant/auth';
+import { EditReceitaComponent } from './pages/app-financas/receitas/edit-receita/edit-receita.component';
+import { EditDespesaComponent } from './pages/app-financas/despesas/edit-despesa/edit-despesa.component';
 
 
 export const routes: Routes = [
@@ -21,12 +23,12 @@ export const routes: Routes = [
         {path: 'receitas', component: ReceitasComponent, children: [
             {path: 'resumo', component: ResumoReceitasComponent},
             {path: 'add-receita', component: AddReceitaComponent},
-            {path: 'edit-receita/:id', component: AddReceitaComponent},
+            {path: 'edit-receita/:id', component: EditReceitaComponent},
         ]},
         {path: 'despesas', component: DespesasComponent, children: [
             {path: 'resumo', component: ResumoDespesasComponent},
             {path: 'add-despesa', component: AddDespesaComponent}, 
-            {path: 'edit-despesa/:id', component: AddDespesaComponent},
+            {path: 'edit-despesa/:id', component: EditDespesaComponent},
         ]},
     ]} 
 ];

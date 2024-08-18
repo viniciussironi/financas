@@ -1,0 +1,27 @@
+<div class="ultimas-mov__container">
+    <h1>Últimas despesas</h1>
+    <div class="movimentacao" *ngFor="let despesa of lista.content">
+        <div class="principal" >
+            <div class="esquerda">
+                <div class="parcela">
+                    <span>{{ despesa.categoria }}</span>
+                    <p class="parcela-nome"> - {{ despesa.parcelaNome }}</p>
+                </div>
+                <p>{{ despesa.data }}</p>
+            </div>
+            <div class="direita">
+                <h2 [style.color]="cor">R$ {{ despesa.valor | number:'2.2-2':'pt' }}</h2>
+            </div>
+        </div>
+        <div class="edit-delete">
+            <span class="material-symbols-outlined" id="edit" [routerLink]="['/app-finances/despesas/edit-despesa', despesa.id]">edit</span>
+            <span class="material-symbols-outlined" id="delete" (click)="delete(despesa.id)">delete</span>
+        </div>
+    </div>
+    <div class="pages">
+        <div>
+            <span (click)="backPageImp()" class="material-symbols-outlined" [ngClass]="{'active': lista.number > 0}">arrow_back_ios</span>
+            <span (click)="nextPageImp()" class="material-symbols-outlined" [ngClass]="{'active': lista.number < lista.totalPages - 1}">arrow_forward_ios</span>
+        </div>
+    </div>
+</div>

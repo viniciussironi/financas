@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 
 import { MovimentacaoInterface } from '../../../interface/movimentacao-interface';
 import { Page } from '../../../interface/page-interface';
@@ -9,7 +9,7 @@ import { number } from 'echarts';
 @Component({
   selector: 'app-ultimas-movimentacoes',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, DecimalPipe],
   templateUrl: './ultimas-movimentacoes.component.html',
   styleUrl: './ultimas-movimentacoes.component.scss'
 })

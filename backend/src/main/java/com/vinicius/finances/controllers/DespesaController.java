@@ -1,9 +1,6 @@
 package com.vinicius.finances.controllers;
 
-import com.vinicius.finances.DTOs.DespesaAtualizarDTO;
-import com.vinicius.finances.DTOs.DespesaDTO;
-import com.vinicius.finances.DTOs.DespesaInsertDTO;
-import com.vinicius.finances.DTOs.TotalPorMesDTO;
+import com.vinicius.finances.DTOs.*;
 import com.vinicius.finances.services.DespesaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +22,7 @@ public class DespesaController {
     private DespesaService service;
 
     @GetMapping
-    public  ResponseEntity<Page<DespesaDTO>> buscarTodas(
+    public  ResponseEntity<Page<DespesaResumidoDTO>> buscarTodas(
             @RequestParam (name = "idCategoria", defaultValue = "") Long idCategoria,
             @RequestParam (name = "inicio", defaultValue = "") LocalDate inicio,
             @RequestParam (name = "fim", defaultValue = "") LocalDate fim,
@@ -49,7 +46,7 @@ public class DespesaController {
     }
 
     @PostMapping
-    public ResponseEntity<DespesaDTO> insert(@RequestBody @Valid DespesaInsertDTO dto) {
+    public ResponseEntity<DespesaDTO> insert(@Valid @RequestBody DespesaInsertDTO dto) {
         DespesaDTO newDto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -60,7 +57,7 @@ public class DespesaController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<DespesaDTO> update(@RequestBody @Valid DespesaInsertDTO dto, @PathVariable Long id) {
+    public ResponseEntity<DespesaDTO> update(@Valid @RequestBody DespesaInsertDTO dto, @PathVariable Long id) {
         return ResponseEntity.accepted().body(service.update(dto, id));
     }
 

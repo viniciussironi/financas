@@ -1,0 +1,14 @@
+<div class="container">
+    <app-add-despesa-form
+        tituloPagina="Editar despesa"
+        textButton="Editar"
+        [formData]="formData"
+        [formValor]="formValor"
+        [formCategoryId]="formCategoryId"
+        [formEParcelada]="formEParcelada"
+        [formQtnParcelas]="formQtnParcelas"
+        [formPrimeiraParcela]="formPrimeiraParcela"
+        [listaCategoria]="listaCategoria"
+        (inserirOutput)="updateDespesa()"
+    ></app-add-despesa-form>
+</div>

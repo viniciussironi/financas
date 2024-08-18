@@ -32,6 +32,7 @@ p {
 }
 
 input, select {
+    text-align: start;
     border: 1px solid variables.$black_color;
     background-color: variables.$gray_color;
     border-radius: 10px;

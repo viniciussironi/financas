@@ -1,4 +1,4 @@
 <div [style.border-color]="cor" class="total-receita-despesa__container">
     <span [style.color]="cor" class="material-symbols-outlined">paid</span>
-    <p [style.color]="cor">R$ {{ total }}</p>
+    <p [style.color]="cor">R$ {{ total | number:'2.2-2':'pt' }}</p>
 </div>

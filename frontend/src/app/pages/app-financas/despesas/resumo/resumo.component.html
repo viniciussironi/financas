@@ -12,14 +12,13 @@
         <div class="movim__container">
             <div class="movim__esquerda">
                 <app-total-receita-despesa [total]="totalDespesas" [cor]="cor"></app-total-receita-despesa>
-                <app-ultimas-movimentacoes
-                    linkEdit="/app-finances/despesas/edit-despesa"
-                    [lista]="despesas" 
+                <app-ultimas-movimentacoes-despesa
                     [cor]="cor"
+                    [lista]="despesas"
+                    (deleteEvent)="delete($event)"
                     (backPageOutput)="backPage()"
                     (nextPageOutput)="nextPage()"
-                    (deleteEvent)="delete($event)"
-                ></app-ultimas-movimentacoes>
+                ></app-ultimas-movimentacoes-despesa>
             </div>
             <div class="movim__direita">
                 <app-btn-add-movimentacao routerLink="/app-finances/despesas/add-despesa"  nomeBtn="Despesa"></app-btn-add-movimentacao>

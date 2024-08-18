@@ -1,58 +1,14 @@
-<div class="add__despesa">
-    <div class="add-movimentacao__container">
-        <h1>{{ tituloPagina }}</h1>
-        <div class="form">
-            <div class="esquerda">
-                <div class="input">
-                    <p>Data</p>
-                    <input type="date" name="data" [formControl]="formData">
-                </div>
-                <div class="input">
-                    <p>Valor</p>
-                    <input type="text" name="valor" placeholder="Digite o valor" [formControl]="formValor">
-                </div>
-                <div class="input">
-                    <p>Categoria</p>
-                    <select name="categoria" [formControl]="formCategoryId">
-                        <option 
-                            *ngFor="let categoria of listaCategoria" 
-                            [value]="categoria.id"
-                        >{{ categoria.nome }}</option>
-                    </select>
-                </div>
-                <div class="e-parcelada">
-                    <p>É parcelada?</p>
-                    <div>
-                        <button 
-                            class="btn-sim" 
-                            (click)="mostrar()" 
-                            [ngClass]="{'btn-selected': status == true}"
-                        >Sim</button> 
-                        <button 
-                            class="btn-nao" 
-                            (click)="naoMostrar()" 
-                            [ngClass]="{'btn-selected': status == false}"
-                        >Não</button> 
-                    </div>
-                </div>
-                <div 
-                    class="parcela" 
-                    [ngClass]="{'nao-mostrar': status == false}"
-                >
-                    <div class="input">
-                        <p>Quantidade de parcelas</p>
-                        <input type="number" placeholder="Exemplo: 4, 5" [formControl]="formQtnParcelas">
-                    </div>
-                    <div class="input">
-                        <p>Primeira parcela</p>
-                        <input type="date" name="data" [formControl]="formPrimeiraParcela">
-                    </div>
-                </div>
-                <button class="adicionar" (click)="insertDespesa()">{{ textButton }}</button>
-            </div>
-            <div class="direita">
-                <img src="assets/pig-red.png">
-            </div>
-        </div>
-    </div>
+<div class="container">
+    <app-add-despesa-form
+        tituloPagina="Adicionar despesa"
+        textButton="Adicionar"
+        [formData]="formData"
+        [formValor]="formValor"
+        [formCategoryId]="formCategoryId"
+        [formEParcelada]="formEParcelada"
+        [formQtnParcelas]="formQtnParcelas"
+        [formPrimeiraParcela]="formPrimeiraParcela"
+        [listaCategoria]="listaCategoria"
+        (inserirOutput)="insertDespesa()"
+    ></app-add-despesa-form>
 </div>

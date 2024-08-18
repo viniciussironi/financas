@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CategoriaInterface } from '../../../interface/categoria-interface';
 import { CommonModule } from '@angular/common';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+
+import { CategoriaInterface } from '../../../interface/categoria-interface';
 
 @Component({
   selector: 'app-add-movimentacao',
@@ -9,9 +11,10 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule, 
     ReactiveFormsModule,
+    CurrencyMaskModule,
   ],
   templateUrl: './add-movimentacao.component.html',
-  styleUrl: './add-movimentacao.component.scss'
+  styleUrl: './add-movimentacao.component.scss',
 })
 export class AddMovimentacaoComponent {
 

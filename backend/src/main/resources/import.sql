@@ -14,9 +14,9 @@ INSERT INTO Despesas (valor, data, categoria_despesa_id, e_parcelado, usuario_id
 
 INSERT INTO Despesas (valor, data, categoria_despesa_id, e_parcelado, qtd_parcelas, primeira_parcela, usuario_id) VALUES (300.00, '2024-07-09', 3, true, 3, '2024-08-09', 1);
 
-INSERT INTO Parcelas (data_de_vencimento, valor_parcela, despesa_id) VALUES ('2024-08-09', 100.0, 5)
-INSERT INTO Parcelas (data_de_vencimento, valor_parcela, despesa_id) VALUES ('2024-09-09', 100.0, 5)
-INSERT INTO Parcelas (data_de_vencimento, valor_parcela, despesa_id) VALUES ('2024-10-09', 100.0, 5)
+INSERT INTO Parcelas (nome, data_de_vencimento, valor_parcela, despesa_id) VALUES ('Parcela 1', '2024-08-09', 100.0, 5)
+INSERT INTO Parcelas (nome, data_de_vencimento, valor_parcela, despesa_id) VALUES ('Parcela 2', '2024-09-09', 100.0, 5)
+INSERT INTO Parcelas (nome, data_de_vencimento, valor_parcela, despesa_id) VALUES ('Parcela 3', '2024-10-09', 100.0, 5)
 
 INSERT INTO Categorias_Receitas (nome) VALUES ('Salário');
 INSERT INTO Categorias_Receitas (nome) VALUES ('Renda Extra');

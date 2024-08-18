@@ -1,19 +1,21 @@
 package com.vinicius.finances.DTOs;
 
 import com.vinicius.finances.entities.MovimentacaoGenerico;
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.Getter;
 
 import java.time.LocalDate;
 
 @Data
+@Getter
 public class MovimentacaoGenericoDTO {
 
     private Long id;
+    @NotNull(message = "Não pode estar vazio")
     private LocalDate data;
-    @Positive(message = "Valor inválido")
+    @NotNull(message = "Não pode estar vazio")
+    @Positive(message = "Valor deve ser positivo")
     private Double valor;
 
     public MovimentacaoGenericoDTO() {

@@ -8,7 +8,14 @@
             </div>
             <div class="input">
                 <p>Valor</p>
-                <input type="text" name="valor" placeholder="Digite o valor" required [formControl]="formValor">
+                <input 
+                    type="text" 
+                    name="valor" 
+                    placeholder="Digite o valor" 
+                    currencyMask
+                    [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false, align: 'left' }"
+                    [formControl]="formValor"
+                >
             </div>
             <div class="input">
                 <p>Categoria</p>

@@ -17,7 +17,8 @@ import { BtnAddMovimentacaoComponent } from "../../../../components/movimentacao
 import { TotalPorCategoriaComponent } from "../../../../components/movimentacao/por-categoria/total-por-categoria.component";
 import { TotalUltimosMesesComponent } from "../../../../components/movimentacao/ultimos-meses/total-ultimos-meses.component";
 import { BuscarComponent } from "../../../../components/movimentacao/buscar/buscar.component";
-import { UltimasMovimentacoesComponent } from "../../../../components/movimentacao/ultimas-movimentacoes/ultimas-movimentacoes.component";
+import { UltimasMovimentacoesDespesaComponent } from "../../../../components/movimentacao/ultimas-movimentacoes-despesa/ultimas-movimentacoes-despesa.component";
+import { MovimentacaoClass } from '../../../../classes/movimentacao-class';
 
 @Component({
   selector: 'app-resumo',
@@ -31,7 +32,7 @@ import { UltimasMovimentacoesComponent } from "../../../../components/movimentac
     TotalPorCategoriaComponent,
     TotalUltimosMesesComponent,
     BuscarComponent,
-    UltimasMovimentacoesComponent
+    UltimasMovimentacoesDespesaComponent
 ],
   templateUrl: './resumo.component.html',
   styleUrl: './resumo.component.scss'
@@ -49,7 +50,6 @@ export class ResumoDespesasComponent implements OnInit {
   totalPorMes: TotalPorMesInterface[] = [];
   totalPorCategoriaDespesa: TotalPorCategoriaInterface[] = [];
 
-
   formCategoryId = new FormControl('');
   formInicio = new FormControl('');
   formFim = new FormControl('');
@@ -60,13 +60,15 @@ export class ResumoDespesasComponent implements OnInit {
     this.getTotalCategoriaDespesas();
     this.getTotalDespesas();
     this.getTotalPorMes();
+    console.log('ngOnInit')
+    console.log(this.despesas)
   }
   
   getDespesas(pageNumber:number, categoriaId: string, inicio: string, fim: string) {
-    this.despesaService.getDespesas(pageNumber, categoriaId, inicio, fim).subscribe(
+    return this.despesaService.getDespesas(pageNumber, categoriaId, inicio, fim).subscribe(
     (despesas: Page<DespesaInterface>) => {
       this.despesas = despesas;
-    })
+    });
   }
 
   getCategorias() {
@@ -79,14 +81,14 @@ export class ResumoDespesasComponent implements OnInit {
   getTotalCategoriaDespesas() {
     this.categoriadespesaService.getTotalPorCategoriaDespesa().subscribe(
     (totalPorCategoriaDespesa: TotalPorCategoriaInterface[]) => {
-    this.totalPorCategoriaDespesa = totalPorCategoriaDespesa;
+      this.totalPorCategoriaDespesa = totalPorCategoriaDespesa;
     });
   }
 
   getTotalPorMes() {
     this.despesaService.getTotalPorMes().subscribe(
     (totalPorMes: TotalPorMesInterface[]) => {
-    this.totalPorMes = totalPorMes;
+      this.totalPorMes = totalPorMes;
     });
   }
 
@@ -136,5 +138,3 @@ export class ResumoDespesasComponent implements OnInit {
     }
   }
 }
-
-

@@ -30,6 +30,7 @@ export class AddReceitaComponent implements OnInit {
   tituloPagina = 'Adicionar receita';
   textButton = 'Adicionar'
 
+  
   formData = new FormControl();
   formValor = new FormControl();
   formCategoryId = new FormControl();
@@ -37,47 +38,27 @@ export class AddReceitaComponent implements OnInit {
   constructor(
     private categoriaReceitaService: CategoriaReceitaService, 
     private receitaService: ReceitasService,
-    private route: ActivatedRoute
   ) {}
-
+  
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id') || '';
     this.getCategorias();
-    
-    this.getReceitaById().subscribe(() => {
-      if (this.receita) {
-        this.tituloPagina = 'Editar receita';
-        this.textButton = 'Editar';
-        this.formData.setValue(this.receita.data);
-        this.formValor.setValue(String(this.receita.valor));
-        this.formCategoryId.setValue(this.receita.categoria.id);
-      }
-    });
-
   }
-
+  
   getCategorias() {
     this.categoriaReceitaService.getCategoriasReceitas().subscribe(
-    (listaCategoria: CategoriaInterface[]) => {
-      this.listaCategoria = listaCategoria;
-    });
-  }
-
-  getReceitaById(): Observable<ReceitaInterface> {
-    return this.receitaService.getReceitaById(Number(this.id)).pipe(
-      tap((receita: ReceitaInterface) => {
-        this.receita = receita;
-      })
-    );
-  }
-
+      (listaCategoria: CategoriaInterface[]) => {
+        this.listaCategoria = listaCategoria;
+      });
+    }
+    
   insertReceita() {
     const receita = {
       data: this.formData.value,
       valor: this.formValor.value,
       categoria: { id: this.formCategoryId.value }
     };
-
+    
     this.receitaService.insertReceita(receita).subscribe();
   }
 }
+  

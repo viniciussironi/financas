@@ -16,56 +16,64 @@ public interface DespesaRepository extends JpaRepository<Despesa, Long> {
 
     @Query(nativeQuery = true, value =
             """
-                SELECT
-                   despesas.id,
-                   despesas.data,
-                   despesas.valor,
-                   despesas.e_parcelado AS EParcelado,
-                   categorias_despesas.nome,
-                   categorias_despesas.id AS categoria_despesa_id,
-                   parcelas.id as id_parcela,
-                   parcelas.data_de_vencimento,
-                   parcelas.valor_parcela
-                FROM
-                   despesas
-                INNER JOIN
-                   categorias_despesas ON categorias_despesas.id = despesas.categoria_despesa_id
-                LEFT JOIN
-                   parcelas ON despesas.id = parcelas.despesa_id
-                WHERE
-                   usuario_id = :idUsuario
-                   AND (:idCategoria IS NULL OR categoria_despesa_id = :idCategoria)
-                   AND (:inicio IS NULL OR data >= :inicio)
-                   AND (:fim IS NULL OR data <= :fim)
-                ORDER BY
-                   despesas.data DESC
+                 SELECT
+                     despesas.id,
+                     despesas.data,
+                     despesas.valor,
+                     despesas.e_parcelado AS EParcelado,
+                     categorias_despesas.nome,
+                     categorias_despesas.id AS categoria_despesa_id,
+                     parcelas.id AS id_parcela,
+                     parcelas.nome AS parcela_nome,
+                     parcelas.data_de_vencimento,
+                     parcelas.valor_parcela
+                 FROM
+                     despesas
+                 INNER JOIN
+                     categorias_despesas ON categorias_despesas.id = despesas.categoria_despesa_id
+                 LEFT JOIN
+                     parcelas ON despesas.id = parcelas.despesa_id
+                 WHERE
+                     usuario_id = :idUsuario
+                     AND (:idCategoria IS NULL OR categoria_despesa_id = :idCategoria)
+                     AND (:inicio IS NULL OR data >= :inicio)
+                     AND (:fim IS NULL OR data <= :fim)
+                 ORDER BY
+                     CASE
+                         WHEN parcelas.data_de_vencimento IS NOT NULL THEN parcelas.data_de_vencimento
+                         ELSE despesas.data
+                     END DESC
             """,
             countQuery =
             """
                 SELECT COUNT(*) FROM (
-                   SELECT
-                       despesas.id,
-                       despesas.data,
-                       despesas.valor,
-                       despesas.e_parcelado AS EParcelado,
-                       categorias_despesas.nome,
-                       categorias_despesas.id AS categoria_despesa_id,
-                       parcelas.id as id_parcela,
-                       parcelas.data_de_vencimento,
-                       parcelas.valor_parcela
-                   FROM
-                       despesas
-                   INNER JOIN
-                       categorias_despesas ON categorias_despesas.id = despesas.categoria_despesa_id
-                   LEFT JOIN
-                       parcelas ON despesas.id = parcelas.despesa_id
-                   WHERE
-                       usuario_id = :idUsuario
-                       AND (:idCategoria IS NULL OR categoria_despesa_id = :idCategoria)
-                       AND (:inicio IS NULL OR data >= :inicio)
-                       AND (:fim IS NULL OR data <= :fim)
-                   ORDER BY
-                       despesas.data DESC
+                     SELECT
+                         despesas.id,
+                         despesas.data,
+                         despesas.valor,
+                         despesas.e_parcelado AS EParcelado,
+                         categorias_despesas.nome,
+                         categorias_despesas.id AS categoria_despesa_id,
+                         parcelas.id AS id_parcela,
+                         parcelas.nome AS parcela_nome,
+                         parcelas.data_de_vencimento,
+                         parcelas.valor_parcela
+                     FROM
+                         despesas
+                     INNER JOIN
+                         categorias_despesas ON categorias_despesas.id = despesas.categoria_despesa_id
+                     LEFT JOIN
+                         parcelas ON despesas.id = parcelas.despesa_id
+                     WHERE
+                         usuario_id = :idUsuario
+                         AND (:idCategoria IS NULL OR categoria_despesa_id = :idCategoria)
+                         AND (:inicio IS NULL OR data >= :inicio)
+                         AND (:fim IS NULL OR data <= :fim)
+                     ORDER BY
+                         CASE
+                             WHEN parcelas.data_de_vencimento IS NOT NULL THEN parcelas.data_de_vencimento
+                             ELSE despesas.data
+                         END DESC
                 )
             """
     )

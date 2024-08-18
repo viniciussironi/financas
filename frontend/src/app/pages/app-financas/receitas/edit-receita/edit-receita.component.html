@@ -1,0 +1,12 @@
+<div class="edit__receita">
+    <app-add-movimentacao
+        [titulo]="tituloPagina"
+        [textButton]="textButton"
+        localizacaoImagem="assets/pig-green.png"
+        [listaCategorias]="listaCategoria"
+        [formCategoryId]="formCategoryId"
+        [formData]="formData"
+        [formValor]="formValor"
+        (inserirOutput)="updateReceita()"
+    ></app-add-movimentacao>
+</div>

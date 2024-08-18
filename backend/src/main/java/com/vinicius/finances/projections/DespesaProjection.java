@@ -8,6 +8,7 @@ public interface DespesaProjection extends MovimentacaoProjection {
     String getNome();
     Long getCategoriaDespesaId();
     Long getIdParcela();
+    String getParcelaNome();
     LocalDate getDataDeVencimento();
     Double getValorParcela();
 }

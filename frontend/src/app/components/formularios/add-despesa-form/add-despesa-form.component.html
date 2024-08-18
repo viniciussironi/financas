@@ -1,0 +1,65 @@
+<div class="add__despesa">
+    <div class="add-movimentacao__container">
+        <h1>{{ tituloPagina }}</h1>
+        <div class="form">
+            <div class="esquerda">
+                <div class="input">
+                    <p>Data</p>
+                    <input type="date" name="data" [formControl]="formData">
+                </div>
+                <div class="input">
+                    <p>Valor</p>
+                    <input 
+                        type="text" 
+                        name="valor" 
+                        placeholder="Digite o valor" 
+                        currencyMask
+                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false, align: 'left' }"
+                        [formControl]="formValor"
+                    >
+                </div>
+                <div class="input">
+                    <p>Categoria</p>
+                    <select name="categoria" [formControl]="formCategoryId">
+                        <option 
+                            *ngFor="let categoria of listaCategoria" 
+                            [value]="categoria.id"
+                        >{{ categoria.nome }}</option>
+                    </select>
+                </div>
+                <div class="e-parcelada">
+                    <p>É parcelada?</p>
+                    <div>
+                        <button 
+                            class="btn-sim" 
+                            (click)="mostrar()" 
+                            [ngClass]="{'btn-selected': formEParcelada.value == true}"
+                        >Sim</button> 
+                        <button 
+                            class="btn-nao" 
+                            (click)="naoMostrar()" 
+                            [ngClass]="{'btn-selected': formEParcelada.value == false}"
+                        >Não</button> 
+                    </div>
+                </div>
+                <div 
+                    class="parcela" 
+                    [ngClass]="{'nao-mostrar': formEParcelada.value == false}"
+                >
+                    <div class="input">
+                        <p>Quantidade de parcelas</p>
+                        <input type="number" min="2" placeholder="Exemplo: 4, 5" [formControl]="formQtnParcelas">
+                    </div>
+                    <div class="input">
+                        <p>Primeira parcela</p>
+                        <input type="date" name="data" [formControl]="formPrimeiraParcela">
+                    </div>
+                </div>
+                <button class="adicionar" (click)="inserirImp()">{{ textButton }}</button>
+            </div>
+            <div class="direita">
+                <img src="assets/pig-red.png">
+            </div>
+        </div>
+    </div>
+</div>

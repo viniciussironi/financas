@@ -2,6 +2,6 @@
     <h1>{{ titulo }}</h1>
     <div class="lista" *ngFor="let x of listaMeses">
         <p>{{ x.mes }}</p>
-        <span [style.color]="cor">R$ {{ x.total }}</span>
+        <span [style.color]="cor">R$ {{ x.total | number:'2.2-2':'pt' }}</span>
     </div>
 </div>

@@ -1,9 +1,7 @@
-import { MovimentacaoInterface } from "./movimentacao-interface";
-
-export interface DespesaInterface extends MovimentacaoInterface {
-    parcelas: {
-        id: number,
-        dataDeVencimento: Date,
-        valorParcela: number
-    }
+export interface DespesaInterface  {
+    id: number,
+    categoria: string,
+    data: string,
+    valor: number,
+    parcelaNome: string,
 }
