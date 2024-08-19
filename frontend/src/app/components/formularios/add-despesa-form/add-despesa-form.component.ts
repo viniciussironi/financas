@@ -38,16 +38,32 @@ export class AddDespesaFormComponent implements OnInit{
   formQtnParcelas = new FormControl();
   @Input()
   formPrimeiraParcela = new FormControl();
-  
+  @Input()
+  formNomeCategoriaDespesa = new FormControl();
+
   @Output()
   inserirOutput: EventEmitter<any> = new EventEmitter();
+  @Output()
+  inserirCategoriaOutput: EventEmitter<any> = new EventEmitter();
   
+  status: boolean = false;
+  icon: string = 'add';
+
+  icons = {
+    add: 'add',
+    keyboard_arrow_up: 'keyboard_arrow_up'
+  }
+
   ngOnInit() {
     this.formEParcelada.setValue(false);
   }
 
-  inserirImp() {
-    this.inserirOutput.emit()
+  inserirMovimentacao() {
+    this.inserirOutput.emit();
+  }
+
+  inserirCategoria() {
+    this.inserirCategoriaOutput.emit();
   }
 
   mostrar() {
@@ -58,5 +74,16 @@ export class AddDespesaFormComponent implements OnInit{
   naoMostrar() {
     this.formEParcelada.value == false;
     this.formEParcelada.setValue(false);
+  }
+
+  addCategoriaBtn() {
+    if(this.status == true) {
+      this.status = false
+      this.icon = this.icons.add;
+    }
+    else {
+      this.status = true
+      this.icon = this.icons.keyboard_arrow_up;
+    }
   }
 }

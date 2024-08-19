@@ -7,10 +7,12 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CategoriaInterface } from '../../../../interface/categoria-interface';
 import { DespesaAtualizarInterface } from '../../../../interface/despesa_atualizar-interface';
 
+import { DespesaInterface } from '../../../../interface/despesas-interface';
 import { CategoriaDespesaService } from '../../../../services/categoria-despesa.service';
 import { DespesasService } from '../../../../services/despesas.service';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { AddDespesaFormComponent } from "../../../../components/formularios/add-despesa-form/add-despesa-form.component";
+
 
 @Component({
   selector: 'app-add-despesa',
@@ -31,7 +33,8 @@ export class AddDespesaComponent implements OnInit {
   id: string = '';
   status: boolean = false
   tituloPagina = 'Adicionar despesa';
-  textButton = 'Adicionar'
+  textButton = 'Adicionar';
+  mensagemApi = '';
 
   formData = new FormControl();
   formValor = new FormControl();
@@ -39,6 +42,7 @@ export class AddDespesaComponent implements OnInit {
   formQtnParcelas = new FormControl();
   formPrimeiraParcela = new FormControl();
   formEParcelada = new FormControl();
+  formNomeCategoriaDespesa = new FormControl();
 
   constructor(
     private categoriaDespesaService: CategoriaDespesaService, 
@@ -65,7 +69,23 @@ export class AddDespesaComponent implements OnInit {
       primeiraParcela: this.formPrimeiraParcela.value,
       categoria: { id: this.formCategoryId.value }
     };
-    console.log(despesa)
+
     this.despesaService.insertDespesa(despesa).subscribe();
   }
+
+  insertCategoriaDespesa() {
+    const categoria = {
+      nome: this.formNomeCategoriaDespesa.value
+    }
+    this.categoriaDespesaService.insertCategoriaDespesa(categoria).subscribe(() => {
+      this.getCategorias();
+    });
+  }
+
+  
+}
+
+interface ApiRespostaDespesa {
+  status: number;
+  body: DespesaInterface; 
 }

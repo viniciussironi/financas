@@ -25,4 +25,12 @@ export class CategoriaDespesaService {
     
     return this.http.get<TotalPorCategoriaInterface[]>(`${this.url}/total`, {headers});
   }
+
+  insertCategoriaDespesa(categoria: any) {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+
+    return this.http.post(this.url, categoria, {headers})
+  }
 }

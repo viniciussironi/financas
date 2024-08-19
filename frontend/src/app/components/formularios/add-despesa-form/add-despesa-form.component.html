@@ -20,12 +20,27 @@
                 </div>
                 <div class="input">
                     <p>Categoria</p>
-                    <select name="categoria" [formControl]="formCategoryId">
-                        <option 
+                    <div class="categoria">
+                        <select name="categoria" [formControl]="formCategoryId">
+                            <option 
                             *ngFor="let categoria of listaCategoria" 
                             [value]="categoria.id"
-                        >{{ categoria.nome }}</option>
-                    </select>
+                            >{{ categoria.nome }}</option>
+                        </select>
+                        <button 
+                        class="material-symbols-outlined" 
+                        id="add-categoria" 
+                        (click)="addCategoriaBtn()" 
+                        >{{icon}}</button>
+                    </div>
+                    <div class="input" id="bloco-cat" [ngClass]="{'nao-mostrar': status == false}">
+                        <h4>Nova categoria</h4>
+                        <p>Nome da categoria</p>
+                        <input type="text" name="data" [formControl]="formNomeCategoriaDespesa" placeholder="Digite o nome da categoria">
+                        <div class="btn-center">
+                            <button class="adicionar" id="add-categoria-btn" (click)="inserirCategoria()">Adicionar categoria</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="e-parcelada">
                     <p>É parcelada?</p>
@@ -55,7 +70,7 @@
                         <input type="date" name="data" [formControl]="formPrimeiraParcela">
                     </div>
                 </div>
-                <button class="adicionar" (click)="inserirImp()">{{ textButton }}</button>
+                <button class="adicionar" (click)="inserirMovimentacao()">{{ textButton }}</button>
             </div>
             <div class="direita">
                 <img src="assets/pig-red.png">

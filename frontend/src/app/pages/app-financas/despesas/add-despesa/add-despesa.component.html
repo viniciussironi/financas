@@ -8,7 +8,9 @@
         [formEParcelada]="formEParcelada"
         [formQtnParcelas]="formQtnParcelas"
         [formPrimeiraParcela]="formPrimeiraParcela"
+        [formNomeCategoriaDespesa]="formNomeCategoriaDespesa"
         [listaCategoria]="listaCategoria"
+        (inserirCategoriaOutput)="insertCategoriaDespesa()"
         (inserirOutput)="insertDespesa()"
     ></app-add-despesa-form>
 </div>
