@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Observable, tap } from 'rxjs';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 import { CategoriaInterface } from '../../../../interface/categoria-interface';
 import { DespesaAtualizarInterface } from '../../../../interface/despesa_atualizar-interface';
-
 import { DespesaInterface } from '../../../../interface/despesas-interface';
+import { ApiErrorInterface } from '../../../../interface/api-error-interface';
+
 import { CategoriaDespesaService } from '../../../../services/categoria-despesa.service';
 import { DespesasService } from '../../../../services/despesas.service';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
+
 import { AddDespesaFormComponent } from "../../../../components/formularios/add-despesa-form/add-despesa-form.component";
 
 
@@ -34,19 +35,28 @@ export class AddDespesaComponent implements OnInit {
   status: boolean = false
   tituloPagina = 'Adicionar despesa';
   textButton = 'Adicionar';
-  mensagemApi = '';
+  
+  
+  erroData: string = ''
+  erroValor: string = ''
+  erroCategoryId: string = ''
+  erroQtnParcelas: string = ''
+  erroPrimeiraParcela: string = ''
+  erroEParcelada: string = ''
+  erroNomeCategoriaDespesa: string = ''
 
-  formData = new FormControl();
-  formValor = new FormControl();
-  formCategoryId = new FormControl();
-  formQtnParcelas = new FormControl();
-  formPrimeiraParcela = new FormControl();
+  formData = new FormControl('', Validators.required);
+  formValor = new FormControl('', Validators.required);
+  formCategoryId = new FormControl('', Validators.required);
+  formQtnParcelas = new FormControl('', Validators.required);
+  formPrimeiraParcela = new FormControl('', Validators.required);
   formEParcelada = new FormControl();
-  formNomeCategoriaDespesa = new FormControl();
+  formNomeCategoriaDespesa = new FormControl('', Validators.required);
 
   constructor(
     private categoriaDespesaService: CategoriaDespesaService, 
     private despesaService: DespesasService,
+    private router: Router
   ) {}
   
   ngOnInit() {
@@ -60,6 +70,15 @@ export class AddDespesaComponent implements OnInit {
     });
   }
 
+  insertCategoriaDespesa() {
+    const categoria = {
+      nome: this.formNomeCategoriaDespesa.value
+    }
+    this.categoriaDespesaService.insertCategoriaDespesa(categoria).subscribe(() => {
+      this.getCategorias();
+    });
+  }
+
   insertDespesa() {
     const despesa = {
       data: this.formData.value,
@@ -70,22 +89,19 @@ export class AddDespesaComponent implements OnInit {
       categoria: { id: this.formCategoryId.value }
     };
 
-    this.despesaService.insertDespesa(despesa).subscribe();
+    this.despesaService.insertDespesa(despesa).subscribe(
+      (response: DespesaInterface) => {
+        if(response) {
+          this.router.navigate(['./app-finances/despesas/resumo'])
+        }
+        
+      }, (error: ApiErrorInterface) => {
+        error.error.errors.forEach(x => {
+          x
+        });
+        
+      });
   }
-
-  insertCategoriaDespesa() {
-    const categoria = {
-      nome: this.formNomeCategoriaDespesa.value
-    }
-    this.categoriaDespesaService.insertCategoriaDespesa(categoria).subscribe(() => {
-      this.getCategorias();
-    });
-  }
-
-  
 }
 
-interface ApiRespostaDespesa {
-  status: number;
-  body: DespesaInterface; 
-}
+

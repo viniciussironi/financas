@@ -4,6 +4,6 @@
         <span class="material-symbols-outlined">{{ icon }}</span>
     </div>
     <div>
-        <p>{{'R$ ' + amount }}</p>
+        <p>R$ {{amount | number:'2.2-2':'pt' }}</p>
     </div>
 </div>

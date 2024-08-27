@@ -4,10 +4,16 @@
         <div class="esquerda">
             <div class="input">
                 <p>Data</p>
-                <input type="date" name="data" required [formControl]="formData">
+                <div class="erro" *ngIf="formData.invalid && formData.touched">
+                    <p class="erro-mensagem" *ngIf="formData.hasError('required')">Este campo é obrigatório.</p>
+                </div>
+                <input type="date" name="data" [formControl]="formData">
             </div>
             <div class="input">
                 <p>Valor</p>
+                <div class="erro" *ngIf="formValor.invalid && formValor.touched">
+                    <p class="erro-mensagem" *ngIf="formValor.hasError('required')">Este campo é obrigatório.</p>
+                </div>
                 <input 
                     type="text" 
                     name="valor" 
@@ -17,16 +23,37 @@
                     [formControl]="formValor"
                 >
             </div>
-            <div class="input">
+            <div class="input-cat">
                 <p>Categoria</p>
-                <select name="categoria" [formControl]="formCategoryId">
-                    <option 
-                        *ngFor="let categoria of listaCategorias" 
+                <div class="erro" *ngIf="formCategoryId.invalid && formCategoryId.touched">
+                    <p class="erro-mensagem" *ngIf="formCategoryId.hasError('required')">Este campo é obrigatório.</p>
+                </div>
+                <div class="categoria">
+                    <select name="categoria" [formControl]="formCategoryId">
+                        <option 
+                        *ngFor="let categoria of listaCategoria" 
                         [value]="categoria.id"
-                    >{{ categoria.nome }}</option>
-                </select>
+                        >{{ categoria.nome }}</option>
+                    </select>
+                    <button 
+                    class="material-symbols-outlined" 
+                    id="add-categoria" 
+                    (click)="addCategoriaBtn()" 
+                    >{{icon}}</button>
+                </div>
+                <div class="input" id="bloco-cat" [ngClass]="{'nao-mostrar': status == false}">
+                    <h4>Nova categoria</h4>
+                    <p>Nome da categoria</p>
+                    <div class="erro" *ngIf="formNomeCategoriaDespesa.invalid && formNomeCategoriaDespesa.touched">
+                        <p class="erro-mensagem" *ngIf="formNomeCategoriaDespesa.hasError('required')">Este campo é obrigatório.</p>
+                    </div>
+                    <input type="text" name="data" [formControl]="formNomeCategoriaDespesa" placeholder="Digite o nome da categoria">
+                    <div class="btn-center">
+                        <button class="adicionar" id="add-categoria-btn" (click)="inserirCategoria()">Adicionar categoria</button>
+                    </div>
+                </div>
             </div>
-            <button (click)="inserirImp()">{{ textButton }}</button>
+            <button class="adicionar" (click)="inserirMovimentacao()">{{ textButton }}</button>
         </div>
         <div class="direita">
             <img [src]="localizacaoImagem">

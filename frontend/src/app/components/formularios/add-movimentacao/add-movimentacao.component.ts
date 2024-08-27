@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { CategoriaInterface } from '../../../interface/categoria-interface';
 
@@ -25,19 +25,46 @@ export class AddMovimentacaoComponent {
   @Input()
   localizacaoImagem: string = '';
   @Input()
-  listaCategorias: CategoriaInterface[] = [];
+  listaCategoria: CategoriaInterface[] = [];
 
   @Input()
-  formData = new FormControl();
+  formData = new FormControl('', Validators.required);
   @Input()
-  formValor = new FormControl();
+  formValor = new FormControl('', Validators.required);
   @Input()
-  formCategoryId = new FormControl();
+  formCategoryId = new FormControl('', Validators.required);
+  @Input()
+  formNomeCategoriaDespesa = new FormControl('', Validators.required);
 
   @Output()
   inserirOutput: EventEmitter<any> = new EventEmitter();
+  @Output()
+  inserirCategoriaOutput: EventEmitter<any> = new EventEmitter();
   
-  inserirImp() {
-    this.inserirOutput.emit()
+  status: boolean = false;
+  icon: string = 'add';
+
+  icons = {
+    add: 'add',
+    keyboard_arrow_up: 'keyboard_arrow_up'
+  }
+
+  inserirMovimentacao() {
+    this.inserirOutput.emit();
+  }
+
+  inserirCategoria() {
+    this.inserirCategoriaOutput.emit();
+  }
+
+  addCategoriaBtn() {
+    if(this.status == true) {
+      this.status = false
+      this.icon = this.icons.add;
+    }
+    else {
+      this.status = true
+      this.icon = this.icons.keyboard_arrow_up;
+    }
   }
 }

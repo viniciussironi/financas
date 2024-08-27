@@ -1,9 +1,10 @@
+import { DecimalPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-resumo-dashboard',
   standalone: true,
-  imports: [],
+  imports: [DecimalPipe],
   templateUrl: './resumo.component.html',
   styleUrl: './resumo.component.scss',
 })

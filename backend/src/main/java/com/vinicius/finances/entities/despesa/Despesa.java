@@ -12,29 +12,22 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "Despesas")
-public class Despesa extends MovimentacaoGenerico {
+@Table(name = "despesas")
+public class Despesa {
 
-    private Boolean eParcelado;
-    private Integer qtdParcelas;
-    private LocalDate primeiraParcela;
-
-    @OneToMany(mappedBy = "despesa")
-    private List<Parcela> parcelas = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Double valorTotal;
 
     @ManyToOne
-    @JoinColumn(name = "Categoria_Despesa_ID")
+    @JoinColumn(name = "categoria_despesa_id")
     private CategoriaDespesa categoriaDespesa;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    public void setCategoriaDespesa(CategoriaDespesa categoriaDespesa) {
-        this.categoriaDespesa = categoriaDespesa;
-    }
-
-    public void setParcelas(Parcela parcela) {
-        parcelas.add(parcela);
-    }
+    @OneToMany(mappedBy = "despesa")
+    private List<Parcela> parcelas = new ArrayList<>();
 }

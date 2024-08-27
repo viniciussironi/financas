@@ -3,10 +3,12 @@
         [titulo]="tituloPagina"
         [textButton]="textButton"
         localizacaoImagem="assets/pig-green.png"
-        [listaCategorias]="listaCategoria"
+        [listaCategoria]="listaCategoria"
         [formCategoryId]="formCategoryId"
         [formData]="formData"
         [formValor]="formValor"
+        [formNomeCategoriaDespesa]="formNomeCategoriaDespesa"
         (inserirOutput)="updateReceita()"
+        (inserirCategoriaOutput)="insertCategoriaReceita()"
     ></app-add-movimentacao>
 </div>

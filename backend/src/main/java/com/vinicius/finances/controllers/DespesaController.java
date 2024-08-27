@@ -6,6 +6,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
+import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,7 +24,7 @@ public class DespesaController {
     private DespesaService service;
 
     @GetMapping
-    public  ResponseEntity<Page<DespesaResumidoDTO>> buscarTodas(
+    public  ResponseEntity<Page<DespesaDTO>> buscarTodas(
             @RequestParam (name = "idCategoria", defaultValue = "") Long idCategoria,
             @RequestParam (name = "inicio", defaultValue = "") LocalDate inicio,
             @RequestParam (name = "fim", defaultValue = "") LocalDate fim,
@@ -41,24 +43,25 @@ public class DespesaController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<DespesaAtualizarDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<DespesaDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
     @PostMapping
     public ResponseEntity<DespesaDTO> insert(@Valid @RequestBody DespesaInsertDTO dto) {
-        DespesaDTO newDto = service.insert(dto);
+        DespesaDTO resultado = service.insert(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(newDto.getId())
+                .buildAndExpand(resultado.getId())
                 .toUri();
-        return ResponseEntity.created(uri).body(newDto);
+        return ResponseEntity.created(uri).body(resultado);
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<DespesaDTO> update(@Valid @RequestBody DespesaInsertDTO dto, @PathVariable Long id) {
-        return ResponseEntity.accepted().body(service.update(dto, id));
+        DespesaDTO resultado = service.insert(dto);
+        return ResponseEntity.ok(resultado);
     }
 
     @DeleteMapping(value = "/{id}")

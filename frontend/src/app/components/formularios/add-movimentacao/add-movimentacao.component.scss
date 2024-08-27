@@ -17,6 +17,11 @@ h1 {
     font-size: 24px;
 }
 
+h4 {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
 .esquerda {
     display: flex;
     flex-direction: column;
@@ -24,7 +29,51 @@ h1 {
 }
 
 .input {
-    margin: 13px 0;
+    width: 250px;
+    margin: 10px 0;
+}
+
+.erro-mensagem {
+    font-size: 13px;
+    color: red;
+}
+
+.categoria {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+#bloco-cat {
+    margin-top: 20px;
+    margin-bottom: 0px;
+    border: 1px solid variables.$orange_color;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.input-cat {
+    width: 250px;
+    margin-top: 10px;
+
+}
+
+.btn-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#add-categoria {
+    width: 36px;
+    height: 36px;
+    border: 1px solid variables.$black_color;
+    border-radius: 10px;
+    background-color: variables.$gray_color;
+    color: variables.$black_color;
+    font-weight: 400;
+    font-size: 16px;
+    padding: 3px 9px;
 }
 
 p {
@@ -32,12 +81,11 @@ p {
 }
 
 input, select {
-    text-align: start;
     border: 1px solid variables.$black_color;
     background-color: variables.$gray_color;
     border-radius: 10px;
     padding: 8px 15px;
-    width: 250px;
+    width: 100%;
 }
 
 input:focus, select:focus {
@@ -50,6 +98,10 @@ img {
 }
 
 button {
+    cursor: pointer;
+}
+
+.adicionar {
     border: 2px solid variables.$orange_color;
     border-radius: 12px;
     background-color: variables.$orange_color;
@@ -57,11 +109,28 @@ button {
     font-size: 20px;
     font-weight: 500;
     padding: 6px 24px;
-    margin-top: 15px;
-    cursor: pointer;
+    margin-top: 20px;  
 }
 
-button:hover {
+.adicionar:hover {
     border: 2px solid variables.$black_color;
     background-color: variables.$gray_color;
+}
+
+#add-categoria-btn {
+    border: 1px solid variables.$orange_color;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 12px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+#add-categoria-btn:hover {
+    border: 1px solid variables.$black_color;
+}
+
+.nao-mostrar {
+    display: none;
 }

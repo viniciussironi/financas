@@ -3,8 +3,6 @@ import { Page } from '../../../interface/page-interface';
 import { DespesaInterface } from '../../../interface/despesas-interface';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MovimentacaoClass } from '../../../classes/movimentacao-class';
-
 
 @Component({
   selector: 'app-ultimas-movimentacoes-despesa',

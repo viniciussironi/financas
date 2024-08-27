@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
@@ -31,9 +31,10 @@ export class AddReceitaComponent implements OnInit {
   textButton = 'Adicionar'
 
   
-  formData = new FormControl();
-  formValor = new FormControl();
-  formCategoryId = new FormControl();
+  formData = new FormControl('', Validators.required);
+  formValor = new FormControl('', Validators.required);
+  formCategoryId = new FormControl('', Validators.required);
+  formNomeCategoriaDespesa = new FormControl('', Validators.required);
   
   constructor(
     private categoriaReceitaService: CategoriaReceitaService, 
@@ -50,6 +51,15 @@ export class AddReceitaComponent implements OnInit {
         this.listaCategoria = listaCategoria;
       });
     }
+  
+  insertCategoriaReceita() {
+    const categoria = {
+      nome: this.formNomeCategoriaDespesa.value
+    }
+    this.categoriaReceitaService.insertCategoriaReceita(categoria).subscribe(() => {
+      this.getCategorias();
+    });
+  }
     
   insertReceita() {
     const receita = {

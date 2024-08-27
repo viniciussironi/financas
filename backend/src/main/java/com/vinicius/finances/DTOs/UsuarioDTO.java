@@ -14,8 +14,6 @@ public class UsuarioDTO {
     private String sobrenome;
     private String email;
 
-    private Set<AcessoDTO> acessoDTOS = new HashSet<>();
-
     public UsuarioDTO() {
     }
 
@@ -24,6 +22,5 @@ public class UsuarioDTO {
         nome = usuario.getNome();
         sobrenome = usuario.getSobrenome();
         email = usuario.getEmail();
-        usuario.getAcessos().forEach(x -> acessoDTOS.add(new AcessoDTO(x)));
     }
 }

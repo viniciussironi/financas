@@ -2,7 +2,6 @@ package com.vinicius.finances.repositories;
 
 import com.vinicius.finances.entities.receita.Receita;
 
-import com.vinicius.finances.projections.ReceitaProjection;
 import com.vinicius.finances.projections.TotalMesProjection;
 import com.vinicius.finances.projections.ValorTotalMovimentacao;
 import org.springframework.data.domain.Page;
@@ -16,50 +15,30 @@ import java.util.List;
 
 public interface ReceitaRepository extends JpaRepository<Receita, Long> {
 
-    @Query(nativeQuery = true, value =
-            """
-                SELECT 
-                    receitas.id, 
-                    receitas.data, 
-                    receitas.valor, 
-                    categorias_receitas.nome,  
-                    categorias_receitas.id AS categoria_receita_id 
-                FROM 
-                    receitas
-                INNER JOIN 
-                    categorias_receitas ON categorias_receitas.id = receitas.categoria_receita_id
+    @Query(value = """
+                SELECT r
+                FROM Receita r
+                JOIN r.categoriaReceita cr
                 WHERE 
-                    usuario_id = :idUsuario
-                    AND (:idCategoria IS NULL OR categoria_receita_id = :idCategoria)
-                    AND (:inicio IS NULL OR data >= :inicio)
-                    AND (:fim IS NULL OR data <= :fim)
+                    r.usuario.id = :idUsuario
+                    AND (:idCategoria IS NULL OR cr.id = :idCategoria)
+                    AND (:inicio IS NULL OR r.data >= :inicio)
+                    AND (:fim IS NULL OR r.data <= :fim)
                 ORDER BY 
-                    receitas.data DESC
+                    r.data DESC
             """,
-            countQuery =
-            """
-                SELECT COUNT(*) FROM (
-                    SELECT 
-                        receitas.id, 
-                        receitas.data, 
-                        receitas.valor, 
-                        categorias_receitas.nome,  
-                        categorias_receitas.id AS categoria_receita_id 
-                    FROM 
-                        receitas
-                    INNER JOIN 
-                        categorias_receitas ON categorias_receitas.id = receitas.categoria_receita_id
-                    WHERE 
-                        usuario_id = :idUsuario
-                        AND (:idCategoria IS NULL OR categoria_receita_id = :idCategoria)
-                        AND (:inicio IS NULL OR data >= :inicio)
-                        AND (:fim IS NULL OR data <= :fim)
-                    ORDER BY 
-                        receitas.data DESC
-                )
+            countQuery = """
+                SELECT COUNT(r) 
+                FROM Receita r
+                JOIN r.categoriaReceita cr
+                WHERE 
+                    r.usuario.id = :idUsuario
+                    AND (:idCategoria IS NULL OR cr.id = :idCategoria)
+                    AND (:inicio IS NULL OR r.data >= :inicio)
+                    AND (:fim IS NULL OR r.data <= :fim)
             """
     )
-    Page<ReceitaProjection> buscarReceitas(Long idUsuario, Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable);
+    Page<Receita> buscarReceitas(Long idUsuario, Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable);
 
     @Query(nativeQuery = true, value =
             """

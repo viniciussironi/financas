@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CommonModule } from '@angular/common';
 
@@ -35,12 +35,13 @@ export class EditDespesaComponent implements OnInit {
   tituloPagina = 'Adicionar despesa';
   textButton = 'Adicionar'
 
-  formData = new FormControl();
-  formValor = new FormControl();
+  formData = new FormControl('', Validators.required);
+  formValor = new FormControl('', Validators.required);
   formCategoryId = new FormControl();
   formQtnParcelas = new FormControl();
-  formPrimeiraParcela = new FormControl();
+  formPrimeiraParcela = new FormControl('', Validators.required);
   formEParcelada = new FormControl();
+  formNomeCategoriaDespesa = new FormControl('', Validators.required);
 
   constructor(
     private categoriaDespesaService: CategoriaDespesaService, 
@@ -76,6 +77,14 @@ export class EditDespesaComponent implements OnInit {
     );
   }
 
+  insertCategoriaDespesa() {
+    const categoria = {
+      nome: this.formNomeCategoriaDespesa.value
+    }
+    this.categoriaDespesaService.insertCategoriaDespesa(categoria).subscribe(() => {
+      this.getCategorias();
+    });
+  }
   updateDespesa() {
     const despesa = {
       data: this.formData.value,

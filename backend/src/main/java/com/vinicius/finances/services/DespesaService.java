@@ -3,14 +3,12 @@ package com.vinicius.finances.services;
 import com.vinicius.finances.DTOs.*;
 import com.vinicius.finances.entities.Usuario;
 import com.vinicius.finances.entities.despesa.Despesa;
-import com.vinicius.finances.entities.despesa.Parcela;
 
-import com.vinicius.finances.projections.DespesaProjection;
+import com.vinicius.finances.entities.despesa.Parcela;
 import com.vinicius.finances.projections.TotalMesProjection;
 import com.vinicius.finances.projections.ValorTotalMovimentacao;
 import com.vinicius.finances.repositories.CategoriaDespesaRepository;
 import com.vinicius.finances.repositories.DespesaRepository;
-import com.vinicius.finances.repositories.ParcelaRepository;
 import com.vinicius.finances.services.exceptions.DatabaseException;
 import com.vinicius.finances.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
@@ -34,38 +32,17 @@ public class DespesaService {
     @Autowired
     private DespesaRepository despesaRepository;
     @Autowired
-    private ParcelaRepository parcelaRepository;
-    @Autowired
     private CategoriaDespesaRepository categoriaDespesaRepository;
     @Autowired
     private AuthService authService;
 
     @Transactional(readOnly = true)
-    public Page<DespesaResumidoDTO> buscarDespesas(Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable) {
+    public Page<DespesaDTO> buscarDespesas(Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable) {
         Usuario usuarioLogado = authService.authenticated();
+        Page<Despesa> resultado = despesaRepository.buscarDespesas(usuarioLogado.getId(), idCategoria, inicio, fim, pageable);
+        List<DespesaDTO> lista = resultado.stream().map(x -> new DespesaDTO(x)).toList();
 
-        Page<DespesaProjection> listaBusca = despesaRepository.buscarDespesas(usuarioLogado.getId(), idCategoria, inicio, fim, pageable);
-        List<DespesaResumidoDTO> listaResumida = new ArrayList<>();
-
-        listaBusca.forEach(x -> {
-            DespesaResumidoDTO dto = new DespesaResumidoDTO();
-            dto.setId(x.getId());
-            dto.setCategoria(x.getNome());
-            if (x.getEParcelado()) {
-                dto.setValor(x.getValorParcela());
-                dto.setParcelaNome(x.getParcelaNome());
-                dto.setData(x.getDataDeVencimento());
-                listaResumida.add(dto);
-
-            } else {
-                dto.setValor(x.getValor());
-                dto.setParcelaNome("");
-                dto.setData(x.getData());
-                listaResumida.add(dto);
-            }
-        });
-
-        return new PageImpl<>(listaResumida, listaBusca.getPageable(), listaBusca.getTotalElements());
+        return new PageImpl<>(lista, resultado.getPageable(), resultado.getTotalElements());
     }
 
     @Transactional(readOnly = true)
@@ -93,52 +70,67 @@ public class DespesaService {
     }
 
     @Transactional(readOnly = true)
-    public DespesaAtualizarDTO findById(Long id) {
-        return new DespesaAtualizarDTO(despesaRepository.findById(id).get());
+    public DespesaDTO findById(Long id) {
+        return new DespesaDTO(despesaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Despesa não encotrada")));
     }
 
     @Transactional
     public DespesaDTO insert(DespesaInsertDTO dto) {
         Usuario usuarioLogado = authService.authenticated();
-        Despesa despesa = new Despesa();
-        if (dto.getE_parcelado()) {
-            double valorParcela = dto.getValor() / dto.getQtdParcelas();
-            for (int i = 0; i < dto.getQtdParcelas(); i++) {
+        Despesa entidade = new Despesa();
+        entidade.setUsuario(usuarioLogado);
+        dtoToEntity(dto, entidade);
+        if (dto.getEParcelada()) {
+            double valorParcela = dto.getValor() / dto.getQuantidadeDeParcelas();
+            for (int i = 0; i < dto.getQuantidadeDeParcelas(); i++) {
                 Parcela parcela = new Parcela();
                 parcela.setValorParcela(valorParcela);
-                parcela.setNome("Parcela " + (i + 1));
-                parcela.setDataDeVencimento(dto.getPrimeiraParcela().plusMonths(Long.parseLong("" + i)));
-                parcela.setDespesa(despesa);
-                parcela = parcelaRepository.save(parcela);
-                despesa.getParcelas().add(parcela);
+                parcela.setVencimentoParcela(dto.getData().plusMonths(Long.parseLong("" + i)));
+                parcela.setNomeParcela("Parcela " + (i +1));
+                parcela.setDespesa(entidade);
+                entidade.getParcelas().add(parcela);
             }
         }
-        dtoToEntity(dto, despesa);
-        despesa.setUsuario(usuarioLogado);
-        despesa = despesaRepository.save(despesa);
-        return new DespesaDTO(despesa);
+        else {
+            Parcela parcela = new Parcela();
+            parcela.setValorParcela(dto.getValor());
+            parcela.setVencimentoParcela(dto.getData());
+            parcela.setNomeParcela("À vista");
+            parcela.setDespesa(entidade);
+            entidade.getParcelas().add(parcela);
+        }
+        entidade = despesaRepository.save(entidade);
+        return new DespesaDTO(entidade);
     }
 
     @Transactional
     public DespesaDTO update(DespesaInsertDTO dto, Long id) {
+        Usuario usuarioLogado = authService.authenticated();
         try {
-            Despesa despesa = despesaRepository.getReferenceById(id);
-            despesa.getParcelas().clear();
-            if (dto.getE_parcelado()) {
-                double valorParcela = dto.getValor() / dto.getQtdParcelas();
-                for (int i = 0; i < dto.getQtdParcelas(); i++) {
+            Despesa entidade = despesaRepository.getReferenceById(id);
+            entidade.setUsuario(usuarioLogado);
+            dtoToEntity(dto, entidade);
+            if (dto.getEParcelada()) {
+                double valorParcela = dto.getValor() / dto.getQuantidadeDeParcelas();
+                for (int i = 0; i < dto.getQuantidadeDeParcelas(); i++) {
                     Parcela parcela = new Parcela();
                     parcela.setValorParcela(valorParcela);
-                    parcela.setNome("Parcela " + (i + 1));
-                    parcela.setDataDeVencimento(dto.getPrimeiraParcela().plusMonths(Long.parseLong("" + i)));
-                    parcela.setDespesa(despesa);
-                    parcela = parcelaRepository.save(parcela);
-                    despesa.getParcelas().add(parcela);
+                    parcela.setVencimentoParcela(dto.getData().plusMonths(Long.parseLong("" + i)));
+                    parcela.setNomeParcela("Parcela " + (i +1));
+                    parcela.setDespesa(entidade);
+                    entidade.getParcelas().add(parcela);
                 }
             }
-            dtoToEntity(dto, despesa);
-            despesa = despesaRepository.save(despesa);
-            return new DespesaDTO(despesa);
+            else {
+                Parcela parcela = new Parcela();
+                parcela.setValorParcela(dto.getValor());
+                parcela.setVencimentoParcela(dto.getData());
+                parcela.setNomeParcela("À vista");
+                parcela.setDespesa(entidade);
+                entidade.getParcelas().add(parcela);
+            }
+            entidade = despesaRepository.save(entidade);
+            return new DespesaDTO(entidade);
         }
         catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Não encotrado");
@@ -151,7 +143,6 @@ public class DespesaService {
             throw new ResourceNotFoundException("Não encotrado");
         }
         try {
-            parcelaRepository.deleteByDespesaId(id);
             despesaRepository.deleteById(id);
         }
         catch (DataIntegrityViolationException e) {
@@ -162,11 +153,7 @@ public class DespesaService {
 
 
     public void dtoToEntity(DespesaInsertDTO dto, Despesa entidade) {
-        entidade.setData(dto.getData());
-        entidade.setValor(dto.getValor());
-        entidade.setEParcelado(dto.getE_parcelado());
-        entidade.setQtdParcelas(dto.getQtdParcelas());
-        entidade.setPrimeiraParcela(dto.getPrimeiraParcela());
+        entidade.setValorTotal(dto.getValor());
         entidade.setCategoriaDespesa(categoriaDespesaRepository.findById(dto.getCategoria().getId()).orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada")));
     }
 }

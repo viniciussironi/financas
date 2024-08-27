@@ -28,7 +28,7 @@ public class Usuario implements UserDetails {
     @OneToMany(mappedBy = "usuario")
     private List<Receita> receitas = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER) // Toda vez que buscar um usuário, já vai vir os Roles
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "usuario_acesso",
             joinColumns = @JoinColumn(name = "usuario_id"),

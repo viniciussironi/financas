@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Constants } from '../constant/constants';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { DespesaInterface } from '../interface/despesas-interface';
 import { TotalPorMesInterface } from '../interface/total_por_mes-interface';
 import { Page } from '../interface/page-interface';
@@ -55,12 +56,12 @@ export class DespesasService {
     return this.http.get<DespesaAtualizarInterface>(this.url + '/' + id, {headers});
   } 
 
-  insertDespesa(despesa: any) {
+  insertDespesa(despesa: any):Observable<DespesaInterface> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + localStorage.getItem('access_token')
     });
 
-    return this.http.post(this.url, despesa, {headers})
+    return this.http.post<DespesaInterface>(this.url, despesa, {headers})
   }
 
   updateDespesa(despesa: any, id: number) {

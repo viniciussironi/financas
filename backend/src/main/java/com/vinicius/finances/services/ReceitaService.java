@@ -1,12 +1,9 @@
 package com.vinicius.finances.services;
 
-import com.vinicius.finances.DTOs.DespesaDTO;
 import com.vinicius.finances.DTOs.ReceitaDTO;
 import com.vinicius.finances.DTOs.TotalPorMesDTO;
 import com.vinicius.finances.entities.Usuario;
-import com.vinicius.finances.entities.receita.CategoriaReceita;
 import com.vinicius.finances.entities.receita.Receita;
-import com.vinicius.finances.projections.ReceitaProjection;
 import com.vinicius.finances.projections.TotalMesProjection;
 import com.vinicius.finances.projections.ValorTotalMovimentacao;
 import com.vinicius.finances.repositories.CategoriaReceitaRepository;
@@ -42,23 +39,10 @@ public class ReceitaService {
     @Transactional(readOnly = true)
     public Page<ReceitaDTO> buscarReceitas(Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable) {
         Usuario usuarioLogado = authService.authenticated();
+        Page<Receita> resultado = receitaRepository.buscarReceitas(usuarioLogado.getId(), idCategoria, inicio, fim, pageable);
+        List<ReceitaDTO> lista = resultado.stream().map(x -> new ReceitaDTO(x)).toList();
 
-        Page<ReceitaProjection> listaBusca = receitaRepository.buscarReceitas(usuarioLogado.getId(), idCategoria, inicio, fim, pageable);
-        List<ReceitaDTO> lista = new ArrayList<>();
-
-        listaBusca.forEach(x -> {
-            Receita receita = new Receita();
-            CategoriaReceita categoriaReceita = new CategoriaReceita();
-            receita.setId(x.getId());
-            receita.setData(x.getData());
-            receita.setValor(x.getValor());
-            categoriaReceita.setId(x.getCategoriaReceitaId());
-            categoriaReceita.setNome(x.getNome());
-            receita.setCategoriaReceita(categoriaReceita);
-            ReceitaDTO receitaDTO = new ReceitaDTO(receita);
-            lista.add(receitaDTO);
-        });
-        return new PageImpl<>(lista, listaBusca.getPageable(), listaBusca.getTotalElements());
+        return new PageImpl<>(lista, resultado.getPageable(), resultado.getTotalElements());
     }
 
     @Transactional(readOnly = true)
@@ -85,6 +69,11 @@ public class ReceitaService {
         return busca.getTotal();
     }
 
+    @Transactional(readOnly = true)
+    public ReceitaDTO findById(Long id) {
+        return new ReceitaDTO(receitaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Receita não encotrada")));
+    }
+
     @Transactional
     public ReceitaDTO insert(ReceitaDTO dto) {
         Usuario usuarioLogado = authService.authenticated();
@@ -93,11 +82,6 @@ public class ReceitaService {
         receita.setUsuario(usuarioLogado);
         receita = receitaRepository.save(receita);
         return new ReceitaDTO(receita);
-    }
-
-    @Transactional(readOnly = true)
-    public ReceitaDTO findById(Long id) {
-        return new ReceitaDTO(receitaRepository.findById(id).get());
     }
 
     @Transactional
@@ -131,6 +115,6 @@ public class ReceitaService {
     public void dtoToEntity(ReceitaDTO dto, Receita entidade) {
         entidade.setData(dto.getData());
         entidade.setValor(dto.getValor());
-        entidade.setCategoriaReceita(categoriaReceitaRepository.getReferenceById(dto.getCategoria().getId()));
+        entidade.setCategoriaReceita(categoriaReceitaRepository.getReferenceById(dto.getCategoriaReceita().getId()));
     }
 }

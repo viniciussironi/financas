@@ -41,6 +41,11 @@ h4 {
     margin: 10px 0;
 }
 
+.erro-mensagem {
+    font-size: 13px;
+    color: red;
+}
+
 .categoria {
     display: flex;
     flex-direction: row;
@@ -157,4 +162,8 @@ button {
 
 .nao-mostrar {
     display: none;
+}
+
+#fim {
+    margin-bottom: 0;
 }

@@ -18,7 +18,6 @@ import { TotalPorCategoriaComponent } from "../../../../components/movimentacao/
 import { TotalUltimosMesesComponent } from "../../../../components/movimentacao/ultimos-meses/total-ultimos-meses.component";
 import { BuscarComponent } from "../../../../components/movimentacao/buscar/buscar.component";
 import { UltimasMovimentacoesDespesaComponent } from "../../../../components/movimentacao/ultimas-movimentacoes-despesa/ultimas-movimentacoes-despesa.component";
-import { MovimentacaoClass } from '../../../../classes/movimentacao-class';
 
 @Component({
   selector: 'app-resumo',
@@ -60,8 +59,6 @@ export class ResumoDespesasComponent implements OnInit {
     this.getTotalCategoriaDespesas();
     this.getTotalDespesas();
     this.getTotalPorMes();
-    console.log('ngOnInit')
-    console.log(this.despesas)
   }
   
   getDespesas(pageNumber:number, categoriaId: string, inicio: string, fim: string) {

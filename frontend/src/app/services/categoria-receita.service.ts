@@ -25,4 +25,12 @@ export class CategoriaReceitaService {
 
     return this.http.get<TotalPorCategoriaInterface[]>(`${this.url}/total`, {headers});
   }
+
+  insertCategoriaReceita(categoria: any) {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    });
+
+    return this.http.post(this.url, categoria, {headers})
+  }
 }

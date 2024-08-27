@@ -1,10 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { MovimentacaoInterface } from '../../../interface/movimentacao-interface';
 import { Page } from '../../../interface/page-interface';
-import { RouterModule } from '@angular/router';
-import { number } from 'echarts';
 
 @Component({
   selector: 'app-ultimas-movimentacoes',

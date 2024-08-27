@@ -27,19 +27,19 @@ export class AddDespesaFormComponent implements OnInit{
   listaCategoria: CategoriaInterface[] = [];
   
   @Input()
-  formData = new FormControl(Validators.required, Validators.nullValidator);
+  formData = new FormControl('', Validators.required);
   @Input()
-  formValor = new FormControl(Validators.required, Validators.nullValidator);
+  formValor = new FormControl('', Validators.required);
   @Input()
-  formCategoryId = new FormControl(Validators.required, Validators.nullValidator);
+  formCategoryId = new FormControl('', Validators.required);
   @Input()
   formEParcelada = new FormControl();
   @Input()
-  formQtnParcelas = new FormControl();
+  formQtnParcelas = new FormControl('', Validators.required);
   @Input()
-  formPrimeiraParcela = new FormControl();
+  formPrimeiraParcela = new FormControl('', Validators.required);
   @Input()
-  formNomeCategoriaDespesa = new FormControl();
+  formNomeCategoriaDespesa = new FormControl('', Validators.required);
 
   @Output()
   inserirOutput: EventEmitter<any> = new EventEmitter();

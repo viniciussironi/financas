@@ -7,17 +7,17 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name = "Parcelas")
+@Table(name = "parcelas")
 public class Parcela {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private LocalDate dataDeVencimento;
     private Double valorParcela;
+    private LocalDate vencimentoParcela;
+    private String nomeParcela;
 
     @ManyToOne
-    @JoinColumn(name = "Despesa_ID")
+    @JoinColumn(name = "despesa_id")
     private Despesa despesa;
 }

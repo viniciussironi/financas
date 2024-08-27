@@ -4,18 +4,19 @@ import { RouterOutlet } from '@angular/router';
 import { ReceitasService } from '../../../services/receitas.service';
 import { DespesasService } from '../../../services/despesas.service';
 
-import { ReceitaInterface } from '../../../interface/receitas-interface';
-import { DespesaInterface } from '../../../interface/despesas-interface';
-
 import { NavLateralComponent } from "../../../components/comp-gerais/nav-bar-lateral-dashboard/nav-lateral-app/nav-lateral.component";
 import { ResumoDashboardComponent } from "../../../components/pagina-resumo/resumo/resumo.component";
 import { HeaderDashbordComponent } from '../../../components/comp-gerais/header-app/header.component';
-import { Page } from '../../../interface/page-interface';
 
 @Component({
   selector: 'app-visao-geral',
   standalone: true,
-  imports: [RouterOutlet, NavLateralComponent, HeaderDashbordComponent, ResumoDashboardComponent],
+  imports: [
+    RouterOutlet, 
+    NavLateralComponent, 
+    HeaderDashbordComponent, 
+    ResumoDashboardComponent,
+  ],
   templateUrl: './visao-geral.component.html',
   styleUrl: './visao-geral.component.scss'
 })

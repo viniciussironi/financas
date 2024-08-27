@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Receitas")
+@Table(name = "receitas")
 public class Receita extends MovimentacaoGenerico {
 
     @ManyToOne

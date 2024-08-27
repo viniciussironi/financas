@@ -99,6 +99,5 @@ public class UsuarioService implements UserDetailsService {
         entidade.setNome(dto.getNome());
         entidade.setSobrenome(dto.getSobrenome());
         entidade.setEmail(dto.getEmail());
-        dto.getAcessoDTOS().forEach(x -> entidade.getAcessos().add(acessoRepository.getReferenceById(x.getId())));
     }
 }

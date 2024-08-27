@@ -3,11 +3,11 @@
     <div class="movimentacao" *ngFor="let despesa of lista.content">
         <div class="principal" >
             <div class="esquerda">
+                <span>{{ despesa.categoria }}</span>
                 <div class="parcela">
-                    <span>{{ despesa.categoria }}</span>
-                    <p class="parcela-nome"> - {{ despesa.parcelaNome }}</p>
+                    <p>{{ despesa.data }}</p>
+                    <p class="parcela-nome">{{ despesa.parcelaNome }}</p>
                 </div>
-                <p>{{ despesa.data }}</p>
             </div>
             <div class="direita">
                 <h2 [style.color]="cor">R$ {{ despesa.valor | number:'2.2-2':'pt' }}</h2>

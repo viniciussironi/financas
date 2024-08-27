@@ -8,13 +8,13 @@ import lombok.Getter;
 public class ReceitaDTO extends MovimentacaoGenericoDTO {
 
     @NotNull(message = "Não pode estar vazio")
-    private CategoriaDTO categoria;
+    private CategoriaDTO categoriaReceita;
 
     public ReceitaDTO() {
     }
 
     public ReceitaDTO(Receita entidade) {
         super(entidade);
-        categoria = new CategoriaDTO(entidade.getCategoriaReceita());
+        categoriaReceita = new CategoriaDTO(entidade.getCategoriaReceita());
     }
 }
