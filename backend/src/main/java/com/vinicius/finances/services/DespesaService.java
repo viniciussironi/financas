@@ -147,18 +147,20 @@ public class DespesaService {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
-        if(!despesaRepository.existsById(id)) {
+        if(!parcelaRepository.existsById(id)) {
             throw new ResourceNotFoundException("Não encotrado");
         }
         try {
-            despesaRepository.deleteById(id);
+            Despesa entidade = parcelaRepository.buscarDespesaPeloIdDaParcela(id);
+            parcelaRepository.deleteById(id);
+            if (entidade.getParcelas().isEmpty()) {
+                despesaRepository.deleteById(entidade.getId());
+            }
         }
         catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Falha de integridade");
         }
     }
-
-
 
     public void dtoToEntity(DespesaInsertDTO dto, Despesa entidade) {
         entidade.setValorTotal(dto.getValor());
