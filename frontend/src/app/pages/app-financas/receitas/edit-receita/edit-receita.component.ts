@@ -47,7 +47,7 @@ export class EditReceitaComponent implements OnInit {
         this.textButton = 'Editar';
         this.formData.setValue(this.receita.data);
         this.formValor.setValue(String(this.receita.valor));
-        this.formCategoryId.setValue(this.receita.categoria.id);
+        this.formCategoryId.setValue(this.receita.categoriaReceita.id);
       }
     });
   }
@@ -80,7 +80,7 @@ export class EditReceitaComponent implements OnInit {
     const receita = {
       data: this.formData.value,
       valor: this.formValor.value,
-      categoria: { id: this.formCategoryId.value }
+      categoriaReceita: { id: this.formCategoryId.value }
     };
     
     this.receitaService.updateReceita(receita, Number(this.id)).subscribe();

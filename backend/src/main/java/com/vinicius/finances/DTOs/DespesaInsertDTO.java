@@ -7,18 +7,20 @@ import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 
 @Getter
+@ToString
 public class DespesaInsertDTO  {
 
-    private Boolean eParcelada;
+    private Boolean e_parcelada;
     private Double valor;
     private LocalDate data;
     private Integer quantidadeDeParcelas;
-    private CategoriaDTO categoria;
+    private CategoriaDTO categoriaDespesa;
 
     public DespesaInsertDTO() {
     }

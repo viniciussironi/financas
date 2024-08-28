@@ -65,7 +65,7 @@ export class AddReceitaComponent implements OnInit {
     const receita = {
       data: this.formData.value,
       valor: this.formValor.value,
-      categoria: { id: this.formCategoryId.value }
+      categoriaReceita: { id: this.formCategoryId.value }
     };
     
     this.receitaService.insertReceita(receita).subscribe();

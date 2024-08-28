@@ -6,8 +6,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PagedModel;
-import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,7 +22,7 @@ public class DespesaController {
     private DespesaService service;
 
     @GetMapping
-    public  ResponseEntity<Page<DespesaDTO>> buscarTodas(
+    public  ResponseEntity<Page<ParcelaDTO>> buscarTodas(
             @RequestParam (name = "idCategoria", defaultValue = "") Long idCategoria,
             @RequestParam (name = "inicio", defaultValue = "") LocalDate inicio,
             @RequestParam (name = "fim", defaultValue = "") LocalDate fim,
@@ -60,7 +58,7 @@ public class DespesaController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<DespesaDTO> update(@Valid @RequestBody DespesaInsertDTO dto, @PathVariable Long id) {
-        DespesaDTO resultado = service.insert(dto);
+        DespesaDTO resultado = service.update(dto, id);
         return ResponseEntity.ok(resultado);
     }
 

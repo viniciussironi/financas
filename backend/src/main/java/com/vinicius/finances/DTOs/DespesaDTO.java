@@ -23,9 +23,6 @@ public class DespesaDTO {
     private Long id;
     @NotNull(message = "Não pode estar vazio")
     private Double valorTotal;
-    @NotNull(message = "Não pode estar vazio")
-    private List<ParcelaDTO> parcelas = new ArrayList<>();
-    @NotNull(message = "Não pode estar vazio")
     private CategoriaDTO categoriaDespesa;
 
 
@@ -36,6 +33,5 @@ public class DespesaDTO {
         id = entidade.getId();
         valorTotal = entidade.getValorTotal();
         categoriaDespesa = new CategoriaDTO(entidade.getCategoriaDespesa());
-        entidade.getParcelas().forEach(x -> parcelas.add(new ParcelaDTO(x)));
     }
 }

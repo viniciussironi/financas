@@ -16,8 +16,8 @@ import { TotalReceitaDespesaComponent } from "../../../../components/movimentaca
 import { BtnAddMovimentacaoComponent } from "../../../../components/movimentacao/btn-add-movimentacao/btn-add-movimentacao.component";
 import { TotalPorCategoriaComponent } from "../../../../components/movimentacao/por-categoria/total-por-categoria.component";
 import { TotalUltimosMesesComponent } from "../../../../components/movimentacao/ultimos-meses/total-ultimos-meses.component";
-import { UltimasMovimentacoesComponent } from "../../../../components/movimentacao/ultimas-movimentacoes/ultimas-movimentacoes.component";
 import { BuscarComponent } from "../../../../components/movimentacao/buscar/buscar.component";
+import { UltimasMovimentacoesReceitaComponent } from "../../../../components/movimentacao/ultimas-movimentacoes-receita/ultimas-movimentacoes-receita.component";
 
 @Component({
   selector: 'app-resumo',
@@ -30,8 +30,8 @@ import { BuscarComponent } from "../../../../components/movimentacao/buscar/busc
     BtnAddMovimentacaoComponent,
     TotalPorCategoriaComponent,
     TotalUltimosMesesComponent,
-    UltimasMovimentacoesComponent,
-    BuscarComponent
+    BuscarComponent,
+    UltimasMovimentacoesReceitaComponent
 ],
   templateUrl: './resumo.component.html',
   styleUrl: './resumo.component.scss'

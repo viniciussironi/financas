@@ -7,7 +7,6 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CategoriaInterface } from '../../../../interface/categoria-interface';
 import { DespesaAtualizarInterface } from '../../../../interface/despesa_atualizar-interface';
 import { DespesaInterface } from '../../../../interface/despesas-interface';
-import { ApiErrorInterface } from '../../../../interface/api-error-interface';
 
 import { CategoriaDespesaService } from '../../../../services/categoria-despesa.service';
 import { DespesasService } from '../../../../services/despesas.service';
@@ -86,21 +85,10 @@ export class AddDespesaComponent implements OnInit {
       e_parcelado: this.formEParcelada.value,
       qtdParcelas: this.formQtnParcelas.value,
       primeiraParcela: this.formPrimeiraParcela.value,
-      categoria: { id: this.formCategoryId.value }
+      categoriaDespesa: { id: this.formCategoryId.value }
     };
 
-    this.despesaService.insertDespesa(despesa).subscribe(
-      (response: DespesaInterface) => {
-        if(response) {
-          this.router.navigate(['./app-finances/despesas/resumo'])
-        }
-        
-      }, (error: ApiErrorInterface) => {
-        error.error.errors.forEach(x => {
-          x
-        });
-        
-      });
+    this.despesaService.insertDespesa(despesa).subscribe();
   }
 }
 

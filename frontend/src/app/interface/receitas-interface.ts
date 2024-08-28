@@ -1,5 +1,10 @@
-import { MovimentacaoInterface } from "./movimentacao-interface";
+export interface ReceitaInterface {
 
-export interface ReceitaInterface extends MovimentacaoInterface {
-
+    id: number;
+    data: string;
+    valor: number;
+    categoriaReceita: {
+      id: number,
+      nome: string
+    },
 }

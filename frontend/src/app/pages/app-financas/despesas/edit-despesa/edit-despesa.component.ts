@@ -53,9 +53,6 @@ export class EditDespesaComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id') || '';
     this.getCategorias();
     this.getDespesaById().subscribe(() => {
-      this.formData.setValue(this.despesa.data);
-      this.formValor.setValue(String(this.despesa.valor));
-      this.formCategoryId.setValue(this.despesa.categoria.id);
       this.formEParcelada.setValue(this.despesa.e_parcelado);
       this.formQtnParcelas.setValue(this.despesa.qtdParcelas);
       this.formPrimeiraParcela.setValue(this.despesa.primeiraParcela);

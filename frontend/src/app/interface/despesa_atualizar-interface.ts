@@ -1,6 +1,4 @@
-import { MovimentacaoInterface } from "./movimentacao-interface";
-
-export interface DespesaAtualizarInterface extends MovimentacaoInterface {
+export interface DespesaAtualizarInterface {
    
     e_parcelado: boolean,
     qtdParcelas: number,

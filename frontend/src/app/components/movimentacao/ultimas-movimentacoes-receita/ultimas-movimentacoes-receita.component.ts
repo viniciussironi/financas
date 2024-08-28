@@ -1,21 +1,21 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { MovimentacaoInterface } from '../../../interface/movimentacao-interface';
+import { ReceitaInterface } from '../../../interface/receitas-interface';
 import { Page } from '../../../interface/page-interface';
 
 @Component({
-  selector: 'app-ultimas-movimentacoes',
+  selector: 'app-ultimas-movimentacoes-receita',
   standalone: true,
   imports: [CommonModule, RouterModule, DecimalPipe],
-  templateUrl: './ultimas-movimentacoes.component.html',
-  styleUrl: './ultimas-movimentacoes.component.scss'
+  templateUrl: './ultimas-movimentacoes-receita.component.html',
+  styleUrl: './ultimas-movimentacoes-receita.component.scss'
 })
-export class UltimasMovimentacoesComponent {
+export class UltimasMovimentacoesReceitaComponent {
 
   @Input()
-  lista!: Page<MovimentacaoInterface>;
+  lista!: Page<ReceitaInterface>;
   @Input()
   cor: string = '';
   @Input()

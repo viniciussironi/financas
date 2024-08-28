@@ -12,11 +12,13 @@ public class ParcelaDTO {
     private Double valorParcela;
     private LocalDate vencimentoParcela;
     private String nomeParcela;
+    private DespesaDTO despesa;
 
     public ParcelaDTO(Parcela entidade) {
         id = entidade.getId();
         valorParcela = entidade.getValorParcela();
         vencimentoParcela = entidade.getVencimentoParcela();
         nomeParcela = entidade.getNomeParcela();
+        despesa = new DespesaDTO(entidade.getDespesa());
     }
 }

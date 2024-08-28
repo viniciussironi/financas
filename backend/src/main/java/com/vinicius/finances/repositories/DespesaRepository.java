@@ -1,6 +1,7 @@
 package com.vinicius.finances.repositories;
 
 import com.vinicius.finances.entities.despesa.Despesa;
+import com.vinicius.finances.entities.despesa.Parcela;
 import com.vinicius.finances.projections.TotalMesProjection;
 import com.vinicius.finances.projections.ValorTotalMovimentacao;
 import org.springframework.data.domain.Page;
@@ -14,18 +15,17 @@ import java.util.List;
 public interface DespesaRepository extends JpaRepository<Despesa, Long> {
     @Query(
             """
-                SELECT DISTINCT d
-                FROM Despesa d
-                INNER JOIN FETCH d.categoriaDespesa cd
-                LEFT JOIN FETCH d.parcelas p
+                SELECT p
+                FROM Parcela p
+                JOIN p.despesa d
+                JOIN d.categoriaDespesa cd
                 WHERE d.usuario.id = :idUsuario
                 AND (:idCategoria IS NULL OR cd.id = :idCategoria)
                 AND (:inicio IS NULL OR p.vencimentoParcela >= :inicio)
                 AND (:fim IS NULL OR p.vencimentoParcela <= :fim)
                 ORDER BY p.vencimentoParcela DESC
-            """
-    )
-    Page<Despesa> buscarDespesas(Long idUsuario, Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable);
+            """)
+    Page<Parcela> buscarDespesas(Long idUsuario, Long idCategoria, LocalDate inicio, LocalDate fim, Pageable pageable);
 
 
     @Query(nativeQuery = true, value =
@@ -45,8 +45,7 @@ public interface DespesaRepository extends JpaRepository<Despesa, Long> {
                 SELECT CAST(SUM(VALOR) AS DECIMAL(10, 2)) AS total
                 FROM despesas
                 WHERE USUARIO_ID = (:id)
-            """
-    )
+            """)
     ValorTotalMovimentacao valorTotalDespesas(Long id);
 
 }

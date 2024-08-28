@@ -16,7 +16,7 @@ INSERT INTO parcelas (valor_parcela, vencimento_parcela, nome_parcela, despesa_i
 
 INSERT INTO parcelas (valor_parcela, vencimento_parcela, nome_parcela, despesa_id) VALUES (100.00, '2024-08-15', 'Parcela 1', 3);
 INSERT INTO parcelas (valor_parcela, vencimento_parcela, nome_parcela, despesa_id) VALUES (100.00, '2024-09-15', 'Parcela 2', 3);
-INSERT INTO parcelas (valor_parcela, vencimento_parcela, nome_parcela, despesa_id) VALUES (100.00, '2024-09-15', 'Parcela 3', 3);
+INSERT INTO parcelas (valor_parcela, vencimento_parcela, nome_parcela, despesa_id) VALUES (100.00, '2024-10-15', 'Parcela 3', 3);
 
 INSERT INTO parcelas (valor_parcela, vencimento_parcela, nome_parcela, despesa_id) VALUES (100.00, '2024-08-10', 'Parcela 1', 2);
 INSERT INTO parcelas (valor_parcela, vencimento_parcela, nome_parcela, despesa_id) VALUES (100.00, '2024-09-10', 'Parcela 2', 2);
