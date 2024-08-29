@@ -1,4 +1,14 @@
 export interface DespesaInterface  {
     id: number,
-    valorTotal: number,
+    valorParcela: number,
+    vencimentoParcela: string,
+    nomeParcela: string,
+    despesa: {
+        id: number,
+        valorTotal: number,
+        categoriaDespesa: {
+            id: number,
+            nome: string
+        }
+    }
 }

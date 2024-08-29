@@ -30,11 +30,11 @@ public interface DespesaRepository extends JpaRepository<Despesa, Long> {
 
     @Query(nativeQuery = true, value =
             """
-                SELECT MONTH(DATA) AS mes, CAST(SUM(VALOR) AS DECIMAL(10, 2)) AS total
-                FROM DESPESAS
-                WHERE USUARIO_ID = (:id)
-                  AND DATA >= DATEADD(MONTH, -4, CURRENT_DATE)
-                GROUP BY MONTH(DATA)
+                SELECT MONTH(parcelas.vencimento_parcela) AS mes, CAST(SUM(parcelas.valor_parcela) AS DECIMAL(10, 2)) AS total
+                FROM despesas
+                INNER JOIN parcelas ON despesas.id = parcelas.despesa_id
+                WHERE usuario_id = (:id)
+                GROUP BY MONTH(parcelas.vencimento_parcela)
                 ORDER BY mes DESC
                 LIMIT  4
             """)
@@ -42,7 +42,7 @@ public interface DespesaRepository extends JpaRepository<Despesa, Long> {
 
     @Query(nativeQuery = true, value =
             """
-                SELECT CAST(SUM(VALOR) AS DECIMAL(10, 2)) AS total
+                SELECT CAST(SUM(valor_total) AS DECIMAL(10, 2)) AS total
                 FROM despesas
                 WHERE USUARIO_ID = (:id)
             """)

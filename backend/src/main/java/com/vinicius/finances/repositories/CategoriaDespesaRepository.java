@@ -14,18 +14,18 @@ public interface CategoriaDespesaRepository extends JpaRepository<CategoriaDespe
             nativeQuery = true,
             value = """
                         SELECT
-                            cd.ID,
-                            cd.Nome,
-                            CAST(SUM(d.VALOR) AS DECIMAL(10, 2)) AS total
+                            cd.id,
+                            cd.nome,
+                            CAST(SUM(d.valor_total) AS DECIMAL(10, 2)) AS total
                         FROM
                             CATEGORIAS_DESPESAS cd
                         JOIN
-                            DESPESAS d ON cd.ID = d.CATEGORIA_DESPESA_ID
+                            DESPESAS d ON cd.id = d.categoria_despesa_id
                         WHERE
-                           d.USUARIO_ID = :id
+                           d.usuario_id = :id
                         GROUP BY
-                            cd.ID, cd.Nome
-                        LIMIT  4    
+                            cd.ID, cd.nome
+                        LIMIT  4
                     """
     )
     List<TotalCategoriaProjection> buscarValorTotalPorCategoria(Long id);

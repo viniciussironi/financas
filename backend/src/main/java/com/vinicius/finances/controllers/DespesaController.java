@@ -41,7 +41,7 @@ public class DespesaController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<DespesaDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<DespesaInsertDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 

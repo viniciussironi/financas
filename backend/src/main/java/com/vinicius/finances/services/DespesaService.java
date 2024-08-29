@@ -73,8 +73,9 @@ public class DespesaService {
     }
 
     @Transactional(readOnly = true)
-    public DespesaDTO findById(Long id) {
-        return new DespesaDTO(despesaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Despesa não encotrada")));
+    public DespesaInsertDTO findById(Long id) {
+        authService.authenticated();
+        return new DespesaInsertDTO(parcelaRepository.buscarDespesaPeloIdDaParcela(id));
     }
 
     @Transactional
@@ -147,6 +148,7 @@ public class DespesaService {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
+        authService.authenticated();
         if(!parcelaRepository.existsById(id)) {
             throw new ResourceNotFoundException("Não encotrado");
         }

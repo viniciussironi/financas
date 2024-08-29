@@ -25,5 +25,17 @@ public class DespesaInsertDTO  {
     public DespesaInsertDTO() {
     }
 
-
+    public DespesaInsertDTO(Despesa entidade) {
+        if (entidade.getParcelas().size() > 1) {
+            e_parcelada = true;
+            quantidadeDeParcelas = entidade.getParcelas().size();
+        }
+        else {
+            e_parcelada = false;
+            quantidadeDeParcelas = null;
+        }
+        valor = entidade.getValorTotal();
+        data = entidade.getParcelas().getFirst().getVencimentoParcela();
+        categoriaDespesa = new CategoriaDTO(entidade.getCategoriaDespesa());
+    }
 }
