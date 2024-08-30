@@ -31,9 +31,12 @@ h4 {
 }
 
 .esquerda {
+    width: 250px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
 }
 
 .input {
@@ -110,12 +113,20 @@ button {
     font-size: 20px;
     font-weight: 500;
     padding: 6px 24px;
-    margin-top: 20px;  
+    margin-top: 10px;  
 }
 
 .adicionar:hover {
     border: 2px solid variables.$black_color;
     background-color: variables.$gray_color;
+}
+
+.parcelada, .nao-parcelada {
+    display: none;
+}
+
+.mostrar {
+    display: block;
 }
 
 #add-categoria-btn {
@@ -155,6 +166,8 @@ button {
 }
 
 .e-parcelada {
+    margin-top: 10px;
+
     display: flex;
     flex-direction: column;
     align-items: center;

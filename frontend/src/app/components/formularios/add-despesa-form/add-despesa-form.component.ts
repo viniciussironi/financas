@@ -37,8 +37,6 @@ export class AddDespesaFormComponent implements OnInit{
   @Input()
   formQtnParcelas = new FormControl('', Validators.required);
   @Input()
-  formPrimeiraParcela = new FormControl('', Validators.required);
-  @Input()
   formNomeCategoriaDespesa = new FormControl('', Validators.required);
 
   @Output()
@@ -55,7 +53,6 @@ export class AddDespesaFormComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.formEParcelada.setValue(false);
   }
 
   inserirMovimentacao() {

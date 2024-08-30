@@ -39,7 +39,6 @@ export class EditDespesaComponent implements OnInit {
   formValor = new FormControl('', Validators.required);
   formCategoryId = new FormControl();
   formQtnParcelas = new FormControl();
-  formPrimeiraParcela = new FormControl('', Validators.required);
   formEParcelada = new FormControl();
   formNomeCategoriaDespesa = new FormControl('', Validators.required);
 
@@ -56,7 +55,7 @@ export class EditDespesaComponent implements OnInit {
       this.formEParcelada.setValue(this.despesa.e_parcelada);
       this.formValor.setValue(String(this.despesa.valor));
       this.formQtnParcelas.setValue(this.despesa.quantidadeDeParcelas);
-      this.formPrimeiraParcela.setValue(this.despesa.data);
+      this.formData.setValue(this.despesa.data);
       this.formCategoryId.setValue(this.despesa.categoriaDespesa.id)
     });
   }
@@ -86,15 +85,12 @@ export class EditDespesaComponent implements OnInit {
   }
   updateDespesa() {
     const despesa = {
-      data: this.formData.value,
+      e_parcelada: this.formEParcelada.value,
       valor: this.formValor.value,
-      e_parcelado: this.formEParcelada.value,
-      qtdParcelas: this.formQtnParcelas.value,
-      primeiraParcela: this.formPrimeiraParcela.value,
-      categoria: { id: this.formCategoryId.value }
+      data: this.formData.value,
+      quantidadeDeParcelas: this.formQtnParcelas.value,
+      categoriaDespesa: { id: this.formCategoryId.value }
     };
-    console.log(despesa)
-
     this.despesaService.updateDespesa(despesa, Number(this.id)).subscribe();
   }
 }

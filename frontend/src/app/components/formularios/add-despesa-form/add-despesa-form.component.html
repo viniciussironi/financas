@@ -3,57 +3,6 @@
         <h1>{{ tituloPagina }}</h1>
         <div class="form">
             <div class="esquerda">
-                <div class="input">
-                    <p>Data</p>
-                    <div class="erro" *ngIf="formData.invalid && formData.touched">
-                        <p class="erro-mensagem" *ngIf="formData.hasError('required')">Este campo é obrigatório.</p>
-                    </div>
-                    <input type="date" name="data" [formControl]="formData">
-                </div>
-                <div class="input">
-                    <p>Valor</p>
-                    <div class="erro" *ngIf="formValor.invalid && formValor.touched">
-                        <p class="erro-mensagem" *ngIf="formValor.hasError('required')">Este campo é obrigatório.</p>
-                    </div>
-                    <input 
-                        type="text" 
-                        name="valor" 
-                        placeholder="Digite o valor" 
-                        currencyMask
-                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false, align: 'left' }"
-                        [formControl]="formValor"
-                    >
-                </div>
-                <div class="input">
-                    <p>Categoria</p>
-                    <div class="erro" *ngIf="formCategoryId.invalid && formCategoryId.touched">
-                        <p class="erro-mensagem" *ngIf="formCategoryId.hasError('required')">Este campo é obrigatório.</p>
-                    </div>
-                    <div class="categoria">
-                        <select name="categoria" [formControl]="formCategoryId">
-                            <option 
-                            *ngFor="let categoria of listaCategoria" 
-                            [value]="categoria.id"
-                            >{{ categoria.nome }}</option>
-                        </select>
-                        <button 
-                        class="material-symbols-outlined" 
-                        id="add-categoria" 
-                        (click)="addCategoriaBtn()" 
-                        >{{icon}}</button>
-                    </div>
-                    <div class="input" id="bloco-cat" [ngClass]="{'nao-mostrar': status == false}">
-                        <h4>Nova categoria</h4>
-                        <p>Nome da categoria</p>
-                        <div class="erro" *ngIf="formNomeCategoriaDespesa.invalid && formNomeCategoriaDespesa.touched">
-                            <p class="erro-mensagem" *ngIf="formNomeCategoriaDespesa.hasError('required')">Este campo é obrigatório.</p>
-                        </div>
-                        <input type="text" name="data" [formControl]="formNomeCategoriaDespesa" placeholder="Digite o nome da categoria">
-                        <div class="btn-center">
-                            <button class="adicionar" id="add-categoria-btn" (click)="inserirCategoria()">Adicionar categoria</button>
-                        </div>
-                    </div>
-                </div>
                 <div class="e-parcelada">
                     <p>É parcelada?</p>
                     <div>
@@ -69,10 +18,28 @@
                         >Não</button> 
                     </div>
                 </div>
-                <div 
-                    class="parcela" 
-                    [ngClass]="{'nao-mostrar': formEParcelada.value == false}"
-                >
+                <div class="parcelada" [ngClass]="{'mostrar': formEParcelada.value == true}">
+                    <div class="input">
+                        <p>Valor total da despesa</p>
+                        <div class="erro" *ngIf="formValor.invalid && formValor.touched">
+                            <p class="erro-mensagem" *ngIf="formValor.hasError('required')">Este campo é obrigatório.</p>
+                        </div>
+                        <input 
+                            type="text" 
+                            name="valor" 
+                            placeholder="Digite o valor" 
+                            currencyMask
+                            [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false, align: 'left' }"
+                            [formControl]="formValor"
+                        >
+                    </div>
+                    <div class="input">
+                        <p>Data da primeira parcela</p>
+                        <div class="erro" *ngIf="formData.invalid && formData.touched">
+                            <p class="erro-mensagem" *ngIf="formData.hasError('required')">Este campo é obrigatório.</p>
+                        </div>
+                        <input type="date" name="data" [formControl]="formData">
+                    </div>
                     <div class="input">
                         <p>Quantidade de parcelas</p>
                         <div class="erro" *ngIf="formQtnParcelas.invalid && formQtnParcelas.touched">
@@ -80,12 +47,89 @@
                         </div>
                         <input type="number" min="2" placeholder="Exemplo: 4, 5" [formControl]="formQtnParcelas">
                     </div>
-                    <div class="input" id="fim">
-                        <p>Primeira parcela</p>
-                        <div class="erro" *ngIf="formPrimeiraParcela.invalid && formPrimeiraParcela.touched">
-                            <p class="erro-mensagem" *ngIf="formPrimeiraParcela.hasError('required')">Este campo é obrigatório.</p>
+                    <div class="input">
+                        <p>Categoria</p>
+                        <div class="erro" *ngIf="formCategoryId.invalid && formCategoryId.touched">
+                            <p class="erro-mensagem" *ngIf="formCategoryId.hasError('required')">Este campo é obrigatório.</p>
                         </div>
-                        <input type="date" name="data" [formControl]="formPrimeiraParcela">
+                        <div class="categoria">
+                            <select name="categoria" [formControl]="formCategoryId">
+                                <option 
+                                *ngFor="let categoria of listaCategoria" 
+                                [value]="categoria.id"
+                                >{{ categoria.nome }}</option>
+                            </select>
+                            <button 
+                            class="material-symbols-outlined" 
+                            id="add-categoria" 
+                            (click)="addCategoriaBtn()" 
+                            >{{icon}}</button>
+                        </div>
+                        <div class="input" id="bloco-cat" [ngClass]="{'nao-mostrar': status == false}">
+                            <h4>Nova categoria</h4>
+                            <p>Nome da categoria</p>
+                            <div class="erro" *ngIf="formNomeCategoriaDespesa.invalid && formNomeCategoriaDespesa.touched">
+                                <p class="erro-mensagem" *ngIf="formNomeCategoriaDespesa.hasError('required')">Este campo é obrigatório.</p>
+                            </div>
+                            <input type="text" name="data" [formControl]="formNomeCategoriaDespesa" placeholder="Digite o nome da categoria">
+                            <div class="btn-center">
+                                <button class="adicionar" id="add-categoria-btn" (click)="inserirCategoria()">Adicionar categoria</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nao-parcelada" [ngClass]="{'mostrar': formEParcelada.value == false}">
+                    <div class="input">
+                        <p>Valor da despesa</p>
+                        <div class="erro" *ngIf="formValor.invalid && formValor.touched">
+                            <p class="erro-mensagem" *ngIf="formValor.hasError('required')">Este campo é obrigatório.</p>
+                        </div>
+                        <input 
+                            type="text" 
+                            name="valor" 
+                            placeholder="Digite o valor" 
+                            currencyMask
+                            [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false, align: 'left' }"
+                            [formControl]="formValor"
+                        >
+                    </div>
+                    <div class="input">
+                        <p>Data</p>
+                        <div class="erro" *ngIf="formData.invalid && formData.touched">
+                            <p class="erro-mensagem" *ngIf="formData.hasError('required')">Este campo é obrigatório.</p>
+                        </div>
+                        <input type="date" name="data" [formControl]="formData">
+                    </div>
+                    <div class="input">
+                        <p>Categoria</p>
+                        <div class="erro" *ngIf="formCategoryId.invalid && formCategoryId.touched">
+                            <p class="erro-mensagem" *ngIf="formCategoryId.hasError('required')">Este campo é obrigatório.</p>
+                        </div>
+                        <div class="categoria">
+                            <select name="categoria" [formControl]="formCategoryId">
+                                <option 
+                                *ngFor="let categoria of listaCategoria" 
+                                [value]="categoria.id"
+                                >{{ categoria.nome }}</option>
+                            </select>
+                            <button 
+                            class="material-symbols-outlined" 
+                            id="add-categoria" 
+                            (click)="addCategoriaBtn()" 
+                            >{{icon}}</button>
+                        </div>
+                        <div class="input" id="bloco-cat" [ngClass]="{'nao-mostrar': status == false}">
+                            <h4>Nova categoria</h4>
+                            <p>Nome da categoria</p>
+                            <div class="erro" *ngIf="formNomeCategoriaDespesa.invalid && formNomeCategoriaDespesa.touched">
+                                <p class="erro-mensagem" *ngIf="formNomeCategoriaDespesa.hasError('required')">Este campo é obrigatório.</p>
+                            </div>
+                            <input type="text" name="data" [formControl]="formNomeCategoriaDespesa" placeholder="Digite o nome da categoria">
+                            <div class="btn-center">
+                                <button class="adicionar" id="add-categoria-btn" (click)="inserirCategoria()">Adicionar categoria</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <button class="adicionar" (click)="inserirMovimentacao()">{{ textButton }}</button>

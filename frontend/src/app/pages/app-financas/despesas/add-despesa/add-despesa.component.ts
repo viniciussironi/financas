@@ -6,7 +6,6 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 import { CategoriaInterface } from '../../../../interface/categoria-interface';
 import { DespesaAtualizarInterface } from '../../../../interface/despesa_atualizar-interface';
-import { DespesaInterface } from '../../../../interface/despesas-interface';
 
 import { CategoriaDespesaService } from '../../../../services/categoria-despesa.service';
 import { DespesasService } from '../../../../services/despesas.service';
@@ -44,18 +43,16 @@ export class AddDespesaComponent implements OnInit {
   erroEParcelada: string = ''
   erroNomeCategoriaDespesa: string = ''
 
-  formData = new FormControl('', Validators.required);
-  formValor = new FormControl('', Validators.required);
-  formCategoryId = new FormControl('', Validators.required);
-  formQtnParcelas = new FormControl('', Validators.required);
-  formPrimeiraParcela = new FormControl('', Validators.required);
   formEParcelada = new FormControl();
+  formValor = new FormControl('', Validators.required);
+  formQtnParcelas = new FormControl('', Validators.required);
+  formData = new FormControl('', Validators.required);
+  formCategoryId = new FormControl('', Validators.required);
   formNomeCategoriaDespesa = new FormControl('', Validators.required);
 
   constructor(
     private categoriaDespesaService: CategoriaDespesaService, 
-    private despesaService: DespesasService,
-    private router: Router
+    private despesaService: DespesasService
   ) {}
   
   ngOnInit() {
@@ -80,14 +77,12 @@ export class AddDespesaComponent implements OnInit {
 
   insertDespesa() {
     const despesa = {
-      data: this.formData.value,
+      e_parcelada: this.formEParcelada.value,
       valor: this.formValor.value,
-      e_parcelado: this.formEParcelada.value,
-      qtdParcelas: this.formQtnParcelas.value,
-      primeiraParcela: this.formPrimeiraParcela.value,
+      data: this.formData.value,
+      quantidadeDeParcelas: this.formQtnParcelas.value,
       categoriaDespesa: { id: this.formCategoryId.value }
     };
-
     this.despesaService.insertDespesa(despesa).subscribe();
   }
 }
