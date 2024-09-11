@@ -1,11 +1,11 @@
 @use '../../../../variables';
 
 .form-conta__container {
+    margin: 10vh auto;
+    width: 580px;
     padding: 15px;
     border-radius: 12px;
-    background-color: variables.$gray_color;
-
-    
+    background-color: variables.$gray_color; 
 }
 
 h1 {
@@ -13,13 +13,13 @@ h1 {
 }
 
 .conteudo__form-conta {
-    gap: 40px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .input {
-    margin: 13px;
+    margin: 13px 0px;
 }
 
 p {
@@ -39,10 +39,9 @@ input:focus {
     outline: 0;
 }
 
-.foto-perfil {
-    padding: 0;
-    border-radius: 0;
-    border: none;
+.erro-mensagem {
+    font-size: 13px;
+    color: red;
 }
 
 button {
@@ -67,4 +66,15 @@ button:hover {
 
     display:flex;
     align-items: center;
+}
+
+.obrigatorio {
+    font-size: 16px;
+    color: red;
+}
+
+.invalido {
+    cursor: not-allowed; 
+    border: 2px solid variables.$black_color;
+    background-color: variables.$gray_color;
 }

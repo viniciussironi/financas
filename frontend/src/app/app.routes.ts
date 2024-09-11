@@ -13,6 +13,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { canActivateAdmin } from './constant/auth';
 import { EditReceitaComponent } from './pages/app-financas/receitas/edit-receita/edit-receita.component';
 import { EditDespesaComponent } from './pages/app-financas/despesas/edit-despesa/edit-despesa.component';
+import { ContaComponent } from './pages/app-financas/conta/conta.component';
 
 
 export const routes: Routes = [
@@ -30,5 +31,6 @@ export const routes: Routes = [
             {path: 'add-despesa', component: AddDespesaComponent}, 
             {path: 'edit-despesa/:id', component: EditDespesaComponent},
         ]},
-    ]} 
+        {path: 'conta', component: ContaComponent}, 
+    ]},
 ];

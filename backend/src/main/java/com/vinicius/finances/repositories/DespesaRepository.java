@@ -47,5 +47,4 @@ public interface DespesaRepository extends JpaRepository<Despesa, Long> {
                 WHERE USUARIO_ID = (:id)
             """)
     ValorTotalMovimentacao valorTotalDespesas(Long id);
-
 }

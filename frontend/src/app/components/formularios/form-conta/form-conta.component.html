@@ -3,34 +3,52 @@
     <div class="conteudo__form-conta">
         <div class="direita__conteudo">
             <div class="input">
-                <p>Nome</p>
-                <input type="text" name="nome" required>
+                <p>Nome<span class="obrigatorio">*</span></p>
+                <div class="erro" *ngIf="formNome.invalid && formNome.touched">
+                    <p class="erro-mensagem" *ngIf="formNome.hasError('required')">Este campo é obrigatório.</p>
+                    <p class="erro-mensagem" *ngIf="formNome.hasError('nullValidator')">Este campo é obrigatório.</p>
+                </div>
+                <input type="text" name="nome" required [formControl]="formNome">
             </div>
             <div class="input">
-                <p>Sobrenome</p>
-                <input type="text" name="sobrenome" required>
+                <p>Sobrenome<span class="obrigatorio">*</span></p>
+                <div class="erro" *ngIf="formSobrenome.invalid && formSobrenome.touched">
+                    <p class="erro-mensagem" *ngIf="formSobrenome.hasError('required')">Este campo é obrigatório.</p>
+                    <p class="erro-mensagem" *ngIf="formSobrenome.hasError('nullValidator')">Este campo é obrigatório.</p>
+                </div>
+                <input type="text" name="sobrenome" required [formControl]="formSobrenome">
             </div>
             <div class="input">
-                <p>Foto perfil</p>
-                <input type="file" name="foto" class="foto-perfil">
+                <p>E-mail<span class="obrigatorio">*</span></p>
+                <div class="erro" *ngIf="formEmail.invalid && formEmail.touched">
+                    <p class="erro-mensagem" *ngIf="formEmail.hasError('required')">Este campo é obrigatório.</p>
+                    <p class="erro-mensagem" *ngIf="formEmail.hasError('nullValidator')">Este campo é obrigatório.</p>
+                    <p class="erro-mensagem" *ngIf="formEmail.hasError('email')">Digite um email válido</p>
+                </div>
+                <input type="email" name="email" required [formControl]="formEmail">
             </div>
         </div>
-        <div class="esquerda__conteudo">
+        <div class="esquerda__conteudo" [formGroup]="formGroup">
             <div class="input">
-                <p>E-mail</p>
-                <input type="text" name="email" required>
+                <div class="erro" *ngIf="formGroup.touched">
+                    <p class="erro-mensagem" *ngIf="formGroup.get('formSenha')?.errors?.['required'] || formGroup.get('formNovaSenha')?.errors?.['required'] ">Este campo é obrigatório.</p>
+                    <p class="erro-mensagem" *ngIf="formGroup.get('formSenha')?.errors?.['minlength'] || formGroup.get('formNovaSenha')?.errors?.['minlength']">Deve ter pelo menos 6 caracteres</p>
+                    <p class="erro-mensagem" *ngIf="formGroup.errors?.['senhasDiferentes']">As senhas não são iguais.</p>
+                  </div>
+                <p>Nova senha<span class="obrigatorio">*</span></p>
+                <input type="password" name="senha" required formControlName="formSenha"  placeholder="Digite sua nova senha"> 
             </div>
             <div class="input">
-                <p>Senha</p>
-                <input type="text" name="senha" required>
-            </div>
-            <div class="input">
-                <p>Nova senha</p>
-                <input type="text" name="novasenha" required>
+                <p>Repita a senha<span class="obrigatorio">*</span></p>
+                <input type="password" name="novasenha" required formControlName="formNovaSenha" placeholder="Repita a senha">
             </div>
         </div>
     </div>
     <div class="enviar">
-        <button>Alterar dados</button>
+        <button 
+        [ngClass]="{'invalido': estaValidoFormularioConta == false}" 
+        [disabled]="!estaValidoFormularioConta"
+        (click)="atualizar()"
+        >Alterar dados</button>
     </div>
 </div>

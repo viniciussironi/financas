@@ -57,8 +57,8 @@ public class UsuarioService implements UserDetailsService {
 
     @Transactional
     public UsuarioDTO update(UsuarioInserirDTO dto) {
+        Usuario entity = authService.authenticated();
         try {
-            Usuario entity = authService.authenticated();
             dtoToEntity(dto, entity);
             entity = usuarioRepository.save(entity);
             return new UsuarioDTO(entity);

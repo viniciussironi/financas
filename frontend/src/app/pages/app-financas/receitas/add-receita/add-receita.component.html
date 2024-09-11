@@ -1,13 +1,15 @@
 <div class="add__receita">
     <app-add-movimentacao
+        localizacaoImagem="assets/pig-green.png"
         [titulo]="tituloPagina"
         [textButton]="textButton"
-        localizacaoImagem="assets/pig-green.png"
         [listaCategoria]="listaCategoria"
         [formCategoryId]="formCategoryId"
         [formData]="formData"
         [formValor]="formValor"
-        [formNomeCategoriaDespesa]="formNomeCategoriaDespesa"
+        [formNomeCategoriaReceita]="formNomeCategoriaReceita"
+        [estaValidoFormularioReceita]="estaValidoFormularioReceita()"
+        [estaValidoFormularioCategoria]="estaValidoFormularioCategoria()"
         (inserirOutput)="insertReceita()"
         (inserirCategoriaOutput)="insertCategoriaReceita()"
     ></app-add-movimentacao>

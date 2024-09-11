@@ -34,7 +34,11 @@ export class AddMovimentacaoComponent {
   @Input()
   formCategoryId = new FormControl('', Validators.required);
   @Input()
-  formNomeCategoriaDespesa = new FormControl('', Validators.required);
+  formNomeCategoriaReceita = new FormControl('', Validators.required);
+  @Input()
+  estaValidoFormularioReceita: boolean = false;
+  @Input()
+  estaValidoFormularioCategoria: boolean = false;
 
   @Output()
   inserirOutput: EventEmitter<any> = new EventEmitter();
@@ -68,3 +72,4 @@ export class AddMovimentacaoComponent {
     }
   }
 }
+

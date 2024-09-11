@@ -1,0 +1,11 @@
+<div class="conta__container">
+    <app-header titulo="Conta"></app-header>
+    <app-form-conta
+        [formNome]="formNome"
+        [formSobrenome]="formSobrenome"
+        [formEmail]="formEmail"
+        [formGroup]="formGroup"
+        [estaValidoFormularioConta]="estaValidoFormularioConta()"
+        (atualizarOutput)="atualizarUsuario()"
+    ></app-form-conta>
+</div>

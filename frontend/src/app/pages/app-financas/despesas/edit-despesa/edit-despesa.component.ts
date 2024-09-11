@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CommonModule } from '@angular/common';
@@ -46,6 +46,7 @@ export class EditDespesaComponent implements OnInit {
     private categoriaDespesaService: CategoriaDespesaService, 
     private despesaService: DespesasService,
     private route: ActivatedRoute,
+    private router: Router,
   ) {}
   
   ngOnInit() {
@@ -67,7 +68,7 @@ export class EditDespesaComponent implements OnInit {
     });
   }
 
-  getDespesaById(): Observable<DespesaAtualizarInterface> {
+  getDespesaById() {
     return this.despesaService.getDespesaById(Number(this.id)).pipe(
       tap((despesa: DespesaAtualizarInterface) => {
         this.despesa = despesa;
@@ -91,6 +92,28 @@ export class EditDespesaComponent implements OnInit {
       quantidadeDeParcelas: this.formQtnParcelas.value,
       categoriaDespesa: { id: this.formCategoryId.value }
     };
-    this.despesaService.updateDespesa(despesa, Number(this.id)).subscribe();
+    this.despesaService.updateDespesa(despesa, Number(this.id)).subscribe({
+      next: () => {
+        this.router.navigate(['/app-finances/despesas/resumo']);
+      }
+    });
+  }
+
+  estaValidoFormularioDespesa(): boolean {
+    if(this.formEParcelada.invalid || this.formValor.invalid || this.formQtnParcelas.invalid || this.formData.invalid || this.formCategoryId.invalid) {
+      return false
+    }
+    else {
+      return true;
+    }
+  }
+
+  estaValidoFormularioCategoria(): boolean {
+    if(this.formNomeCategoriaDespesa.invalid) {
+      return false
+    }
+    else {
+      return true;
+    }
   }
 }

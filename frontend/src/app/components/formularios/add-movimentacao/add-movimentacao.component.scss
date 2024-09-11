@@ -38,6 +38,11 @@ h4 {
     color: red;
 }
 
+.obrigatorio {
+    font-size: 16px;
+    color: red;
+}
+
 .categoria {
     display: flex;
     flex-direction: row;
@@ -133,4 +138,10 @@ button {
 
 .nao-mostrar {
     display: none;
+}
+
+.invalido {
+    cursor: not-allowed; 
+    border: 2px solid variables.$black_color;
+    background-color: variables.$gray_color;
 }

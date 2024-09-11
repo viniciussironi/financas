@@ -1,14 +1,11 @@
 package com.vinicius.finances.controllers;
 
-import com.vinicius.finances.DTOs.DespesaInsertDTO;
 import com.vinicius.finances.DTOs.UsuarioDTO;
 import com.vinicius.finances.DTOs.UsuarioInserirDTO;
-import com.vinicius.finances.entities.Usuario;
 import com.vinicius.finances.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

@@ -59,7 +59,7 @@ export class ReceitasService {
       'Authorization': 'Bearer ' + localStorage.getItem('access_token')
     });
 
-    return this.http.post(this.url, receita, {headers});
+    return this.http.post<ReceitaInterface>(this.url, receita, {headers});
   }
 
   updateReceita(receita: any, id: number) {

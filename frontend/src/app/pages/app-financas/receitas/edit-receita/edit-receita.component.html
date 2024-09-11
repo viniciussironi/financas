@@ -7,7 +7,9 @@
         [formCategoryId]="formCategoryId"
         [formData]="formData"
         [formValor]="formValor"
-        [formNomeCategoriaDespesa]="formNomeCategoriaDespesa"
+        [formNomeCategoriaReceita]="formNomeCategoriaReceita"
+        [estaValidoFormularioReceita]="estaValidoFormularioReceita()"
+        [estaValidoFormularioCategoria]="estaValidoFormularioCategoria()"
         (inserirOutput)="updateReceita()"
         (inserirCategoriaOutput)="insertCategoriaReceita()"
     ></app-add-movimentacao>

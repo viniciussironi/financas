@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
 import { CategoriaReceitaService } from '../../../../services/categoria-receita.service';
@@ -29,12 +29,13 @@ export class EditReceitaComponent implements OnInit {
   formData = new FormControl('', Validators.required);
   formValor = new FormControl('', Validators.required);
   formCategoryId = new FormControl();
-  formNomeCategoriaDespesa = new FormControl('', Validators.required);
+  formNomeCategoriaReceita = new FormControl('', Validators.required);
   
   constructor(
     private categoriaReceitaService: CategoriaReceitaService, 
     private receitaService: ReceitasService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
   
   ngOnInit() {
@@ -69,7 +70,7 @@ export class EditReceitaComponent implements OnInit {
   
   insertCategoriaReceita() {
     const categoria = {
-      nome: this.formNomeCategoriaDespesa.value
+      nome: this.formNomeCategoriaReceita.value
     }
     this.categoriaReceitaService.insertCategoriaReceita(categoria).subscribe(() => {
       this.getCategorias();
@@ -83,6 +84,28 @@ export class EditReceitaComponent implements OnInit {
       categoriaReceita: { id: this.formCategoryId.value }
     };
     
-    this.receitaService.updateReceita(receita, Number(this.id)).subscribe();
+    this.receitaService.updateReceita(receita, Number(this.id)).subscribe({
+      next: () => {
+        this.router.navigate(['/app-finances/receitas/resumo']);
+      }
+    });
+  }
+
+  estaValidoFormularioReceita(): boolean {
+    if(this.formData.invalid || this.formValor.invalid || this.formCategoryId.invalid) {
+      return false
+    }
+    else {
+      return true;
+    }
+  }
+
+  estaValidoFormularioCategoria(): boolean {
+    if(this.formNomeCategoriaReceita.invalid) {
+      return false
+    }
+    else {
+      return true;
+    }
   }
 }

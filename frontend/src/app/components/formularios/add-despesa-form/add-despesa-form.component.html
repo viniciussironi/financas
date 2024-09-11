@@ -20,7 +20,7 @@
                 </div>
                 <div class="parcelada" [ngClass]="{'mostrar': formEParcelada.value == true}">
                     <div class="input">
-                        <p>Valor total da despesa</p>
+                        <p>Valor total da despesa<span class="obrigatorio">*</span></p>
                         <div class="erro" *ngIf="formValor.invalid && formValor.touched">
                             <p class="erro-mensagem" *ngIf="formValor.hasError('required')">Este campo é obrigatório.</p>
                         </div>
@@ -34,21 +34,21 @@
                         >
                     </div>
                     <div class="input">
-                        <p>Data da primeira parcela</p>
+                        <p>Data da primeira parcela<span class="obrigatorio">*</span></p>
                         <div class="erro" *ngIf="formData.invalid && formData.touched">
                             <p class="erro-mensagem" *ngIf="formData.hasError('required')">Este campo é obrigatório.</p>
                         </div>
                         <input type="date" name="data" [formControl]="formData">
                     </div>
                     <div class="input">
-                        <p>Quantidade de parcelas</p>
+                        <p>Quantidade de parcelas<span class="obrigatorio">*</span></p>
                         <div class="erro" *ngIf="formQtnParcelas.invalid && formQtnParcelas.touched">
                             <p class="erro-mensagem" *ngIf="formQtnParcelas.hasError('required')">Este campo é obrigatório.</p>
                         </div>
                         <input type="number" min="2" placeholder="Exemplo: 4, 5" [formControl]="formQtnParcelas">
                     </div>
                     <div class="input">
-                        <p>Categoria</p>
+                        <p>Categoria<span class="obrigatorio">*</span></p>
                         <div class="erro" *ngIf="formCategoryId.invalid && formCategoryId.touched">
                             <p class="erro-mensagem" *ngIf="formCategoryId.hasError('required')">Este campo é obrigatório.</p>
                         </div>
@@ -67,7 +67,7 @@
                         </div>
                         <div class="input" id="bloco-cat" [ngClass]="{'nao-mostrar': status == false}">
                             <h4>Nova categoria</h4>
-                            <p>Nome da categoria</p>
+                            <p>Nome da categoria<span class="obrigatorio">*</span></p>
                             <div class="erro" *ngIf="formNomeCategoriaDespesa.invalid && formNomeCategoriaDespesa.touched">
                                 <p class="erro-mensagem" *ngIf="formNomeCategoriaDespesa.hasError('required')">Este campo é obrigatório.</p>
                             </div>
@@ -81,7 +81,7 @@
 
                 <div class="nao-parcelada" [ngClass]="{'mostrar': formEParcelada.value == false}">
                     <div class="input">
-                        <p>Valor da despesa</p>
+                        <p>Valor da despesa<span class="obrigatorio">*</span></p>
                         <div class="erro" *ngIf="formValor.invalid && formValor.touched">
                             <p class="erro-mensagem" *ngIf="formValor.hasError('required')">Este campo é obrigatório.</p>
                         </div>
@@ -95,14 +95,14 @@
                         >
                     </div>
                     <div class="input">
-                        <p>Data</p>
+                        <p>Data<span class="obrigatorio">*</span></p>
                         <div class="erro" *ngIf="formData.invalid && formData.touched">
                             <p class="erro-mensagem" *ngIf="formData.hasError('required')">Este campo é obrigatório.</p>
                         </div>
                         <input type="date" name="data" [formControl]="formData">
                     </div>
                     <div class="input">
-                        <p>Categoria</p>
+                        <p>Categoria<span class="obrigatorio">*</span></p>
                         <div class="erro" *ngIf="formCategoryId.invalid && formCategoryId.touched">
                             <p class="erro-mensagem" *ngIf="formCategoryId.hasError('required')">Este campo é obrigatório.</p>
                         </div>
@@ -121,18 +121,29 @@
                         </div>
                         <div class="input" id="bloco-cat" [ngClass]="{'nao-mostrar': status == false}">
                             <h4>Nova categoria</h4>
-                            <p>Nome da categoria</p>
+                            <p>Nome da categoria<span class="obrigatorio">*</span></p>
                             <div class="erro" *ngIf="formNomeCategoriaDespesa.invalid && formNomeCategoriaDespesa.touched">
                                 <p class="erro-mensagem" *ngIf="formNomeCategoriaDespesa.hasError('required')">Este campo é obrigatório.</p>
                             </div>
                             <input type="text" name="data" [formControl]="formNomeCategoriaDespesa" placeholder="Digite o nome da categoria">
                             <div class="btn-center">
-                                <button class="adicionar" id="add-categoria-btn" (click)="inserirCategoria()">Adicionar categoria</button>
+                                <button 
+                                    class="adicionar" 
+                                    id="add-categoria-btn" 
+                                    [ngClass]="{'invalido': estaValidoFormularioCategoria == false}" 
+                                    [disabled]="!estaValidoFormularioCategoria"
+                                    (click)="inserirCategoria()"
+                                >Adicionar categoria</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="adicionar" (click)="inserirMovimentacao()">{{ textButton }}</button>
+                <button 
+                    class="adicionar" 
+                    [ngClass]="{'invalido': estaValidoFormularioDespesa == false}" 
+                    [disabled]="!estaValidoFormularioDespesa"
+                    (click)="inserirMovimentacao()"
+                >{{ textButton }}</button>
             </div>
             <div class="direita">
                 <img src="assets/pig-red.png">

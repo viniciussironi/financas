@@ -180,3 +180,14 @@ button {
 #fim {
     margin-bottom: 0;
 }
+
+.obrigatorio {
+    font-size: 16px;
+    color: red;
+}
+
+.invalido {
+    cursor: not-allowed; 
+    border: 2px solid variables.$black_color;
+    background-color: variables.$gray_color;
+}

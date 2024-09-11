@@ -91,7 +91,7 @@ public class DespesaService {
                 Parcela parcela = new Parcela();
                 parcela.setValorParcela(valorParcela);
                 parcela.setVencimentoParcela(dto.getData().plusMonths(Long.parseLong("" + i)));
-                parcela.setNomeParcela("Parcela " + (i +1));
+                parcela.setNomeParcela("Parcela " + (i +1) + "/" + dto.getQuantidadeDeParcelas());
                 parcela.setDespesa(entidade);
                 parcela = parcelaRepository.save(parcela);
                 entidade.addParcela(parcela);
@@ -114,7 +114,7 @@ public class DespesaService {
     public DespesaDTO update(DespesaInsertDTO dto, Long id) {
         Usuario usuarioLogado = authService.authenticated();
         try {
-            Despesa entidade = despesaRepository.getReferenceById(id);
+            Despesa entidade = parcelaRepository.buscarDespesaPeloIdDaParcela(id);
             entidade.setUsuario(usuarioLogado);
             dtoToEntity(dto, entidade);
             if (dto.getE_parcelada()) {

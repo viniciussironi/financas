@@ -1,6 +1,9 @@
 package com.vinicius.finances.DTOs;
 
 import com.vinicius.finances.entities.Usuario;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.util.HashSet;
@@ -10,8 +13,12 @@ import java.util.Set;
 public class UsuarioDTO {
 
     private Long id;
+    @NotBlank(message = "Não pode estar vazio")
     private String nome;
+    @NotBlank(message = "Não pode estar vazio")
     private String sobrenome;
+    @NotBlank(message = "Não pode estar vazio")
+    @Email(message = "Digite um email válido")
     private String email;
 
     public UsuarioDTO() {

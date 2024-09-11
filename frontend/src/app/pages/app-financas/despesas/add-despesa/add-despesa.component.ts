@@ -52,7 +52,8 @@ export class AddDespesaComponent implements OnInit {
 
   constructor(
     private categoriaDespesaService: CategoriaDespesaService, 
-    private despesaService: DespesasService
+    private despesaService: DespesasService,
+    private router: Router
   ) {}
   
   ngOnInit() {
@@ -83,7 +84,32 @@ export class AddDespesaComponent implements OnInit {
       quantidadeDeParcelas: this.formQtnParcelas.value,
       categoriaDespesa: { id: this.formCategoryId.value }
     };
-    this.despesaService.insertDespesa(despesa).subscribe();
+
+    if(this.estaValidoFormularioDespesa() == true) {
+      this.despesaService.insertDespesa(despesa).subscribe({
+        next: () => {
+          this.router.navigate(['/app-finances/despesas/resumo']);
+        }
+      });
+    }
+  }
+
+  estaValidoFormularioDespesa(): boolean {
+    if(this.formValor.invalid || this.formQtnParcelas.invalid || this.formData.invalid || this.formCategoryId.invalid) {
+      return false
+    }
+    else {
+      return true;
+    }
+  }
+
+  estaValidoFormularioCategoria(): boolean {
+    if(this.formNomeCategoriaDespesa.invalid) {
+      return false
+    }
+    else {
+      return true;
+    }
   }
 }
 

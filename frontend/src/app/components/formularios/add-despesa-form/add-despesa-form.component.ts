@@ -38,6 +38,10 @@ export class AddDespesaFormComponent implements OnInit{
   formQtnParcelas = new FormControl('', Validators.required);
   @Input()
   formNomeCategoriaDespesa = new FormControl('', Validators.required);
+  @Input()
+  estaValidoFormularioDespesa: boolean = false;
+  @Input()
+  estaValidoFormularioCategoria: boolean = false;
 
   @Output()
   inserirOutput: EventEmitter<any> = new EventEmitter();

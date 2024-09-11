@@ -25,6 +25,6 @@ export class UsuarioService {
       'Authorization': 'Bearer ' + localStorage.getItem('access_token')
     });
 
-    return this.http.put(this.url, usuario, {headers});
+    return this.http.put(`${this.url}/atualizar`, usuario, {headers});
   }
 }
