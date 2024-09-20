@@ -95,7 +95,10 @@ export class AddDespesaComponent implements OnInit {
   }
 
   estaValidoFormularioDespesa(): boolean {
-    if(this.formValor.invalid || this.formQtnParcelas.invalid || this.formData.invalid || this.formCategoryId.invalid) {
+    if(this.formValor.invalid && this.formData.invalid || this.formCategoryId.invalid) {
+      if(this.formEParcelada.value == true && this.formQtnParcelas.invalid) {
+        return false
+      }
       return false
     }
     else {

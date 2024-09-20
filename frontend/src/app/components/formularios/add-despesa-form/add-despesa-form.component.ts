@@ -35,7 +35,7 @@ export class AddDespesaFormComponent implements OnInit{
   @Input()
   formEParcelada = new FormControl();
   @Input()
-  formQtnParcelas = new FormControl('', Validators.required);
+  formQtnParcelas = new FormControl('2', Validators.required);
   @Input()
   formNomeCategoriaDespesa = new FormControl('', Validators.required);
   @Input()
@@ -50,6 +50,7 @@ export class AddDespesaFormComponent implements OnInit{
   
   status: boolean = false;
   icon: string = 'add';
+  defaultValue: number = 2;
 
   icons = {
     add: 'add',

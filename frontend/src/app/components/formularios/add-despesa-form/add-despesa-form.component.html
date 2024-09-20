@@ -45,7 +45,7 @@
                         <div class="erro" *ngIf="formQtnParcelas.invalid && formQtnParcelas.touched">
                             <p class="erro-mensagem" *ngIf="formQtnParcelas.hasError('required')">Este campo é obrigatório.</p>
                         </div>
-                        <input type="number" min="2" placeholder="Exemplo: 4, 5" [formControl]="formQtnParcelas">
+                        <input type="number" max="60" min="2" placeholder="Exemplo: 4, 5" [formControl]="formQtnParcelas">
                     </div>
                     <div class="input">
                         <p>Categoria<span class="obrigatorio">*</span></p>

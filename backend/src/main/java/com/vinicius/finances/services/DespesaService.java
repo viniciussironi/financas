@@ -115,6 +115,7 @@ public class DespesaService {
         Usuario usuarioLogado = authService.authenticated();
         try {
             Despesa entidade = parcelaRepository.buscarDespesaPeloIdDaParcela(id);
+            parcelaRepository.deletarParcelasPeloIdDaDespesa(entidade.getId());
             entidade.setUsuario(usuarioLogado);
             dtoToEntity(dto, entidade);
             if (dto.getE_parcelada()) {
@@ -123,7 +124,7 @@ public class DespesaService {
                     Parcela parcela = new Parcela();
                     parcela.setValorParcela(valorParcela);
                     parcela.setVencimentoParcela(dto.getData().plusMonths(Long.parseLong("" + i)));
-                    parcela.setNomeParcela("Parcela " + (i + 1));
+                    parcela.setNomeParcela("Parcela " + (i +1) + "/" + dto.getQuantidadeDeParcelas());
                     parcela.setDespesa(entidade);
                     parcela = parcelaRepository.save(parcela);
                     entidade.addParcela(parcela);
@@ -154,7 +155,15 @@ public class DespesaService {
         }
         try {
             Despesa entidade = parcelaRepository.buscarDespesaPeloIdDaParcela(id);
+            entidade.setValorTotal(entidade.getValorTotal() - (parcelaRepository.findById(id).get().getValorParcela()));
             parcelaRepository.deleteById(id);
+            for (int i = 0; i < entidade.getParcelas().size(); i++) {
+                Parcela parcela = parcelaRepository.findById(entidade.getParcelas().get(i).getId()).get();
+                parcela.setNomeParcela("Parcela " + (i + 1) + "/" + entidade.getParcelas().size());
+                parcelaRepository.save(parcela);
+            }
+            despesaRepository.save(entidade);
+
             if (entidade.getParcelas().isEmpty()) {
                 despesaRepository.deleteById(entidade.getId());
             }
