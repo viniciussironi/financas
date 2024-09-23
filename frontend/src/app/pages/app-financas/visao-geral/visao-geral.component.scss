@@ -9,6 +9,7 @@
 }
 
 .conteudo__interno {
+    padding: 0 50px;
 
     display: flex;
     flex-direction: row;
@@ -21,6 +22,25 @@
     max-width: 1000px;
 
     display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+}
+
+@media (max-width: 1200px) {
+
+    app-resumo-dashboard:nth-child(1) { 
+        order: 2;
+    }
+    app-resumo-dashboard:nth-child(2) { 
+        order: 1; 
+        flex: 1 100%; 
+        display: flex;
+        justify-content: center;
+
+    }
+    app-resumo-dashboard:nth-child(3) { 
+        order: 3; 
+    }
 }
