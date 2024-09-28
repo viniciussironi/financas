@@ -2,13 +2,16 @@
 
 
 .resumo-despesas__container {
-    max-width: 950px;
     margin: 0 auto;
 }
 
 .flex {
+    max-width: 1000px;
+    margin: 0 1rem;
+
     display: flex;
     flex-direction: column;
+    
     gap: 15px;
 }
 
@@ -20,7 +23,7 @@
 }
 
 h2 {
-    font-size: 18px;
+    font-size: 1.1rem;
     margin-bottom: 5px;
 }
 

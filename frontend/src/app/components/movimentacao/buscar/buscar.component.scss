@@ -1,7 +1,8 @@
 @use '../../../../variables';
 
 .buscar__container {
-    
+    width: 100%;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,7 +10,7 @@
 }
 
 h2 {
-    font-size: 18px;
+    font-size: 1.1rem;
     margin-bottom: 5px;
 }
 

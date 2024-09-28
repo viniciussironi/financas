@@ -9,20 +9,21 @@
 }
 
 button {
+    margin: 0 1rem;
     width: 90%;
-    font-weight: 400;
-    font-size: 18px;
+    padding: 0.8rem 1.05rem;
+    font-weight: 500;
+    font-size: 1rem;
     color: variables.$black_color;
     background-color: variables.$gray_color;
     border: none;
-    border-radius: 10px;
-    padding: 13px 20px;
+    border-radius: 0.8rem;
     cursor: pointer;
 
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: 0.8rem;
 }
 
 button:hover {
