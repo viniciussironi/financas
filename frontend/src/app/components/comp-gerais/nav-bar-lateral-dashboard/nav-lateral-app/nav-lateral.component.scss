@@ -2,7 +2,7 @@
 
 h1 {
     color: variables.$white_color;
-    font-size: 2rem;
+    font-size: 3rem;
 }
 
 img {
@@ -10,8 +10,8 @@ img {
 }
 
 .nav-lateral__container {
-    min-width: 300;
-    width: 320px;
+    min-width: 300px;
+    width: 20vw;
     height: 100vh;
     background-color: variables.$white_color;
     border-right: 1px solid variables.$gray_color;

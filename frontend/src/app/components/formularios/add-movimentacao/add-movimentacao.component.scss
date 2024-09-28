@@ -2,8 +2,8 @@
 
 .add-movimentacao__container {
     width: 580px;
-    padding: 15px;
-    border-radius: 12px;
+    padding: 1.5rem;
+    border-radius: 1.1rem;
     background-color: variables.$gray_color;
 }
 
@@ -14,12 +14,13 @@
 }
 
 h1 {
-    font-size: 24px;
+    font-size: 2.2rem;
 }
 
 h4 {
+    font-size: 1.5rem;
     text-align: center;
-    margin-bottom: 5px;
+    margin-bottom: 0.5rem;
 }
 
 .esquerda {
@@ -30,36 +31,37 @@ h4 {
 
 .input {
     width: 250px;
-    margin: 10px 0;
+    margin: 0.5rem 0;
 }
 
 .erro-mensagem {
-    font-size: 13px;
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
     color: red;
 }
 
 .obrigatorio {
-    font-size: 16px;
+    font-size: 1.3rem;
     color: red;
 }
 
 .categoria {
     display: flex;
     flex-direction: row;
-    gap: 15px;
+    gap: 1.5rem;
 }
 
 #bloco-cat {
-    margin-top: 20px;
+    margin-top: 1rem;
     margin-bottom: 0px;
     border: 1px solid variables.$orange_color;
-    padding: 8px;
-    border-radius: 10px;
+    padding: 0.8rem;
+    border-radius: 1.1rem;
 }
 
 .input-cat {
     width: 250px;
-    margin-top: 10px;
+    margin-top: 0.5rem;
 
 }
 
@@ -77,19 +79,20 @@ h4 {
     background-color: variables.$gray_color;
     color: variables.$black_color;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1.6rem;
     padding: 3px 9px;
 }
 
 p {
-    margin-bottom: 5px;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
 input, select {
     border: 1px solid variables.$black_color;
     background-color: variables.$gray_color;
-    border-radius: 10px;
-    padding: 8px 15px;
+    border-radius: 1rem;
+    padding: 0.8rem 1.5rem;
     width: 100%;
 }
 
@@ -114,7 +117,7 @@ button {
     font-size: 20px;
     font-weight: 500;
     padding: 6px 24px;
-    margin-top: 20px;  
+    margin-top: 1rem;  
 }
 
 .adicionar:hover {

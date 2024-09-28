@@ -30,17 +30,17 @@
         </div>
         <div class="esquerda__conteudo" [formGroup]="formGroup">
             <div class="input">
-                <div class="erro" *ngIf="formGroup.touched">
-                    <p class="erro-mensagem" *ngIf="formGroup.get('formSenha')?.errors?.['required'] || formGroup.get('formNovaSenha')?.errors?.['required'] ">Este campo é obrigatório.</p>
-                    <p class="erro-mensagem" *ngIf="formGroup.get('formSenha')?.errors?.['minlength'] || formGroup.get('formNovaSenha')?.errors?.['minlength']">Deve ter pelo menos 6 caracteres</p>
-                    <p class="erro-mensagem" *ngIf="formGroup.errors?.['senhasDiferentes']">As senhas não são iguais.</p>
-                  </div>
                 <p>Nova senha<span class="obrigatorio">*</span></p>
                 <input type="password" name="senha" required formControlName="formSenha"  placeholder="Digite sua nova senha"> 
             </div>
             <div class="input">
                 <p>Repita a senha<span class="obrigatorio">*</span></p>
                 <input type="password" name="novasenha" required formControlName="formNovaSenha" placeholder="Repita a senha">
+                <div class="erro" *ngIf="formGroup.touched">
+                    <p class="erro-mensagem" *ngIf="formGroup.get('formSenha')?.errors?.['required'] || formGroup.get('formNovaSenha')?.errors?.['required'] ">Este campo é obrigatório.</p>
+                    <p class="erro-mensagem" *ngIf="formGroup.get('formSenha')?.errors?.['minlength'] || formGroup.get('formNovaSenha')?.errors?.['minlength']">Deve ter pelo menos 6 caracteres</p>
+                    <p class="erro-mensagem" *ngIf="formGroup.errors?.['senhasDiferentes']">As senhas não são iguais.</p>
+                </div>
             </div>
         </div>
     </div>

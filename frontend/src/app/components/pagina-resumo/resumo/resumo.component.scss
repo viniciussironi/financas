@@ -2,7 +2,7 @@
     cursor: pointer;
     width: 280px;
     height: 150px;
-    padding: 8px;
+    padding: 0.8rem;
     border-radius: 15px;
     color: #fff;
     background-color: red;
@@ -10,7 +10,7 @@
 }
 
 .resumo__title {
-    font-size: 14px;
+    font-size: 1.2rem;
 
     display: flex;
     flex-direction: row;
@@ -18,7 +18,8 @@
 }
 
 p {
-    font-size: 30px;
+    font-size: 2.5rem;
+    font-weight: 600;
     height: 105px;
 
     display: flex;

@@ -9,23 +9,20 @@
 }
 
 .conteudo__interno {
-    padding: 0 50px;
-
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    gap: 30px;
+    justify-content: space-between;
 }
 
 .resumo__saldos {
     width: 100%;
-    max-width: 1000px;
+    max-width: 950px;
 
     display: flex;
     gap: 2rem;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 @media (max-width: 1200px) {
@@ -42,5 +39,9 @@
     }
     app-resumo-dashboard:nth-child(3) { 
         order: 3; 
+    }
+
+    .resumo__saldos {
+        justify-content: center;
     }
 }

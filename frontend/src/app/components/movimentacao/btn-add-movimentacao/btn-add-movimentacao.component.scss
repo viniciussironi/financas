@@ -4,8 +4,8 @@
     border: 2px solid variables.$orange_color;
     background-color: variables.$orange_color;
     color: variables.$white_color;
-    padding: 10px 20px;
-    border-radius: 12px;
+    padding: 0.8rem 1.5rem;
+    border-radius: 1.2rem;
     cursor: pointer;
 
     display: flex;
@@ -15,7 +15,7 @@
 }
 
 span, p {
-    font-size: 24px;
+    font-size: 2.1rem;
     font-weight: bold;
 }
 
