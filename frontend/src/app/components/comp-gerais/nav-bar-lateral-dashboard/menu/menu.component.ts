@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+
 @Component({
   selector: 'app-menu',
   standalone: true,
@@ -9,5 +10,4 @@ import { RouterModule } from '@angular/router';
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
-
 }

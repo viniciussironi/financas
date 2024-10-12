@@ -1,17 +1,17 @@
 <div class="menu__container">
-    <button routerLink="/app-finances/visao-geral">
+    <button routerLink="/app-finances/visao-geral" routerLinkActive="ativa" [routerLinkActiveOptions]="{ exact: false }">
         <span class="material-symbols-outlined">home</span>
         <p>Visão Geral</p>
     </button>
-    <button routerLink="/app-finances/receitas/resumo">
+    <button routerLink="/app-finances/receitas/resumo" routerLinkActive="ativa" [routerLinkActiveOptions]="{ exact: false }">
         <span class="material-symbols-outlined">trending_up</span>
         <p>Receitas</p>
     </button>
-    <button routerLink="/app-finances/despesas/resumo">
+    <button routerLink="/app-finances/despesas/resumo" routerLinkActive="ativa" [routerLinkActiveOptions]="{ exact: false }">
         <span class="material-symbols-outlined">trending_down</span>
         <p>Despesas</p>
     </button>
-    <button routerLink="/app-finances/conta">
+    <button routerLink="/app-finances/conta" routerLinkActive="ativa" [routerLinkActiveOptions]="{ exact: false }">
         <span class="material-symbols-outlined">person</span>
         <p>Conta</p>
     </button>
