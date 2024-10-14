@@ -18,7 +18,6 @@ import { TotalPorCategoriaComponent } from "../../../../components/movimentacao/
 import { TotalUltimosMesesComponent } from "../../../../components/movimentacao/ultimos-meses/total-ultimos-meses.component";
 import { BuscarComponent } from "../../../../components/movimentacao/buscar/buscar.component";
 import { UltimasMovimentacoesReceitaComponent } from "../../../../components/movimentacao/ultimas-movimentacoes-receita/ultimas-movimentacoes-receita.component";
-
 @Component({
   selector: 'app-resumo',
   standalone: true,
@@ -31,7 +30,7 @@ import { UltimasMovimentacoesReceitaComponent } from "../../../../components/mov
     TotalPorCategoriaComponent,
     TotalUltimosMesesComponent,
     BuscarComponent,
-    UltimasMovimentacoesReceitaComponent
+    UltimasMovimentacoesReceitaComponent,
 ],
   templateUrl: './resumo.component.html',
   styleUrl: './resumo.component.scss'

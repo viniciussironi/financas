@@ -16,7 +16,7 @@ import { AddMovimentacaoComponent } from "../../../../components/formularios/add
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    AddMovimentacaoComponent
+    AddMovimentacaoComponent,
 ],
   templateUrl: './add-receita.component.html',
   styleUrl: './add-receita.component.scss'

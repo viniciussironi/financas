@@ -27,20 +27,23 @@ export class LoginServiceService {
   }
 
   estaLogado(): boolean {
-    const token = localStorage.getItem('access_token');
-    const tokenExpiresIn = localStorage.getItem('expires_in');
-    const tokenIssuedAt = localStorage.getItem('issued_at');
-    const dateNow = Date.now();
-    const expiryDate = Number(tokenIssuedAt) + Number(tokenExpiresIn)
-
-    if(dateNow > expiryDate) {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('access_token');
+      const tokenExpiresIn = localStorage.getItem('expires_in');
+      const tokenIssuedAt = localStorage.getItem('issued_at');
+      const dateNow = Date.now();
+      const expiryDate = Number(tokenIssuedAt) + Number(tokenExpiresIn);
+      
+      if(dateNow > expiryDate) {
+        return false;
+      }
+      if(token === '') {
+        return false;
+      }
+      return true;
+    } 
+    else {
       return false;
     }
-
-    if(token === '') {
-      return false;
-    }
-
-    return true;
-  }
+  }  
 }

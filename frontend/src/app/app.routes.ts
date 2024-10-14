@@ -14,18 +14,22 @@ import { canActivateAdmin } from './constant/auth';
 import { EditReceitaComponent } from './pages/app-financas/receitas/edit-receita/edit-receita.component';
 import { EditDespesaComponent } from './pages/app-financas/despesas/edit-despesa/edit-despesa.component';
 import { ContaComponent } from './pages/app-financas/conta/conta.component';
+import { PaginaNaoEncontradaComponent } from './pages/pagina-nao-encontrada/pagina-nao-encontrada.component';
 
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'login', component: LoginPageComponent},
+    {path: 'app-finances', redirectTo: 'app-finances/visao-geral', pathMatch: 'full'},
     {path: 'app-finances', component: AppFinancasComponent, canActivate: [canActivateAdmin], children: [
         {path: 'visao-geral', component: VisaoGeralComponent},
-        {path: 'receitas', component: ReceitasComponent, children: [
+        {path: 'receitas', redirectTo: 'receitas/resumo', pathMatch: 'full'},
+        {path: 'receitas', component: ReceitasComponent ,children: [
             {path: 'resumo', component: ResumoReceitasComponent},
             {path: 'add-receita', component: AddReceitaComponent},
             {path: 'edit-receita/:id', component: EditReceitaComponent},
         ]},
+        {path: 'despesas', redirectTo: 'despesas/resumo', pathMatch: 'full'},
         {path: 'despesas', component: DespesasComponent, children: [
             {path: 'resumo', component: ResumoDespesasComponent},
             {path: 'add-despesa', component: AddDespesaComponent}, 
@@ -33,4 +37,5 @@ export const routes: Routes = [
         ]},
         {path: 'conta', component: ContaComponent}, 
     ]},
+    {path: '**', component: PaginaNaoEncontradaComponent},
 ];
