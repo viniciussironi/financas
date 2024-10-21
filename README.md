@@ -1,4 +1,4 @@
-# Finaças
+# Finanças
 ![GitHub License](https://img.shields.io/github/license/viniciussironi/dscatalog?link=https%3A%2F%2Fgithub.com%2Fviniciussironi%2Fdscatalog%2Fblob%2Fmain%2FLICENSE)
 # Sobre o projeto
 Finanças é uma aplicação que consiste em uma calculadora de despesas e receitas. 
